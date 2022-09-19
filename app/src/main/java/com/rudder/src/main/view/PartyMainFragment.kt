@@ -63,7 +63,6 @@ class PartyMainFragment : Fragment() {
                 }
             })
         }
-        partyMainViewModel.getParties()
 
         partyMainViewModel.partyPreviewList.observe(viewLifecycleOwner, Observer {
             partyPreviewListAdapter.submitList(it.toList())

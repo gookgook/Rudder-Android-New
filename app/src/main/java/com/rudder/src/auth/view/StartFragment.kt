@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.rudder.R
+import com.rudder.config.App
 import com.rudder.databinding.FragmentStartBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,6 +41,11 @@ class StartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        if(!App.prefs.getValue("authToken").isNullOrEmpty()){
+            findNavController().navigate(R.id.action_fragment_start_to_fragment_party_main)
+        } //삭제예정
+
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_start, container, false)
         binding.main = this
