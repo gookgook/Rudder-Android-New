@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="main_background">#F8F8FD</color>
+    <color name="text_gray">#9D9FB6</color>
+    <color name="text_timeago_gray">#7F7488</color>
+    <color name="text_dark_gray">#181818</color>
+    <color name="rudder_purple">#7A2BC9</color>
+    <color name="lightGray">#F7F8F8</color>
+    <color name="Gray">#7F7488</color>
+    <color name="lightPurple">#ECE5F5</color>
+
+
 </resources>

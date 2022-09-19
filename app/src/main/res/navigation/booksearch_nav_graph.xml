@@ -3,16 +3,75 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/booksearch_nav_graph"
-    app:startDestination="@id/fragment_favorite">
+    app:startDestination="@id/fragment_start">
+
+    <fragment
+        android:id="@+id/fragment_start"
+        android:name="com.rudder.src.auth.view.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start"
+        >
+        <action
+            android:id="@+id/action_fragment_start_to_fragment_login"
+            app:destination="@id/fragment_login" />
+        <action
+            android:id="@+id/action_fragment_start_to_fragment_signup"
+            app:destination="@id/fragment_signup1" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_login"
+        android:name="com.rudder.src.auth.view.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_fragment_login_to_fragment_party_main"
+            app:destination="@id/fragment_party_main" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/fragment_signup1"
+        android:name="com.rudder.src.auth.view.SignUp1Fragment"
+        android:label="fragment_signup1"
+        tools:layout="@layout/fragment_signup1">
+        <action
+            android:id="@+id/action_fragment_signup1_to_fragment_signup2"
+            app:destination="@id/fragment_signup2" />
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/fragment_signup2"
+        android:name="com.rudder.src.auth.view.SignUp2Fragment"
+        android:label="fragment_signup2"
+        tools:layout="@layout/fragment_signup2">
+        <action
+            android:id="@+id/action_fragment_signup2_to_fragment_signup3"
+            app:destination="@id/fragment_signup3" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/fragment_signup3"
+        android:name="com.rudder.src.auth.view.SignUp3Fragment"
+        android:label="frgment_signup3"
+        tools:layout="@layout/fragment_signup3"
+        />
+
+
+
+
 
     <fragment
         android:id="@+id/fragment_favorite"
-        android:name="com.rudder.ui.main.FavoriteFragment"
+        android:name="com.rudder.src.main.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/fragment_search"
-        android:name="com.rudder.ui.main.SearchFragment"
+        android:name="com.rudder.src.main.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -21,12 +80,28 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_settings"
-        android:name="com.rudder.ui.main.SettingsFragment"
+        android:name="com.rudder.src.main.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/fragment_direction"
-        android:name="com.rudder.ui.main.DirectionFragment"
+        android:name="com.rudder.src.main.DirectionFragment"
         android:label="fragment_direction"
         tools:layout="@layout/fragment_direction" />
+    <fragment
+        android:id="@+id/fragment_party_main"
+        android:name="com.rudder.src.main.view.PartyMainFragment"
+        android:label="fragment_party_main"
+        tools:layout="@layout/fragment_party_main" >
+        <action
+            android:id="@+id/action_fragment_party_main_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.rudder.src.notification.view.NotificationFragment"
+        android:label="NotificationFragment" />
+
+
+
 </navigation>

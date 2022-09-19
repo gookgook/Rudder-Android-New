@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="partyMainFragment"
+            type="com.rudder.src.main.view.PartyMainFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/partyMainHeaderCL"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@color/white"
+            android:elevation="5dp"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:layout_width="98dp"
+                android:layout_height="18dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/rudder_text_logo"/>
+
+            <ImageView
+                android:id="@+id/myPageIV"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/user_01"/>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/myPageIV"
+                android:layout_marginRight="12dp"
+                android:onClick="@{()->partyMainFragment.goNotificationFragment()}"
+                android:src="@drawable/bell"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/partyMainBodyCL"
+            android:layout_width="match_parent"
+            android:background="@color/main_background"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/partyMainHeaderCL">
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/partyPreviewListSRL"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/partyPreviewListRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

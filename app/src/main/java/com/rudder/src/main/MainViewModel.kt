@@ -1,4 +1,4 @@
-package com.rudder.ui.main
+package com.rudder.src.main
 
 import androidx.lifecycle.ViewModel
 

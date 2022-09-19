@@ -4,11 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.rudder.databinding.MainActivityBinding
-import com.rudder.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
     private val binding: MainActivityBinding by lazy {
@@ -34,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        setupActionBarWithNavController(navController)
 
 
     }

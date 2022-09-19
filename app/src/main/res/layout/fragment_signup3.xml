@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="main"
+            type="com.rudder.src.auth.viewmodel.SignUpViewModel" />
+        <variable
+            name="frag"
+            type="com.rudder.src.auth.view.SignUp3Fragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Signup1Fragment">
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="90dp"
+            android:text="Add photos"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:text="This isn't a sexual app\nNo worries with uploading face"
+            android:textColor="@color/Gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"></TextView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs1"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toBottomOf="@id/textView2"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            app:layout_constraintWidth_percent="0.07486"
+            />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/textView2"
+            app:layout_constraintStart_toEndOf="@id/cs1"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            android:background="@color/lightPurple"
+            app:layout_constraintWidth_percent="0.2513"
+            app:layout_constraintDimensionRatio="1:1">
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/plus_gray" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs3"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toBottomOf="@id/textView2"
+            app:layout_constraintStart_toEndOf="@id/cs2"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            app:layout_constraintWidth_percent="0.04812"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/textView2"
+            app:layout_constraintStart_toEndOf="@id/cs3"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            android:background="@color/lightPurple"
+            app:layout_constraintWidth_percent="0.2513"
+            app:layout_constraintDimensionRatio="1:1">
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/plus_gray" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs5"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toBottomOf="@id/textView2"
+            app:layout_constraintStart_toEndOf="@id/cs4"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            app:layout_constraintWidth_percent="0.04812"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/textView2"
+            app:layout_constraintStart_toEndOf="@id/cs5"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            android:background="@color/lightPurple"
+            app:layout_constraintWidth_percent="0.2513"
+            app:layout_constraintDimensionRatio="1:1">
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/plus_gray" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs7"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toBottomOf="@id/textView2"
+            app:layout_constraintStart_toEndOf="@id/cs6"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs8"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toBottomOf="@id/cs2"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            app:layout_constraintWidth_percent="0.07486"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs9"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/cs2"
+            app:layout_constraintStart_toEndOf="@id/cs1"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            android:background="@color/lightPurple"
+            app:layout_constraintWidth_percent="0.2513"
+            app:layout_constraintDimensionRatio="1:1">
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/plus_gray" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs10"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toBottomOf="@id/cs2"
+            app:layout_constraintStart_toEndOf="@id/cs2"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            app:layout_constraintWidth_percent="0.04812"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs11"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/cs2"
+            app:layout_constraintStart_toEndOf="@id/cs3"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            android:background="@color/lightPurple"
+            app:layout_constraintWidth_percent="0.2513"
+            app:layout_constraintDimensionRatio="1:1">
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/plus_gray" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs12"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toBottomOf="@id/cs2"
+            app:layout_constraintStart_toEndOf="@id/cs4"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            app:layout_constraintWidth_percent="0.04812"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs13"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/cs2"
+            app:layout_constraintStart_toEndOf="@id/cs5"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            android:background="@color/lightPurple"
+            app:layout_constraintWidth_percent="0.2513"
+            app:layout_constraintDimensionRatio="1:1">
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/plus_gray" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cs14"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            app:layout_constraintTop_toBottomOf="@id/cs2"
+            app:layout_constraintStart_toEndOf="@id/cs6"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="35dp"
+            />
+
+
+
+        <Button
+            android:id="@+id/loginBT"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="next"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="34dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        </Button>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
