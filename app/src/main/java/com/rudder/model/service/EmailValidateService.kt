@@ -1,4 +1,4 @@
-package com.rudder.mvvm.Model
+package com.rudder.model.service
 
 import retrofit2.Response
 import retrofit2.http.GET

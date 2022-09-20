@@ -4,12 +4,12 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.logintorudder.LoginInfo
-import com.example.logintorudder.LoginResult
-import com.example.logintorudder.LoginService
 import com.rudder.BuildConfig
 import com.rudder.config.App
 import com.rudder.model.RetrofitClient
+import com.rudder.model.dto.LoginInfo
+import com.rudder.model.dto.LoginResult
+import com.rudder.model.service.LoginService
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import kotlin.math.log

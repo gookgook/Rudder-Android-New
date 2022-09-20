@@ -1,14 +1,29 @@
 package com.rudder.src.auth.viewmodel
 
+import android.content.ContentResolver
+import android.media.Image
+import android.net.Uri
+import android.os.FileUtils
 import android.util.Log
+import android.webkit.MimeTypeMap
+import androidx.core.net.toFile
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rudder.BuildConfig
-import com.rudder.mvvm.Model.EmailValidateService
 import com.rudder.model.RetrofitClient
+import com.rudder.model.RetrofitS3Client
+import com.rudder.model.dto.*
+import com.rudder.model.service.EmailValidateService
+import com.rudder.model.service.ImageUrlRequestService
+import com.rudder.model.service.PhotoUploadService
+import com.rudder.model.service.SignUpService
 import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import retrofit2.Response
+import retrofit2.create
+import java.io.File
 
 class SignUpViewModel: ViewModel() {
     val userId = MutableLiveData<String>()
@@ -18,6 +33,9 @@ class SignUpViewModel: ViewModel() {
 
     val emailValidateResultFlag = MutableLiveData<Int>()
     val profileCheckFlag = MutableLiveData<Int>()
+
+    var profileImages = arrayOf<File>()
+    var imageMetadatas = arrayOf<ImageMetaData>()
 
     fun onClickNext() {
         val safeUserId: String = userId.value?:run { emailValidateResultFlag.postValue(-2); return }
@@ -46,4 +64,33 @@ class SignUpViewModel: ViewModel() {
 
         profileCheckFlag.value = 1
     }
+
+    fun onClickDone() {
+        val signUpService: SignUpService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(SignUpService::class.java)
+
+        viewModelScope.launch {
+            val signUpRequest: Response<SignUpResult> = signUpService.getSignUpResult(SignUpInfo(true, userId.value!!, userPassword.value!!, userNickname.value!!, userDescription.value!! ))
+            val imageUrlRequestService: ImageUrlRequestService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(ImageUrlRequestService::class.java)
+            val imageUrlRequestInfo = ImageUrlRequestInfo(imageMetadatas,signUpRequest.body()!!.userInfoId)
+            val imageUrlRequestRequest: Response<ImageUrlRequestResponse> = imageUrlRequestService.getImageUrls(imageUrlRequestInfo)
+            val photoUploadService: PhotoUploadService = RetrofitS3Client.getClient().create(PhotoUploadService::class.java)
+            for(i: Int in 0 until imageMetadatas.size){
+                val tmpRequestBody = RequestBody.create(MediaType.parse(imageMetadatas[i].contentType),profileImages[i])
+                if(imageUrlRequestRequest.body() == null ) Log.d("photo Upload","isNull")
+                val photoUploadRequest: Response<Void> = photoUploadService.uploadPhoto(imageUrlRequestRequest.body()!!.urls[i],tmpRequestBody)
+            }
+
+            Log.d("photoUpload","Success")
+
+        }
+    }
+
+    fun appendImage(uri: File, contentType: String){
+
+        Log.d("image upload", uri.toString())
+        profileImages = profileImages.plus(uri)
+        imageMetadatas = imageMetadatas.plus(ImageMetaData(contentType,"namename"))
+    }
+
+
 }
