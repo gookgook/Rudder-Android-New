@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="partyDetail"
+            type="com.rudder.model.dto.PartyDto.Companion.PartyDetail" />
+        <variable
+            name="partyDate"
+            type="String" />
+        <variable
+            name="partyDetailFragment"
+            type="com.rudder.src.main.view.PartyDetailFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/dialog_style">
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:translationZ="1dp"
+            android:background="@drawable/ic_round_arrow_back_white_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->partyDetailFragment.requireActivity().onBackPressed()}"
+            />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="33dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/partyApplyB">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <ImageView
+                    android:id="@+id/partyDetailImageIV"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="28dp"
+                    android:layout_marginRight="28dp"
+                    app:layout_constraintTop_toBottomOf="@+id/partyDetailImageIV">
+
+                    <TextView
+                        android:id="@+id/partyTitleTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{partyDetail.partyTitle}"
+                        android:textColor="@color/text_dark_gray"
+                        android:textSize="20sp"
+                        android:layout_marginTop="35dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/partyCalenderIV"
+                        android:layout_width="13.5dp"
+                        android:layout_height="13.5dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/partyTitleTV"
+                        android:src="@drawable/calender"
+                        android:layout_marginTop="22.25dp"/>
+                    <TextView
+                        android:id="@+id/partyDateTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/partyCalenderIV"
+                        app:layout_constraintTop_toBottomOf="@id/partyTitleTV"
+                        android:layout_marginTop="22.25dp"
+                        android:layout_marginLeft="8.25dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/Gray"
+                        android:text="@{partyDate}"/>
+
+                    <ImageView
+                        android:id="@+id/partyLocationIV"
+                        android:layout_width="13.5dp"
+                        android:layout_height="13.5dp"
+                        app:layout_constraintStart_toEndOf="@id/partyDateTV"
+                        app:layout_constraintTop_toBottomOf="@id/partyTitleTV"
+                        android:src="@drawable/location"
+                        android:layout_marginLeft="41dp"
+                        android:layout_marginTop="22.25dp"/>
+                    <TextView
+                        android:id="@+id/partyLocationTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/partyLocationIV"
+                        app:layout_constraintTop_toBottomOf="@id/partyTitleTV"
+                        android:layout_marginTop="22.25dp"
+                        android:layout_marginLeft="8.25dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/Gray"
+                        android:text="@{partyDetail.partyLocation}"/>
+
+                    <ImageView
+                        android:id="@+id/partyPersonIV"
+                        android:layout_width="13.5dp"
+                        android:layout_height="13.5dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/partyCalenderIV"
+                        android:src="@drawable/location"
+                        android:layout_marginTop="22.25dp"/>
+                    <TextView
+                        android:id="@+id/partyApplicantsTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/partyPersonIV"
+                        app:layout_constraintTop_toBottomOf="@id/partyCalenderIV"
+                        android:layout_marginTop="22.25dp"
+                        android:layout_marginLeft="8.25dp"
+                        android:textSize="14sp"
+                        android:textColor="@color/Gray"
+                        android:text="@{partyDetail.currentNumberOfMember +` / `+partyDetail.totalNumberOfMember +` Accepted`}"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/partyPersonIV"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="34dp"
+                        android:text="@{partyDetail.partyDescription}"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/partyApplyB"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="34dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/button_style"
+            android:text="Apply"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:onClick="@{()->partyDetailFragment.showPartyApplyDialog()}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</layout>

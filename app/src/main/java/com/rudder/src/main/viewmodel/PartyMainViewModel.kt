@@ -20,9 +20,6 @@ class PartyMainViewModel : ViewModel() {
     private val getPartyRequest: PartyDto.Companion.GetPartiesRequest = PartyDto.Companion.GetPartiesRequest(endPartyId = null)
 
 
-    init {
-        getParties()
-    }
     fun getParties(isMore: Boolean=false) {
         viewModelScope.launch {
             val apiResponse = PartyRepository.instance.getParties(getPartyRequest)

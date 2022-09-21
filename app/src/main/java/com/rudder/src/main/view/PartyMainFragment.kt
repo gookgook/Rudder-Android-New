@@ -26,7 +26,14 @@ class PartyMainFragment : Fragment() {
     private lateinit var binding: FragmentPartyMainBinding
 
     private val partyPreviewListAdapter by lazy {
-        PartyPreviewListAdapter()
+
+        val onPartyPreviewClickListener = { partyId: Int ->
+            val action =
+                PartyMainFragmentDirections.actionFragmentPartyMainToPartyDetailFragment(partyId = partyId)
+            findNavController().navigate(action)
+        }
+
+        PartyPreviewListAdapter(onPartyPreviewClickListener = onPartyPreviewClickListener)
     }
 
     private lateinit var mContext: Context
@@ -38,6 +45,10 @@ class PartyMainFragment : Fragment() {
         mContext = context
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        partyMainViewModel.getParties()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

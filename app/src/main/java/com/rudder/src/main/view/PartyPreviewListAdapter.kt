@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class PartyPreviewListAdapter : ListAdapter<PartyDto.Companion.PartyPreview, PartyPreviewListAdapter.PartyPreviewItemViewHolder>(
+class PartyPreviewListAdapter(val onPartyPreviewClickListener: (Int) -> Unit) : ListAdapter<PartyDto.Companion.PartyPreview, PartyPreviewListAdapter.PartyPreviewItemViewHolder>(
     PartyPreviewDiffCallback()
 ){
 
@@ -66,5 +66,9 @@ class PartyPreviewListAdapter : ListAdapter<PartyDto.Companion.PartyPreview, Par
             .load(partyPreview.universityLogoUrl)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.itemView.universityLogoIV)
+
+        holder.partyPreviewItemBinding.partyPreviewItemCL.setOnClickListener{
+            onPartyPreviewClickListener(partyPreview.partyId)
+        }
     }
 }

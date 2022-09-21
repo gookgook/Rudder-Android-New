@@ -13,6 +13,44 @@ class PartyDto {
             var endPartyId: Int?
         )
 
+        data class GetPartyDetailRequest(
+            var partyId: Int
+        )
+
+        data class GetPartyDetailResponse(
+            var partyDetail: PartyDetail
+        )
+
+        data class ApplyPartyRequest(
+            var numberApplicants: Int
+        )
+
+
+
+        data class PartyDetail(
+            val applyCount: Int,
+            val currentNumberOfMember: Int,
+            val partyDescription: String,
+            val partyId: Int,
+            val partyLocation: String,
+            val partyPhase: String,
+            val partyStatus: String,
+            val partyThumbnailUrl: String,
+            val partyTime: Timestamp,
+            val partyTitle: String,
+            val totalNumberOfMember: Int,
+            val universityName: String,
+            val partyMembers: List<PartyMember>
+        )
+
+        data class PartyMember(
+            val partyProfileId: Int,
+            val partyProfileImageUrl: String,
+            val partyStatus: String,
+            val userInfoId: Int,
+            val userNickname: String,
+        )
+
         data class PartyPreview(
             val applyCount: Int,
             val currentNumberOfMember: Int,

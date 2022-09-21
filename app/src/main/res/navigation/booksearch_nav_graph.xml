@@ -99,12 +99,22 @@
         <action
             android:id="@+id/action_fragment_party_main_to_notificationFragment"
             app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_fragment_party_main_to_partyDetailFragment"
+            app:destination="@id/partyDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.rudder.src.notification.view.NotificationFragment"
         android:label="NotificationFragment" />
-
+    <fragment
+        android:id="@+id/partyDetailFragment"
+        android:name="com.rudder.src.main.view.PartyDetailFragment"
+        android:label="PartyDetailFragment" >
+        <argument
+            android:name="partyId"
+            app:argType="integer" />
+    </fragment>
 
 
 </navigation>
