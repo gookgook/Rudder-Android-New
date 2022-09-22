@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/booksearch_nav_graph"
-    app:startDestination="@id/createPartyFragment">
+    app:startDestination="@id/fragment_start">
 
     <fragment
         android:id="@+id/fragment_start"
