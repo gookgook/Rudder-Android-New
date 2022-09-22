@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/booksearch_nav_graph"
-    app:startDestination="@id/createPartyFragment">
+    app:startDestination="@id/fragment_start">
 
     <fragment
         android:id="@+id/fragment_start"
@@ -109,11 +109,13 @@
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.rudder.src.notification.view.NotificationFragment"
-        android:label="NotificationFragment" />
+        android:label="NotificationFragment"
+        tools:layout="@layout/fragment_notification"  />
     <fragment
         android:id="@+id/partyDetailFragment"
         android:name="com.rudder.src.main.view.PartyDetailFragment"
-        android:label="PartyDetailFragment" >
+        android:label="PartyDetailFragment"
+        tools:layout="@layout/fragment_party_detail"  >
         <argument
             android:name="partyId"
             app:argType="integer" />
@@ -121,7 +123,8 @@
     <fragment
         android:id="@+id/createPartyFragment"
         android:name="com.rudder.src.main.view.CreatePartyFragment"
-        android:label="CreatePartyFragment" />
+        android:label="CreatePartyFragment"
+        tools:layout="@layout/fragment_create_party"  />
 
 
 </navigation>

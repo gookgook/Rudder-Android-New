@@ -1,5 +1,6 @@
 package com.rudder.model.dto
 
+import java.io.File
 import java.sql.Timestamp
 
 class PartyDto {
@@ -25,6 +26,26 @@ class PartyDto {
             var numberApplicants: Int
         )
 
+        data class PostPartyRequest(
+            val location: String,
+            val partyDescription: String,
+            val partyTime: Timestamp,
+            val partyTitle: String,
+            val totalNumberOfMember: Int
+        )
+
+        data class PostPartyResponse(
+            val partyId: Int
+        )
+
+        data class GetPartyImageUploadUrlRequest(
+            val imageMetaData: ImageMetaData,
+            val partyId: Int
+        )
+
+        data class GetPartyImageUploadUrlResponse(
+            val urls: List<String>
+        )
 
 
         data class PartyDetail(
@@ -51,6 +72,11 @@ class PartyDto {
             val userNickname: String,
         )
 
+        data class ImageForUpload(
+            var file: File,
+            var imageMetaData: ImageMetaData
+        )
+
         data class PartyPreview(
             val applyCount: Int,
             val currentNumberOfMember: Int,
@@ -65,10 +91,24 @@ class PartyDto {
             val totalNumberOfMember: Int,
             val universityLogoUrl: String,
             val universityName: String
-        ){
-            companion object{
-                fun getMock() : PartyPreview {
-                    return PartyPreview(1,1,false,1,1,"","","",Timestamp(System.currentTimeMillis()),"",1,"","")
+        ) {
+            companion object {
+                fun getMock(): PartyPreview {
+                    return PartyPreview(
+                        1,
+                        1,
+                        false,
+                        1,
+                        1,
+                        "",
+                        "",
+                        "",
+                        Timestamp(System.currentTimeMillis()),
+                        "",
+                        1,
+                        "",
+                        ""
+                    )
                 }
             }
         }

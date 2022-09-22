@@ -1,5 +1,6 @@
 package com.rudder.model
 
+import com.google.gson.GsonBuilder
 import com.rudder.BuildConfig
 import com.rudder.config.App
 import okhttp3.Interceptor
@@ -25,6 +26,12 @@ object RetrofitClient {
             }.build()
     }
 
+    private val gson by lazy {
+        GsonBuilder()
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+            .create()
+    }
+
     fun getClient(baseUrl: String): Retrofit {
         if ( !this::retrofit.isInitialized) {
             loggingInterceptor = HttpLoggingInterceptor()
@@ -44,7 +51,7 @@ object RetrofitClient {
             retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         }
         return retrofit
@@ -67,7 +74,7 @@ object RetrofitClient {
         retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 }
