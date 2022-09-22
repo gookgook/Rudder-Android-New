@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.rudder.src.main.viewmodel.CreatePartyViewModel" />
+        <variable
+            name="createPartyFragment"
+            type="com.rudder.src.main.view.CreatePartyFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/createPartyHeaderCL"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageButton
+                android:id="@+id/backB"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginLeft="33dp"
+                android:background="@drawable/ic_round_arrow_back_24"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/backB"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="Host Pre"
+                android:layout_marginLeft="15dp"
+                android:textSize="20sp"
+                android:textColor="@color/black"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/createPartyBodyCL"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/createPartyHeaderCL"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/selectPhotoCL"
+                        android:layout_width="match_parent"
+                        android:layout_height="184dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/background_rounding">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/plus_gray"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <EditText
+                        android:id="@+id/partyTitleET"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        app:layout_constraintTop_toBottomOf="@id/selectPhotoCL"
+                        android:background="@drawable/background_rounding"
+                        android:hint="Party Title"
+                        android:text="@={viewModel.partyTitle}"
+                        android:paddingLeft="15dp"
+                        android:textSize="14sp"
+                        android:layout_marginTop="30dp"/>
+                    <TextView
+                        android:id="@+id/partyParticipantsDescriptionTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/partyTitleET"
+                        android:layout_marginTop="35dp"
+                        android:text="Participants (Minimum)"
+                        android:textSize="18dp"
+                        android:textColor="@color/black"/>
+
+                    <Spinner
+                        android:id="@+id/partyMemberCountS"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/partyParticipantsDescriptionTV"
+                        android:background="@drawable/background_rounding"
+                        android:onItemSelected="@{createPartyFragment.onSpinnerSelected}"
+                        android:layout_marginTop="18dp"/>
+
+                    <TextView
+                        android:id="@+id/partyDescriptionTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/partyMemberCountS"
+                        android:layout_marginTop="35dp"
+                        android:text="Description"
+                        android:textSize="18dp"
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/partyDescriptionET"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:layout_constraintTop_toBottomOf="@id/partyDescriptionTV"
+                        android:background="@drawable/background_rounding"
+                        android:hint="Tell the pre's concept, plan after the pre, etc"
+                        android:text="@={viewModel.partyDescription}"
+                        android:paddingLeft="15dp"
+                        android:textSize="14sp"
+                        android:gravity="top"
+                        android:paddingTop="10dp"
+                        android:layout_marginTop="18dp"/>
+
+
+                    <TextView
+                        android:id="@+id/partyDateDescriptionTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/partyDescriptionET"
+                        android:layout_marginTop="35dp"
+                        android:text="Date"
+                        android:textSize="18dp"
+                        android:textColor="@color/black"/>
+
+                    <DatePicker
+                        android:id="@+id/partyDateDP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/partyDateDescriptionTV"
+                        android:background="@drawable/background_rounding"
+                        android:datePickerMode="spinner"
+                        android:calendarViewShown="false"
+                        android:layout_marginTop="18dp"/>
+
+                    <TimePicker
+                        android:id="@+id/partyDateTP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/partyDateDP"
+                        android:background="@drawable/background_rounding"
+                        android:timePickerMode="spinner"
+                        android:calendarViewShown="false"
+                        android:layout_marginTop="18dp"/>
+
+                    <TextView
+                        android:id="@+id/partyLocationDescriptionTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/partyDateTP"
+                        android:layout_marginTop="35dp"
+                        android:text="Location"
+                        android:textSize="18dp"
+                        android:textColor="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/partyLocationET"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        app:layout_constraintTop_toBottomOf="@id/partyLocationDescriptionTV"
+                        android:background="@drawable/background_rounding"
+                        android:hint="Avoid detailed address until the members are fixed"
+                        android:text="@={viewModel.partyLocation}"
+                        android:paddingLeft="15dp"
+                        android:textSize="14sp"
+                        android:layout_marginTop="18dp"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/partyPostB"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginBottom="34dp"
+                        android:layout_marginTop="30dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:background="@drawable/button_style"
+                        app:layout_constraintTop_toBottomOf="@id/partyLocationET"
+                        android:text="Post"
+                        android:textColor="@color/white"
+                        android:textAllCaps="false" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                
+
+
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

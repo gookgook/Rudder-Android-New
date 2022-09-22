@@ -98,4 +98,8 @@ class PartyMainFragment : Fragment() {
         findNavController().navigate(R.id.action_fragment_party_main_to_notificationFragment)
     }
 
+    fun goCreatePartyFragment() {
+        findNavController().navigate(R.id.action_fragment_party_main_to_createPartyFragment)
+    }
+
 }

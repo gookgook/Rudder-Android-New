@@ -68,5 +68,15 @@
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/add_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{()->partyMainFragment.goCreatePartyFragment()}"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="51dp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

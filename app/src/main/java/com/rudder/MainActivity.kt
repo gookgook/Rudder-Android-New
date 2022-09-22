@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when(destination.id) {
-                R.id.partyDetailFragment -> binding.bottomNavigationView.visibility = View.GONE
+                R.id.partyDetailFragment,R.id.createPartyFragment -> binding.bottomNavigationView.visibility = View.GONE
                 else -> binding.bottomNavigationView.visibility = View.VISIBLE
             }
         }
