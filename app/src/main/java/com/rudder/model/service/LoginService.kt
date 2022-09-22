@@ -1,5 +1,7 @@
-package com.example.logintorudder
+package com.rudder.model.service
 
+import com.rudder.model.dto.LoginInfo
+import com.rudder.model.dto.LoginResult
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body

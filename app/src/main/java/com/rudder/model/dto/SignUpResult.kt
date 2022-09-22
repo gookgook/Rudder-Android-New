@@ -1,6 +1,5 @@
 package com.rudder.model.dto
 
-data class LoginResult(
-    val accessToken: String,
+data class SignUpResult(
     val userInfoId: Int
 )

@@ -1,4 +1,4 @@
-package com.example.logintorudder
+package com.rudder.model.dto
 
 data class LoginInfo(
     val notificationToken: String,

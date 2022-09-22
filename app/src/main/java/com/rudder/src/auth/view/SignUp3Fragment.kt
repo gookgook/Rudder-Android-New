@@ -1,15 +1,18 @@
 package com.rudder.src.auth.view
 
 import android.app.Activity.RESULT_OK
+import android.content.ContentResolver
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -17,14 +20,19 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.Glide
 import com.rudder.R
 import com.rudder.databinding.FragmentSignup3Binding
 import com.rudder.src.auth.viewmodel.SignUpViewModel
+import java.io.File
 
 class SignUp3Fragment: Fragment() {
     private val viewModel: SignUpViewModel by activityViewModels()
 
     private lateinit var binding: FragmentSignup3Binding
+
+    var currentImagePicker: Int = 0
+    var availablePicker: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,11 +45,11 @@ class SignUp3Fragment: Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup3, container, false)
         binding.main = viewModel
-        binding.frag = this // ??
+        binding.frag = this
         return binding.root
     }
 
-    fun setBinding() {
+    fun setBinding()  {
 
     }
 
@@ -49,8 +57,30 @@ class SignUp3Fragment: Fragment() {
     private val imageResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
+        availablePicker = currentImagePicker + 1
+
+        var currentImageView: ImageView
+        when (currentImagePicker) {
+            1 -> currentImageView = binding.profile1IV
+            2 -> currentImageView = binding.profile2IV
+            3 -> currentImageView = binding.profile3IV
+            4 -> currentImageView = binding.profile4IV
+            5 -> currentImageView = binding.profile5IV
+            else -> currentImageView = binding.profile6IV
+        }
+
         if (result.resultCode == RESULT_OK) {
-            //처리
+            val imageUri = result.data?.data
+            imageUri?.let {
+                val imageFile = File(getRealPathFromURI(it))
+                val cr: ContentResolver = context?.contentResolver!!
+                viewModel.appendImage(imageFile, cr.getType(it).toString())
+
+                Glide.with(this.activity)
+                    .load(imageUri)
+                    .fitCenter()
+                    .into(currentImageView)
+            }
             Toast.makeText(this.activity, "Photo pick success", Toast.LENGTH_SHORT).show()
         }
     }
@@ -72,7 +102,25 @@ class SignUp3Fragment: Fragment() {
         return result
     }
 
-    private fun selectGallery() {
+    private fun viewIdToInt(viewId: Int) : Int  {
+        when(viewId){
+            R.id.cs2 -> return 1
+            R.id.cs4 -> return 2
+            R.id.cs6 -> return 3
+            R.id.cs9 -> return 4
+            R.id.cs11 -> return 5
+            else -> return 6
+        }
+    }
+
+    fun selectGallery(view: View) {
+        if (availablePicker != viewIdToInt(view.id) ) {
+            Toast.makeText(this.activity, "You must fill in the previous box first", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        currentImagePicker = viewIdToInt(view.id)
+
         val writePermission = ContextCompat.checkSelfPermission(
             this.requireContext(),
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -83,9 +131,8 @@ class SignUp3Fragment: Fragment() {
         )
 
         //권한 확인
-        if (writePermission == PackageManager.PERMISSION_DENIED ||
-            readPermission == PackageManager.PERMISSION_DENIED
-        ) {
+        if (writePermission == PackageManager.PERMISSION_DENIED || readPermission == PackageManager.PERMISSION_DENIED) {
+
             // 권한 요청
             ActivityCompat.requestPermissions(
                 this.requireActivity(), arrayOf(

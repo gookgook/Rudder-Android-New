@@ -65,7 +65,18 @@
             android:layout_marginTop="35dp"
             android:background="@color/lightPurple"
             app:layout_constraintWidth_percent="0.2513"
-            app:layout_constraintDimensionRatio="1:1">
+            app:layout_constraintDimensionRatio="1:1"
+            android:onClick="@{frag.selectGallery}">
+
+            <ImageView
+                android:id="@+id/profile1IV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+
             <ImageView
                 android:layout_width="12dp"
                 android:layout_height="12dp"
@@ -97,7 +108,17 @@
             android:layout_marginTop="35dp"
             android:background="@color/lightPurple"
             app:layout_constraintWidth_percent="0.2513"
-            app:layout_constraintDimensionRatio="1:1">
+            app:layout_constraintDimensionRatio="1:1"
+            android:onClick="@{frag.selectGallery}">
+
+            <ImageView
+                android:id="@+id/profile2IV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
             <ImageView
                 android:layout_width="12dp"
                 android:layout_height="12dp"
@@ -129,7 +150,15 @@
             android:layout_marginTop="35dp"
             android:background="@color/lightPurple"
             app:layout_constraintWidth_percent="0.2513"
-            app:layout_constraintDimensionRatio="1:1">
+            app:layout_constraintDimensionRatio="1:1"
+            android:onClick="@{frag.selectGallery}">
+            <ImageView
+                android:id="@+id/profile3IV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
             <ImageView
                 android:layout_width="12dp"
                 android:layout_height="12dp"
@@ -172,7 +201,15 @@
             android:layout_marginTop="35dp"
             android:background="@color/lightPurple"
             app:layout_constraintWidth_percent="0.2513"
-            app:layout_constraintDimensionRatio="1:1">
+            app:layout_constraintDimensionRatio="1:1"
+            android:onClick="@{frag.selectGallery}">
+            <ImageView
+                android:id="@+id/profile4IV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
             <ImageView
                 android:layout_width="12dp"
                 android:layout_height="12dp"
@@ -204,7 +241,15 @@
             android:layout_marginTop="35dp"
             android:background="@color/lightPurple"
             app:layout_constraintWidth_percent="0.2513"
-            app:layout_constraintDimensionRatio="1:1">
+            app:layout_constraintDimensionRatio="1:1"
+            android:onClick="@{frag.selectGallery}">
+            <ImageView
+                android:id="@+id/profile5IV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
             <ImageView
                 android:layout_width="12dp"
                 android:layout_height="12dp"
@@ -236,7 +281,15 @@
             android:layout_marginTop="35dp"
             android:background="@color/lightPurple"
             app:layout_constraintWidth_percent="0.2513"
-            app:layout_constraintDimensionRatio="1:1">
+            app:layout_constraintDimensionRatio="1:1"
+            android:onClick="@{frag.selectGallery}">
+            <ImageView
+                android:id="@+id/profile6IV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
             <ImageView
                 android:layout_width="12dp"
                 android:layout_height="12dp"
@@ -264,14 +317,14 @@
             android:id="@+id/loginBT"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="next"
+            android:text="done"
             android:layout_marginStart="28dp"
             android:layout_marginEnd="28dp"
             android:layout_marginBottom="34dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{()->main.onClickDone()}">
         </Button>
 
 
