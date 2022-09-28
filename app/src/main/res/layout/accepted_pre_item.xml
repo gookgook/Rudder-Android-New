@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="approvedPartyItem"
+            type="com.rudder.model.dto.PartyDto.Companion.ApprovedPartyItem" />
+        <variable
+            name="partyTimeString"
+            type="String" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/accepted_pre_item_style"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="5dp"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/partyThumbnailCV"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:cardCornerRadius="16dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <ImageView
+                android:id="@+id/partyThumbnailIV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/partyDateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="19dp"
+            android:text="@{partyTimeString}"
+            android:textSize="12sp"
+            android:textColor="@color/text_gray"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/partyThumbnailCV"
+            />
+
+        <TextView
+            android:id="@+id/partyTitleTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="14dp"
+            android:textSize="15sp"
+            android:textColor="@color/text_dark_gray"
+            app:layout_constraintTop_toBottomOf="@id/partyDateTV"
+            app:layout_constraintStart_toEndOf="@id/partyThumbnailCV"
+            android:text="@{String.valueOf(approvedPartyItem.party.partyChatRoomId)}"
+            />
+        <TextView
+            android:id="@+id/partyRecentChatMessageTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17dp"
+            app:layout_constraintStart_toEndOf="@id/partyThumbnailCV"
+            app:layout_constraintTop_toBottomOf="@id/partyTitleTV"
+            android:text="@{approvedPartyItem.partyGroupChatRoom!=null? approvedPartyItem.partyGroupChatRoom.recentMessage:`최신 메시지 없음`}"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

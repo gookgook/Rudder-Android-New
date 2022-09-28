@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/booksearch_nav_graph"
-    app:startDestination="@id/fragment_start">
+    app:startDestination="@id/fragment_application">
 
     <fragment
         android:id="@+id/fragment_start"
@@ -125,6 +125,11 @@
         android:name="com.rudder.src.main.view.CreatePartyFragment"
         android:label="CreatePartyFragment"
         tools:layout="@layout/fragment_create_party"  />
+    <fragment
+        android:id="@+id/fragment_application"
+        android:name="com.rudder.src.application.view.ApplicationFragment"
+        android:label="fragment_application"
+        tools:layout="@layout/fragment_application"/>
 
 
 </navigation>

@@ -16,4 +16,15 @@ interface GetPartyService {
     suspend fun getPartyDetail(
         @Path("partyId") partyId: Int
     ): Response<PartyDto.Companion.GetPartyDetailResponse>
+
+    @GET("/parties/approved")
+    suspend fun getApprovedParties(
+
+    ): Response<PartyDto.Companion.GetApprovedPartyResponse>
+
+    @GET("/parties/applied")
+    suspend fun getAppliedParties(
+
+    ): Response<PartyDto.Companion.GetAppliedPartyResponse>
+
 }

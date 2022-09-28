@@ -77,6 +77,20 @@ class PartyDto {
             var imageMetaData: ImageMetaData
         )
 
+
+        data class GetApprovedPartyResponse(
+            val parties: List<PartyPreview>
+        )
+
+        data class GetAppliedPartyResponse(
+            val parties: List<PartyPreview>
+        )
+
+        data class ApprovedPartyItem(
+            val party: PartyPreview,
+            var partyGroupChatRoom: ChatDto.Companion.PartyGroupChatRoom
+        )
+
         data class PartyPreview(
             val applyCount: Int,
             val currentNumberOfMember: Int,

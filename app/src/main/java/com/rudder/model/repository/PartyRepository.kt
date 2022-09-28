@@ -1,5 +1,6 @@
 package com.rudder.model.repository
 
+import com.rudder.BuildConfig
 import com.rudder.model.dto.PartyDto
 import com.rudder.model.RetrofitClient
 import com.rudder.model.service.ApplyPartyService
@@ -14,19 +15,33 @@ class PartyRepository {
     companion object{
         val instance = PartyRepository()
     }
-    private val getPartyService = RetrofitClient.getClient("https://test.rudderuni.com").create(
+    private val getPartyService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(
         GetPartyService::class.java)
 
-    private val applyPartyService = RetrofitClient.getClient("https://test.rudderuni.com").create(
+    private val applyPartyService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(
         ApplyPartyService::class.java)
 
-    private val createPartyService = RetrofitClient.getClient("https://test.rudderuni.com").create(
+    private val createPartyService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(
         CreatePartyService::class.java)
 
     suspend fun getParties(getPartiesRequest: PartyDto.Companion.GetPartiesRequest): Response<PartyDto.Companion.GetPartiesResponse> {
 
         return CoroutineScope(Dispatchers.IO).async {
             getPartyService.getParties(endPartyId = getPartiesRequest.endPartyId)
+        }.await()
+    }
+
+    suspend fun getApprovedParties(): Response<PartyDto.Companion.GetApprovedPartyResponse> {
+
+        return CoroutineScope(Dispatchers.IO).async {
+            getPartyService.getApprovedParties()
+        }.await()
+    }
+
+    suspend fun getAppliedParties(): Response<PartyDto.Companion.GetAppliedPartyResponse> {
+
+        return CoroutineScope(Dispatchers.IO).async {
+            getPartyService.getAppliedParties()
         }.await()
     }
 
