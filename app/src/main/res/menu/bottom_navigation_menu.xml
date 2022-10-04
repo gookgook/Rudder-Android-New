@@ -17,5 +17,12 @@
 
     </item>
 
+    <item android:id="@+id/application_nav_graph"
+        android:title="application"
+        android:menuCategory="secondary"
+        >
+
+    </item>
+
 
 </menu>
