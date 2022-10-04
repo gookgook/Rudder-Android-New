@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/booksearch_nav_graph"
-    app:startDestination="@id/fragment_application">
+    app:startDestination="@id/fragment_start">
 
     <fragment
         android:id="@+id/fragment_start"
@@ -105,6 +105,10 @@
         <action
             android:id="@+id/action_fragment_party_main_to_createPartyFragment"
             app:destination="@id/createPartyFragment" />
+        <action
+            android:id="@+id/action_fragment_party_main_to_myProfileFragment"
+            app:destination="@id/myProfileFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
@@ -124,7 +128,14 @@
         android:id="@+id/createPartyFragment"
         android:name="com.rudder.src.main.view.CreatePartyFragment"
         android:label="CreatePartyFragment"
-        tools:layout="@layout/fragment_create_party"  />
+        tools:layout="@layout/fragment_create_party"/>
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="com.rudder.src.main.view.MyProfileFragment"
+        android:label="myProfileFragment"
+        tools:layout="@layout/fragment_my_profile"
+        />
+
     <fragment
         android:id="@+id/fragment_application"
         android:name="com.rudder.src.application.view.ApplicationFragment"

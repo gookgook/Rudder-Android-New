@@ -42,7 +42,9 @@ class LoginViewModel : ViewModel() {
             when(loginRequest.code()) {
                 200 -> {
                     val accessToken = loginRequest.body()!!.accessToken
+                    val userInfoId = loginRequest.body()!!.userInfoId
                     App.prefs.setValue("authToken",accessToken)
+                    App.prefs.setValue("userInfoId",userInfoId.toString())
                     RetrofitClient.updateAuthToken(accessToken)
                     loginResultFlag.value = 1
                 }

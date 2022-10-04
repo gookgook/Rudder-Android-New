@@ -85,6 +85,7 @@ class SignUpViewModel: ViewModel() {
         }
     }
 
+
     fun appendImage(uri: File, contentType: String){
 
         Log.d("image upload", uri.toString())

@@ -6,10 +6,18 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowInsets
+import android.widget.Toolbar
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.rudder.databinding.MainActivityBinding
+import com.rudder.util.setupWithNavController
 
 class MainActivity : AppCompatActivity() {
     private val binding: MainActivityBinding by lazy {
@@ -21,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setupJetpackNavigation()
+        setupBottomNavigationBar()
     }
 
     fun getDisplaySize(): ArrayList<Int> {
@@ -41,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupJetpackNavigation() {
+  /*  private fun setupJetpackNavigation() {
         val host =
             supportFragmentManager.findFragmentById(R.id.booksearch_nav_host_fragment) as NavHostFragment
 
@@ -55,10 +63,27 @@ class MainActivity : AppCompatActivity() {
                 else -> binding.bottomNavigationView.visibility = View.VISIBLE
             }
         }
+    }*/
 
+    private lateinit var currentNavController: LiveData<NavController>
 
+    private fun setupBottomNavigationBar() {
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
+        val navGraphIds = listOf(R.navigation.booksearch_nav_graph, R.navigation.host_nav_graph/*,  R.navigation.tab2, R.navigation.tab3*/)
+        val controller = bottomNavigationView.setupWithNavController(
+            navGraphIds = navGraphIds,
+            fragmentManager = supportFragmentManager,
+            containerId = R.id.booksearch_nav_host_fragment,
+            intent = intent
+        )
+        /*controller.observe(this, Observer { navController ->
+            setupActionBarWithNavController(navController)
+        })*/
+        currentNavController = controller
+    }
 
-
+    override fun onSupportNavigateUp(): Boolean {
+        return currentNavController?.value?.navigateUp() ?: false
     }
 
 }

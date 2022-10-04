@@ -19,8 +19,6 @@ class PartyDetailViewModel : ViewModel() {
 
 
 
-
-
     fun getPartyDetail(partyId: Int) {
         viewModelScope.launch {
             val getPartyDetailRequest = PartyDto.Companion.GetPartyDetailRequest(partyId = partyId)

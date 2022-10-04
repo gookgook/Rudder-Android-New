@@ -37,7 +37,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginRight="12dp"
-                android:src="@drawable/user_01"/>
+                android:src="@drawable/user_01"
+                android:onClick="@{()->partyMainFragment.goMyProfileFragment()}"
+                />
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"

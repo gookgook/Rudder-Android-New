@@ -29,7 +29,7 @@ class PartyMainFragment : Fragment() {
 
         val onPartyPreviewClickListener = { partyId: Int ->
             val action =
-                PartyMainFragmentDirections.actionFragmentPartyMainToPartyDetailFragment(partyId = partyId)
+                PartyMainFragmentDirections.actionFragmentPartyMainToPartyDetailFragment( partyId)
             findNavController().navigate(action)
         }
 
@@ -100,6 +100,10 @@ class PartyMainFragment : Fragment() {
 
     fun goCreatePartyFragment() {
         findNavController().navigate(R.id.action_fragment_party_main_to_createPartyFragment)
+    }
+
+    fun goMyProfileFragment(){
+        findNavController().navigate(R.id.action_fragment_party_main_to_myProfileFragment)
     }
 
 }
