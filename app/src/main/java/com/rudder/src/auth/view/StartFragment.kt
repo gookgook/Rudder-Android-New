@@ -42,9 +42,9 @@ class StartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        if(!App.prefs.getValue("authToken").isNullOrEmpty()){
+        /*if(!App.prefs.getValue("authToken").isNullOrEmpty()){
             findNavController().navigate(R.id.action_fragment_start_to_fragment_party_main)
-        } //삭제예정
+        } //삭제예정*/
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_start, container, false)

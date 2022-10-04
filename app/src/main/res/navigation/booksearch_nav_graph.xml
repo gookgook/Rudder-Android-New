@@ -105,6 +105,10 @@
         <action
             android:id="@+id/action_fragment_party_main_to_createPartyFragment"
             app:destination="@id/createPartyFragment" />
+        <action
+            android:id="@+id/action_fragment_party_main_to_myProfileFragment"
+            app:destination="@id/myProfileFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
@@ -122,6 +126,12 @@
         android:id="@+id/createPartyFragment"
         android:name="com.rudder.src.main.view.CreatePartyFragment"
         android:label="CreatePartyFragment" />
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="com.rudder.src.main.view.MyProfileFragment"
+        android:label="myProfileFragment"
+        tools:layout="@layout/fragment_my_profile"
+        />
 
 
 </navigation>

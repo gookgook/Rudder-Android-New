@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/fragment_search"
-        android:title="favorite">
+
+
+
+    <item android:id="@+id/booksearch_nav_graph"
+        android:title="favorite"
+        android:menuCategory="secondary"
+        >
 
     </item>
 
-    <item android:id="@+id/fragment_start"
-        android:title="start">
+    <item android:id="@+id/host_nav_graph"
+        android:title="start"
+        android:menuCategory="secondary"
+        >
 
     </item>
 
-
-
-
-    <item android:id="@+id/fragment_settings"
-        android:title="settings">
-
-    </item>
 
 </menu>
