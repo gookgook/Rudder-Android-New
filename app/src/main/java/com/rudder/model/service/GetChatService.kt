@@ -13,5 +13,10 @@ interface GetChatService {
         @Path("partyId") partyId: Int
     ): Response<ChatDto.Companion.PartyGroupChatRoom>
 
+    @GET("/chat-rooms/party-one-to-one")
+    suspend fun getApplicationOneToOneChatRooms(
+
+    ): Response<ChatDto.Companion.GetApplicationPartyOneToOneChatRoomsResponse>
+
 
 }

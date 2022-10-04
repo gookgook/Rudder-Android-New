@@ -129,7 +129,11 @@
         android:id="@+id/fragment_application"
         android:name="com.rudder.src.application.view.ApplicationFragment"
         android:label="fragment_application"
-        tools:layout="@layout/fragment_application"/>
+        tools:layout="@layout/fragment_application">
+        <action
+            android:id="@+id/action_fragment_application_to_partyDetailFragment"
+            app:destination="@id/partyDetailFragment" />
+    </fragment>
 
 
 </navigation>

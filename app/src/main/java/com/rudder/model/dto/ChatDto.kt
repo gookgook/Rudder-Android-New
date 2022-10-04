@@ -16,5 +16,20 @@ class ChatDto {
             val recentMessageTime: Timestamp
         )
 
+        data class PartyOneToOneChatRoom(
+            val chatRoomId: Int,
+            val chatRoomImageUrl: String,
+            val chatRoomTitle: String,
+            val notReadMessageCount: Int,
+            val recentMessage: String = "",
+            val recentMessageTime: Timestamp,
+            val otherUserInfoId: Int,
+            val partyId: Int
+        )
+
+        data class GetApplicationPartyOneToOneChatRoomsResponse(
+            val chatRooms: List<PartyOneToOneChatRoom>
+        )
+
     }
 }

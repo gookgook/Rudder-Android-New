@@ -91,6 +91,11 @@ class PartyDto {
             var partyGroupChatRoom: ChatDto.Companion.PartyGroupChatRoom
         )
 
+        data class AppliedPartyItem(
+            val party: PartyPreview,
+            var partyOneToOneChatRoom: ChatDto.Companion.PartyOneToOneChatRoom
+        )
+
         data class PartyPreview(
             val applyCount: Int,
             val currentNumberOfMember: Int,

@@ -22,7 +22,7 @@ interface GetPartyService {
 
     ): Response<PartyDto.Companion.GetApprovedPartyResponse>
 
-    @GET("/parties/applied")
+    @GET("/parties/pending")
     suspend fun getAppliedParties(
 
     ): Response<PartyDto.Companion.GetAppliedPartyResponse>

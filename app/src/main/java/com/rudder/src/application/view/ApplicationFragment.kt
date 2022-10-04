@@ -8,18 +8,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rudder.databinding.FragmentApplicationBinding
+import com.rudder.model.dto.PartyDto
 import com.rudder.src.application.viewmodel.ApplicationViewModel
-import java.util.stream.Collectors
-import java.util.stream.Stream
-import kotlin.streams.toList
 
 
 class ApplicationFragment : Fragment() {
 
     private val approvedPartyListAdapter by lazy {
         ApprovedPartyListAdapter()
+    }
+
+    private val appliedPartyListAdapter by lazy {
+        val onAppliedPartyClickListener = { appliedPartyItem: PartyDto.Companion.AppliedPartyItem->
+            if (appliedPartyItem.partyOneToOneChatRoom.partyId.equals(-1)){
+                val action =
+                    ApplicationFragmentDirections.actionFragmentApplicationToPartyDetailFragment(partyId = appliedPartyItem.party.partyId)
+                findNavController().navigate(action)
+            }else{
+
+            }
+
+        }
+        AppliedPartyListAdapter(onAppliedPartyClickListener)
     }
     private lateinit var binding: FragmentApplicationBinding
     private val viewModel: ApplicationViewModel by viewModels()
@@ -40,7 +53,26 @@ class ApplicationFragment : Fragment() {
             it.adapter = approvedPartyListAdapter
         }
 
+        binding.appliedPreListRV.also {
+            it.layoutManager = object : LinearLayoutManager(requireActivity()){
+                override fun canScrollVertically(): Boolean {
+                    return false
+                }
+            }
+            it.setHasFixedSize(false)
+            it.adapter = appliedPartyListAdapter
+        }
+
         viewModel.approvedPartyItems.observe(viewLifecycleOwner, Observer {
+            it?.let {
+
+
+                approvedPartyListAdapter.submitList(it.toList().map { it.second } )
+
+            }
+        })
+
+        viewModel.appliedPartyItems.observe(viewLifecycleOwner, Observer {
             it?.let {
                 Log.d("start", "start$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
                 it?.forEach { m->
@@ -50,8 +82,7 @@ class ApplicationFragment : Fragment() {
                 }
 
                 Log.d("end", "end$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-
-                approvedPartyListAdapter.submitList(it.toList().map { it.second } )
+                appliedPartyListAdapter.submitList(it.toList().map { it.second } )
 
             }
         })

@@ -31,6 +31,13 @@ class ChatRepository {
         }.await()
     }
 
+    suspend fun getApplicationOneToOneChatRooms(): Response<ChatDto.Companion.GetApplicationPartyOneToOneChatRoomsResponse> {
+
+        return CoroutineScope(Dispatchers.IO).async {
+            getChatService.getApplicationOneToOneChatRooms()
+        }.await()
+    }
+
 
 
 }
