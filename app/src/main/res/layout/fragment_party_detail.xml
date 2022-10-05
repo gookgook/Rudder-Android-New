@@ -150,8 +150,9 @@
             android:layout_marginRight="28dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/button_style"
+            android:background="@drawable/button_style_gray"
             android:text="Apply"
+            android:enabled="false"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:onClick="@{()->partyDetailFragment.showPartyApplyDialog()}"/>

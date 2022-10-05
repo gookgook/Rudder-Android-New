@@ -11,8 +11,21 @@
         android:name="com.rudder.src.application.view.ApplicationFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_application" >
+        <action
+            android:id="@+id/action_fragment_application_to_partyDetailFragment"
+            app:destination="@id/partyDetailFragment" />
     </fragment>
 
+
+    <fragment
+        android:id="@+id/partyDetailFragment"
+        android:name="com.rudder.src.main.view.PartyDetailFragment"
+        android:label="PartyDetailFragment"
+        tools:layout="@layout/fragment_party_detail"  >
+        <argument
+            android:name="partyId"
+            app:argType="integer" />
+    </fragment>
 
 
 </navigation>

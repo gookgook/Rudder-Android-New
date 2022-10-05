@@ -3,23 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/host_nav_graph"
-    app:startDestination="@id/fragment_search"
+    app:startDestination="@id/hostFragment"
     >
 
-    <fragment
-        android:id="@+id/fragment_search"
-        android:name="com.rudder.src.main.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_fragment_search_to_fragment_direction"
-            app:destination="@id/fragment_direction" />
-    </fragment>
 
     <fragment
-        android:id="@+id/fragment_direction"
-        android:name="com.rudder.src.main.DirectionFragment"
-        android:label="fragment_direction"
-        tools:layout="@layout/fragment_direction" />
+        android:id="@+id/hostFragment"
+        android:name="com.rudder.src.host.HostFragment"
+        android:label="HostFragment" />
 
 </navigation>
