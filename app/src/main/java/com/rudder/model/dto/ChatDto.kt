@@ -14,7 +14,18 @@ class ChatDto {
             val notReadMessageCount: Int,
             val recentMessage: String = "",
             val recentMessageTime: Timestamp
-        )
+        ){
+            companion object{
+                val mock = PartyGroupChatRoom(
+                    chatRoomId = -1,
+                    chatRoomImageUrl = "",
+                    chatRoomTitle = "",
+                    notReadMessageCount = 0,
+                    recentMessage = "",
+                    recentMessageTime = Timestamp(System.currentTimeMillis())
+                )
+            }
+        }
 
         data class PartyOneToOneChatRoom(
             val chatRoomId: Int,
@@ -28,6 +39,11 @@ class ChatDto {
         )
 
         data class GetApplicationPartyOneToOneChatRoomsResponse(
+            val chatRooms: List<PartyOneToOneChatRoom>
+        )
+
+
+        data class GetHostPartyOneToOneChatRoomsResponse(
             val chatRooms: List<PartyOneToOneChatRoom>
         )
 

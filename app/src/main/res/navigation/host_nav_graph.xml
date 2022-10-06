@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/hostFragment"
-        android:name="com.rudder.src.host.HostFragment"
+        android:name="com.rudder.src.host.view.HostFragment"
         android:label="HostFragment" />
 
 </navigation>

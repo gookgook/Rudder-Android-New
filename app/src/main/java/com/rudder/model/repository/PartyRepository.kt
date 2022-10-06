@@ -73,5 +73,19 @@ class PartyRepository {
         }.await()
     }
 
+    suspend fun getHostParties(): Response<PartyDto.Companion.GetHostPartiesResponse> {
+
+        return CoroutineScope(Dispatchers.IO).async {
+            getPartyService.getHostParties()
+        }.await()
+    }
+
+    suspend fun getPartyApplicants(partyId: Int): Response<PartyDto.Companion.GetPartyApplicantsResponse> {
+
+        return CoroutineScope(Dispatchers.IO).async {
+            getPartyService.getPartyApplicants(partyId = partyId)
+        }.await()
+    }
+
 
 }

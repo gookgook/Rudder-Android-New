@@ -1,6 +1,5 @@
 package com.rudder.src.application.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -101,7 +100,7 @@ class ApplicationViewModel : ViewModel() {
 
     fun getPartyGroupChat(partyId: Int) {
         viewModelScope.launch {
-            val apiResponse = ChatRepository.instance.getParties(partyId)
+            val apiResponse = ChatRepository.instance.getPartyGroupChatRoom(partyId)
             if (apiResponse.isSuccessful) {
                 val partyGroupChatRoom = apiResponse.body() ?: return@launch
                 val copyMap = HashMap(_approvedPartyItems.value)

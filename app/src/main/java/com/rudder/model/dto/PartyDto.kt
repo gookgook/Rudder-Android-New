@@ -2,6 +2,9 @@ package com.rudder.model.dto
 
 import java.io.File
 import java.sql.Timestamp
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PartyDto {
     companion object {
@@ -62,7 +65,25 @@ class PartyDto {
             val totalNumberOfMember: Int,
             val universityName: String,
             val partyMembers: List<PartyMember>
-        )
+        ) {
+            companion object {
+                val mock = PartyDetail(
+                    applyCount = 0,
+                    currentNumberOfMember = 0,
+                    partyDescription = "",
+                    partyId = -1,
+                    partyLocation = "",
+                    partyPhase = "",
+                    partyStatus = "",
+                    partyThumbnailUrl = "",
+                    partyTime = Timestamp(System.currentTimeMillis()),
+                    partyTitle = "",
+                    totalNumberOfMember = 0,
+                    universityName = "",
+                    partyMembers = arrayListOf()
+                )
+            }
+        }
 
         data class PartyMember(
             val partyProfileId: Int,
@@ -84,6 +105,71 @@ class PartyDto {
 
         data class GetAppliedPartyResponse(
             val parties: List<PartyPreview>
+        )
+
+        data class GetHostPartiesResponse(
+            val parties: List<PartyOnlyDate>
+        )
+
+        data class PartyOnlyDate(
+            val partyId: Int,
+            val partyDate: Timestamp
+        ) {
+            override fun toString(): String {
+                if (partyId.equals(-1)) {
+                    return "N/A"
+                } else {
+                    val date = Date(partyDate.time)
+                    val format: DateFormat = SimpleDateFormat("MMM dd")
+
+                    return format.format(date)
+                }
+            }
+        }
+
+        data class HostParty(
+            var partyId: Int,
+            var partyDetail: PartyDetail,
+            var partyApplicants: List<PartyApplicant>,
+            var partyGroupChatRoom: ChatDto.Companion.PartyGroupChatRoom,
+            var partyOneToOneChatRooms: List<ChatDto.Companion.PartyOneToOneChatRoom>
+        ) {
+            companion object {
+                fun from(partyId: Int): HostParty {
+                    return HostParty(
+                        partyId = partyId,
+                        partyDetail = PartyDetail.mock,
+                        partyApplicants = arrayListOf(),
+                        partyGroupChatRoom = ChatDto.Companion.PartyGroupChatRoom.mock,
+                        partyOneToOneChatRooms = arrayListOf()
+                    )
+                }
+
+                fun from(hostParty: HostParty): HostParty{
+                    return HostParty(
+                        partyId = hostParty.partyId,
+                        partyDetail = hostParty.partyDetail,
+                        partyApplicants = hostParty.partyApplicants,
+                        partyGroupChatRoom = hostParty.partyGroupChatRoom,
+                        partyOneToOneChatRooms = hostParty.partyOneToOneChatRooms
+                    )
+                }
+            }
+        }
+
+
+        data class GetPartyApplicantsResponse(
+            val applicants: List<PartyApplicant>
+        )
+
+        data class PartyApplicant(
+            val isChatExist: Boolean,
+            val numberApplicants: Int,
+            val partyMemberId: Int,
+            val partyProfileImageUrl: String,
+            val partyStatus: String,
+            val userInfoId: Int,
+            val userNickname: String
         )
 
         data class ApprovedPartyItem(

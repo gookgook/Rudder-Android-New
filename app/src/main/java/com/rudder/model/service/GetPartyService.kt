@@ -27,4 +27,15 @@ interface GetPartyService {
 
     ): Response<PartyDto.Companion.GetAppliedPartyResponse>
 
+    @GET("/parties/my-host")
+    suspend fun getHostParties(
+
+    ): Response<PartyDto.Companion.GetHostPartiesResponse>
+
+    @GET("/parties/{partyId}/applicants")
+    suspend fun getPartyApplicants(
+        @Path("partyId") partyId: Int
+    ): Response<PartyDto.Companion.GetPartyApplicantsResponse>
+
+
 }

@@ -1,13 +1,9 @@
 package com.rudder.model.repository
 
 import com.rudder.BuildConfig
-import com.rudder.model.dto.PartyDto
 import com.rudder.model.RetrofitClient
 import com.rudder.model.dto.ChatDto
-import com.rudder.model.service.ApplyPartyService
-import com.rudder.model.service.CreatePartyService
 import com.rudder.model.service.GetChatService
-import com.rudder.model.service.GetPartyService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -24,10 +20,10 @@ class ChatRepository {
 
 
 
-    suspend fun getParties(partyId: Int): Response<ChatDto.Companion.PartyGroupChatRoom> {
+    suspend fun getPartyGroupChatRoom(partyId: Int): Response<ChatDto.Companion.PartyGroupChatRoom> {
 
         return CoroutineScope(Dispatchers.IO).async {
-            getChatService.getParties(partyId = partyId)
+            getChatService.getPartyGroupChatRoom(partyId = partyId)
         }.await()
     }
 
@@ -35,6 +31,13 @@ class ChatRepository {
 
         return CoroutineScope(Dispatchers.IO).async {
             getChatService.getApplicationOneToOneChatRooms()
+        }.await()
+    }
+
+    suspend fun getHostPartyOneToOneChatRooms(partyId: Int): Response<ChatDto.Companion.GetHostPartyOneToOneChatRoomsResponse> {
+
+        return CoroutineScope(Dispatchers.IO).async {
+            getChatService.getHostPartyOneToOneChatRooms(partyId = partyId)
         }.await()
     }
 

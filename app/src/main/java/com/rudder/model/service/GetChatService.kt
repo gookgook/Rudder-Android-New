@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface GetChatService {
     @GET("/chat-rooms/party-group/{partyId}")
-    suspend fun getParties(
+    suspend fun getPartyGroupChatRoom(
         @Path("partyId") partyId: Int
     ): Response<ChatDto.Companion.PartyGroupChatRoom>
 
@@ -17,6 +17,11 @@ interface GetChatService {
     suspend fun getApplicationOneToOneChatRooms(
 
     ): Response<ChatDto.Companion.GetApplicationPartyOneToOneChatRoomsResponse>
+
+    @GET("/chat-rooms/party-one-to-one/{partyId}")
+    suspend fun getHostPartyOneToOneChatRooms(
+        @Path("partyId") partyId: Int
+    ): Response<ChatDto.Companion.GetHostPartyOneToOneChatRoomsResponse>
 
 
 }
