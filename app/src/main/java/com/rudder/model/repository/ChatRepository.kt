@@ -3,7 +3,6 @@ package com.rudder.model.repository
 import com.rudder.BuildConfig
 import com.rudder.model.RetrofitClient
 import com.rudder.model.dto.ChatDto
-import com.rudder.model.service.GetChatService
 import com.rudder.model.service.GetChatRoomsService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +23,7 @@ class ChatRepository {
     suspend fun getPartyGroupChatRoom(partyId: Int): Response<ChatDto.Companion.PartyGroupChatRoom> {
 
         return CoroutineScope(Dispatchers.IO).async {
-            getChatRoomsService.getParties(partyId = partyId)
+            getChatRoomsService.getPartyGroupChatRoom(partyId = partyId)
         }.await()
     }
 
