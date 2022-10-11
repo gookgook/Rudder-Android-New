@@ -20,8 +20,8 @@
         android:name="com.rudder.src.host.view.ApplicantProfileFragment"
         android:label="ApplicantProfileFragment" >
         <argument
-            android:name="ApplicantProfileRequest"
-            app:argType="com.rudder.model.dto.PartyDto$Companion$ApplicantProfileRequest" />
+            android:name="applicantProfileRequest"
+            app:argType="com.rudder.model.dto.ApplicantProfileRequest"/>
     </fragment>
 
 </navigation>

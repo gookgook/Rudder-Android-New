@@ -12,12 +12,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.SnapHelper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.rudder.R
 import com.rudder.databinding.FragmentHostBinding
+import com.rudder.model.dto.ApplicantProfileRequest
 import com.rudder.model.dto.PartyDto
 import com.rudder.src.host.viewmodel.HostViewModel
 import java.sql.Timestamp
@@ -37,13 +36,13 @@ class HostFragment : Fragment() {
         val onPartyApplicantClickListener = { partyMemberId:Int, userInfoId: Int ->
 
             kotlin.run {
-                val applicantProfileRequest = PartyDto.Companion.ApplicantProfileRequest(
+                val applicantProfileRequest = ApplicantProfileRequest(
                     partyId = viewModel.selectedHostParty.value?.partyId ?: return@run,
                     partyMemberId = partyMemberId,
                     userInfoId = userInfoId
                 )
                 val action =
-                    HostFragmentDirections.actionHostFragmentToApplicantProfileFragment(applicantProfileRequest)
+                    HostFragmentDirections.actionHostFragmentToApplicantProfileFragment(applicantProfileRequest=applicantProfileRequest)
                 findNavController().navigate(action)
             }
 
@@ -95,8 +94,6 @@ class HostFragment : Fragment() {
             it.layoutManager = LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
             it.setHasFixedSize(false)
             it.adapter = partyApplicantListAdapter
-            val snapHelper = PagerSnapHelper()
-            snapHelper.attachToRecyclerView(it)
         }
 
 

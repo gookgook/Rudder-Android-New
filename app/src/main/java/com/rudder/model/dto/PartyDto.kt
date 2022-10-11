@@ -1,9 +1,6 @@
 package com.rudder.model.dto
 
-import android.os.Parcel
-import android.os.Parcelable
 import java.io.File
-import java.io.Serializable
 import java.sql.Timestamp
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -175,39 +172,6 @@ class PartyDto {
             val userNickname: String
         )
 
-        data class ApplicantProfileRequest(
-            val partyId: Int,
-            val partyMemberId: Int,
-            val userInfoId: Int
-        ):Parcelable {
-            constructor(parcel: Parcel) : this(
-                parcel.readInt(),
-                parcel.readInt(),
-                parcel.readInt()
-            ) {
-            }
-
-            override fun writeToParcel(parcel: Parcel, flags: Int) {
-                parcel.writeInt(partyId)
-                parcel.writeInt(partyMemberId)
-                parcel.writeInt(userInfoId)
-            }
-
-            override fun describeContents(): Int {
-                return 0
-            }
-
-            companion object CREATOR : Parcelable.Creator<ApplicantProfileRequest> {
-                override fun createFromParcel(parcel: Parcel): ApplicantProfileRequest {
-                    return ApplicantProfileRequest(parcel)
-                }
-
-                override fun newArray(size: Int): Array<ApplicantProfileRequest?> {
-                    return arrayOfNulls(size)
-                }
-            }
-        }
-
         data class ApprovedPartyItem(
             val party: PartyPreview,
             var partyGroupChatRoom: ChatDto.Companion.PartyGroupChatRoom
@@ -254,4 +218,5 @@ class PartyDto {
             }
         }
     }
+
 }

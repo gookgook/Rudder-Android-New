@@ -76,10 +76,17 @@ class MainActivity : AppCompatActivity() {
             containerId = R.id.booksearch_nav_host_fragment,
             intent = intent
         )
+
         /*controller.observe(this, Observer { navController ->
             setupActionBarWithNavController(navController)
         })*/
         currentNavController = controller
+        controller.value?.addOnDestinationChangedListener { controller, destination, arguments ->
+            when(destination.id) {
+                R.id.partyDetailFragment,R.id.createPartyFragment,R.id.applicantProfileFragment -> binding.bottomNavigationView.visibility = View.GONE
+                else -> binding.bottomNavigationView.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
