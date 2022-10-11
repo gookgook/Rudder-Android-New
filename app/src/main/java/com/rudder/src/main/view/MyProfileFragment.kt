@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.rudder.R
@@ -50,5 +51,10 @@ class MyProfileFragment: Fragment() {
             }
         })
     }
+
+    fun goChat() {
+        view?.let { Navigation.findNavController(it).navigate(R.id.action_fragment_myProfile_to_chat) }
+    }
+
 
 }

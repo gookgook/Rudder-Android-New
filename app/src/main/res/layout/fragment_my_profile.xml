@@ -17,7 +17,7 @@
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".LoginFragment">
@@ -149,6 +149,7 @@
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:text="Change Nickname"
+                    android:onClick="@{()->main.goChat()}"
                     />
 
                 <androidx.appcompat.widget.AppCompatButton

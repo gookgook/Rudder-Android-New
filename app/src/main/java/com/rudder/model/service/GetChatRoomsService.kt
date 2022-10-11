@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface GetChatService {
+interface GetChatRoomsService {
     @GET("/chat-rooms/party-group/{partyId}")
     suspend fun getParties(
         @Path("partyId") partyId: Int

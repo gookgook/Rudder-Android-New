@@ -31,5 +31,27 @@ class ChatDto {
             val chatRooms: List<PartyOneToOneChatRoom>
         )
 
+        data class Chat(
+            val chatMessageId: Int,
+            val chatMessageBody: String,
+            val chatMessageTime : String,
+            val sendUserInfoId: Int,
+            val sendUserNickname: String,
+            val isMine: Boolean,
+            val chatRoomId: Int
+        )
+
+        data class GetOldChatResponse(
+            val chatMessages: List<Chat>
+        )
+
+        data class ChatToSend(
+
+            val sender : String,
+            val body: String,
+            val channelId: Int,
+            val sendTime: Int
+        )
+
     }
 }
