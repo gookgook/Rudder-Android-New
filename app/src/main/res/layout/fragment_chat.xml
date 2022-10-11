@@ -57,7 +57,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginHorizontal="16dp"
                 android:background="@color/chatBackground"
-                android:text="@={main.chatBody}"
+                android:text="@={main.sendChatBody}"
                 >
             </EditText>
             <ImageButton
