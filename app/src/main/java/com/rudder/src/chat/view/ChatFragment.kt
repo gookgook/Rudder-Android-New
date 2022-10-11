@@ -17,7 +17,9 @@ import com.rudder.R
 import com.rudder.config.App
 import com.rudder.databinding.FragmentChatBinding
 import com.rudder.src.chat.viewmodel.ChatViewModel
+import com.rudder.util.SocketHandle.ChatReceivedEvent
 import kotlinx.android.synthetic.main.fragment_chat.view.*
+import org.greenrobot.eventbus.EventBus
 
 class ChatFragment : Fragment() {
 
@@ -49,7 +51,6 @@ class ChatFragment : Fragment() {
             it.adapter = chatListAdapter
         }
         //viewModel.getChatMessages(chatRoomId)
-        viewModel.connectChatRoomSocket()
         //viewModel.getOldChat()
 
         viewModel.chatMessages.observe(viewLifecycleOwner, Observer {
@@ -63,7 +64,19 @@ class ChatFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.registerEvent()
+    }
+
+    override fun onPause(){
+        super.onPause()
+        viewModel.unregisterEvent()
+    }
+
     private fun scrollToBottom(recyclerView: RecyclerView){
         recyclerView.smoothScrollToPosition(0)
     }
+
 }
+

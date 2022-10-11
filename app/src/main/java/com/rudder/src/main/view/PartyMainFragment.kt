@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rudder.MainActivity
 import com.rudder.R
+import com.rudder.config.App
 import com.rudder.databinding.FragmentPartyMainBinding
 import com.rudder.model.dto.PartyDto
 import com.rudder.src.main.viewmodel.PartyMainViewModel
+import com.rudder.util.StompManager
 
 class PartyMainFragment : Fragment() {
 
@@ -48,6 +50,8 @@ class PartyMainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         partyMainViewModel.getParties()
+        val userInfoId = App.prefs.getValue("userInfoId")
+        StompManager.connectSocket(userInfoId!!.toInt())
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
