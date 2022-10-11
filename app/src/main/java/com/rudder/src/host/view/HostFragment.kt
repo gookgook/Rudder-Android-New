@@ -2,7 +2,6 @@ package com.rudder.src.host.view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,17 +10,16 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.SnapHelper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.rudder.R
-import com.rudder.databinding.FragmentApplicationBinding
 import com.rudder.databinding.FragmentHostBinding
 import com.rudder.model.dto.PartyDto
-import com.rudder.src.application.view.ApprovedPartyListAdapter
 import com.rudder.src.host.viewmodel.HostViewModel
-import kotlinx.coroutines.flow.combine
 import java.sql.Timestamp
 
 
@@ -36,7 +34,22 @@ class HostFragment : Fragment() {
     }
 
     private val partyApplicantListAdapter by lazy {
-        PartyApplicantListAdapter()
+        val onPartyApplicantClickListener = { partyMemberId:Int, userInfoId: Int ->
+
+            kotlin.run {
+                val applicantProfileRequest = PartyDto.Companion.ApplicantProfileRequest(
+                    partyId = viewModel.selectedHostParty.value?.partyId ?: return@run,
+                    partyMemberId = partyMemberId,
+                    userInfoId = userInfoId
+                )
+                val action =
+                    HostFragmentDirections.actionHostFragmentToApplicantProfileFragment(applicantProfileRequest)
+                findNavController().navigate(action)
+            }
+
+        }
+
+        PartyApplicantListAdapter(onPartyApplicantClickListener)
     }
 
     private val partyHostOneToOneChatRoomListAdapter by lazy {
@@ -82,7 +95,10 @@ class HostFragment : Fragment() {
             it.layoutManager = LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
             it.setHasFixedSize(false)
             it.adapter = partyApplicantListAdapter
+            val snapHelper = PagerSnapHelper()
+            snapHelper.attachToRecyclerView(it)
         }
+
 
         binding.partyOneToOneChatRoomRV.also {
             it.layoutManager = LinearLayoutManager(requireActivity())

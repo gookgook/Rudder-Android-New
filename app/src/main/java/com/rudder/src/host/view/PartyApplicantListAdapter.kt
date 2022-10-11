@@ -7,11 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.rudder.databinding.AppliedPreItemBinding
 import com.rudder.databinding.PartyApplicantItemBinding
 import com.rudder.model.dto.PartyDto
 
-class PartyApplicantListAdapter() : ListAdapter<PartyDto.Companion.PartyApplicant,PartyApplicantListAdapter.PartyApplicantItemViewHolder>(
+class PartyApplicantListAdapter(val onPartyApplicantClickListener: (partyMemberId:Int, userInfoId:Int) -> Unit) : ListAdapter<PartyDto.Companion.PartyApplicant,PartyApplicantListAdapter.PartyApplicantItemViewHolder>(
     PartyApplicantDiffCallback()
 ){
 
@@ -47,6 +46,9 @@ class PartyApplicantListAdapter() : ListAdapter<PartyDto.Companion.PartyApplican
     override fun onBindViewHolder(holder: PartyApplicantItemViewHolder, position: Int) {
         val partyApplicant = getItem(position)
 
+        holder.partyApplicantItemBinding.partyApplicantItem.setOnClickListener {
+            onPartyApplicantClickListener(partyApplicant.partyMemberId, partyApplicant.userInfoId)
+        }
 
         Glide.with(holder.partyApplicantItemBinding.partyApplicantImageIV.context)
             .load(partyApplicant.partyProfileImageUrl)

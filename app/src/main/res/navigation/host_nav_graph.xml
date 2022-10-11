@@ -10,6 +10,18 @@
     <fragment
         android:id="@+id/hostFragment"
         android:name="com.rudder.src.host.view.HostFragment"
-        android:label="HostFragment" />
+        android:label="HostFragment" >
+        <action
+            android:id="@+id/action_hostFragment_to_applicantProfileFragment"
+            app:destination="@id/applicantProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/applicantProfileFragment"
+        android:name="com.rudder.src.host.view.ApplicantProfileFragment"
+        android:label="ApplicantProfileFragment" >
+        <argument
+            android:name="ApplicantProfileRequest"
+            app:argType="com.rudder.model.dto.PartyDto$Companion$ApplicantProfileRequest" />
+    </fragment>
 
 </navigation>
