@@ -134,7 +134,21 @@
         android:name="com.rudder.src.main.view.MyProfileFragment"
         android:label="myProfileFragment"
         tools:layout="@layout/fragment_my_profile"
-        />
+        >
+        <action
+            android:id="@+id/action_fragment_myProfile_to_chat"
+            app:destination="@id/chatFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.rudder.src.chat.view.ChatFragment"
+        android:label="chatFragment"
+        tools:layout="@layout/fragment_chat"
+        >
+
+    </fragment>
 
 
 

@@ -17,6 +17,8 @@
     <color name="Gray">#7F7488</color>
     <color name="lightPurple">#ECE5F5</color>
     <color name="super_light_gray">#E6E6E6</color>
+    <color name="chatPurple">#7A2BC8</color>
+    <color name="chatBackground">#F7F7F8</color>
 
 
 </resources>
