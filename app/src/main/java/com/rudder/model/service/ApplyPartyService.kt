@@ -10,6 +10,4 @@ interface ApplyPartyService {
         @Path("partyId") partyId: Int,
         @Body applyPartyRequest: PartyDto.Companion.ApplyPartyRequest
     ): Response<Void>
-
-
 }

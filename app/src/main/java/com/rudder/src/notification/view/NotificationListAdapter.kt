@@ -25,7 +25,7 @@ class NotificationListAdapter : ListAdapter<NotificationDto.Companion.Notificati
             oldItem: NotificationDto.Companion.Notification,
             newItem: NotificationDto.Companion.Notification,
         ): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
+            return oldItem.notificationId == newItem.notificationId
 
         }
 
