@@ -14,6 +14,8 @@ object StompManager {
 
     fun connectSocket(userInfoId: Int) {
 
+        Log.d("init_socket","hehey")
+
         stompSocketClient.topic("/queue/user." + userInfoId).subscribe{
             it?.let {
                 Log.d("socketMessage","come")

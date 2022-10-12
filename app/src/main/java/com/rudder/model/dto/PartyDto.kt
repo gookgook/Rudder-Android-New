@@ -127,36 +127,6 @@ class PartyDto {
             }
         }
 
-        data class HostParty(
-            var partyId: Int,
-            var partyDetail: PartyDetail,
-            var partyApplicants: List<PartyApplicant>,
-            var partyGroupChatRoom: ChatDto.Companion.PartyGroupChatRoom,
-            var partyOneToOneChatRooms: List<ChatDto.Companion.PartyOneToOneChatRoom>
-        ) {
-            companion object {
-                fun from(partyId: Int): HostParty {
-                    return HostParty(
-                        partyId = partyId,
-                        partyDetail = PartyDetail.mock,
-                        partyApplicants = arrayListOf(),
-                        partyGroupChatRoom = ChatDto.Companion.PartyGroupChatRoom.mock,
-                        partyOneToOneChatRooms = arrayListOf()
-                    )
-                }
-
-                fun from(hostParty: HostParty): HostParty{
-                    return HostParty(
-                        partyId = hostParty.partyId,
-                        partyDetail = hostParty.partyDetail,
-                        partyApplicants = hostParty.partyApplicants,
-                        partyGroupChatRoom = hostParty.partyGroupChatRoom,
-                        partyOneToOneChatRooms = hostParty.partyOneToOneChatRooms
-                    )
-                }
-            }
-        }
-
 
         data class GetPartyApplicantsResponse(
             val applicants: List<PartyApplicant>

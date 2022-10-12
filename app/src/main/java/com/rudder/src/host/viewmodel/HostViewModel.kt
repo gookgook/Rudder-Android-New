@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rudder.model.dto.ChatDto
+import com.rudder.model.dto.HostParty
 import com.rudder.model.dto.PartyDto
 import com.rudder.model.repository.ChatRepository
 import com.rudder.model.repository.PartyRepository
@@ -21,9 +22,9 @@ class HostViewModel : ViewModel() {
     val hostParties: LiveData<List<PartyDto.Companion.PartyOnlyDate>> =
         _hostParties
 
-    private val _selectedHostParty: MutableLiveData<PartyDto.Companion.HostParty> =
-        MutableLiveData(PartyDto.Companion.HostParty.from(-1))
-    val selectedHostParty: LiveData<PartyDto.Companion.HostParty> =
+    private val _selectedHostParty: MutableLiveData<HostParty> =
+        MutableLiveData(HostParty.from(-1))
+    val selectedHostParty: LiveData<HostParty> =
         _selectedHostParty
 
     init {
@@ -52,7 +53,7 @@ class HostViewModel : ViewModel() {
 
     fun setSelectedParty(partyId: Int) {
         viewModelScope.launch {
-            _selectedHostParty.value = PartyDto.Companion.HostParty.from(partyId)
+            _selectedHostParty.value = HostParty.from(partyId)
             getPartyApplicants()
             getPartyOneToOneChatRooms()
             getPartyDetail()
@@ -69,7 +70,7 @@ class HostViewModel : ViewModel() {
                     apiResponse.body() ?: return@launch
                 Log.d("getPartyApplicantsResponse",getPartyApplicantsResponse.applicants.toString())
                 _selectedHostParty.value?.partyApplicants = getPartyApplicantsResponse.applicants
-                _selectedHostParty.value = PartyDto.Companion.HostParty.Companion.from(_selectedHostParty.value?:return@launch)
+                _selectedHostParty.value = HostParty.Companion.from(_selectedHostParty.value?:return@launch)
             }
         }
     }
@@ -81,7 +82,7 @@ class HostViewModel : ViewModel() {
                 val getHostPartyOneToOneChatRoomsResponse: ChatDto.Companion.GetHostPartyOneToOneChatRoomsResponse =
                     apiResponse.body() ?: return@launch
                 _selectedHostParty.value?.partyOneToOneChatRooms = getHostPartyOneToOneChatRoomsResponse.chatRooms
-                _selectedHostParty.value = PartyDto.Companion.HostParty.Companion.from(_selectedHostParty.value?:return@launch)
+                _selectedHostParty.value = HostParty.Companion.from(_selectedHostParty.value?:return@launch)
             }
         }
 
@@ -95,7 +96,7 @@ class HostViewModel : ViewModel() {
                 val partyGroupChatRoom: ChatDto.Companion.PartyGroupChatRoom =
                     apiResponse.body() ?: return@launch
                 _selectedHostParty.value?.partyGroupChatRoom = partyGroupChatRoom
-                _selectedHostParty.value = PartyDto.Companion.HostParty.Companion.from(_selectedHostParty.value?:return@launch)
+                _selectedHostParty.value = HostParty.Companion.from(_selectedHostParty.value?:return@launch)
             }
         }
 
@@ -109,7 +110,7 @@ class HostViewModel : ViewModel() {
                 val getPartyDetailResponse: PartyDto.Companion.GetPartyDetailResponse =
                     apiResponse.body() ?: return@launch
                 _selectedHostParty.value?.partyDetail = getPartyDetailResponse.partyDetail
-                _selectedHostParty.value = PartyDto.Companion.HostParty.Companion.from(_selectedHostParty.value?:return@launch)
+                _selectedHostParty.value = HostParty.Companion.from(_selectedHostParty.value?:return@launch)
             }
         }
     }

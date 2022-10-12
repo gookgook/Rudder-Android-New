@@ -28,7 +28,7 @@ class PartyPreviewListAdapter(val onPartyPreviewClickListener: (Int) -> Unit) : 
             oldItem: PartyDto.Companion.PartyPreview,
             newItem: PartyDto.Companion.PartyPreview,
         ): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
+            return oldItem.partyId == newItem.partyId
 
         }
 

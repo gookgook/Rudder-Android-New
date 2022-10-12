@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -17,6 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.rudder.R
 import com.rudder.databinding.FragmentHostBinding
 import com.rudder.model.dto.ApplicantProfileRequest
+import com.rudder.model.dto.HostParty
 import com.rudder.model.dto.PartyDto
 import com.rudder.src.host.viewmodel.HostViewModel
 import java.sql.Timestamp
@@ -30,6 +32,12 @@ class HostFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
+    }
+
+    fun onSettingClickListener (hostParty: HostParty){
+        val action =
+            HostFragmentDirections.actionHostFragmentToPartySettingFragment(hostParty)
+        findNavController().navigate(action)
     }
 
     private val partyApplicantListAdapter by lazy {
@@ -74,6 +82,7 @@ class HostFragment : Fragment() {
                 partyDatesSpinnerAdapter.addAll(it)
                 if (!partyDatesSpinnerAdapter.isEmpty){
                     viewModel.setSelectedParty(partyDatesSpinnerAdapter.getItem(0)?.partyId?:return@let)
+
                 }
             }
         })
@@ -112,6 +121,11 @@ class HostFragment : Fragment() {
         if(selectedParty.partyId.equals(-1)) return
         viewModel.setSelectedParty(selectedParty.partyId)
     }
+
+    fun goSetting() {
+        view?.let { Navigation.findNavController(it).navigate(R.id.action_hostFragment_to_partySettingFragment) }
+    }
+
     companion object{
         val DEFAULT_TIMESTAMP = Timestamp.valueOf("0001-01-01 00:00:00")
     }

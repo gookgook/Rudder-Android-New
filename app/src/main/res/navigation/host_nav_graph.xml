@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_hostFragment_to_applicantProfileFragment"
             app:destination="@id/applicantProfileFragment" />
+        <action
+            android:id="@+id/action_hostFragment_to_partySettingFragment"
+            app:destination="@id/partySettingFragment" />
     </fragment>
     <fragment
         android:id="@+id/applicantProfileFragment"
@@ -22,6 +25,16 @@
         <argument
             android:name="applicantProfileRequest"
             app:argType="com.rudder.model.dto.ApplicantProfileRequest"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/partySettingFragment"
+        android:name="com.rudder.src.host.view.PartySettingFragment"
+        android:label="PartySettingFragment" >
+        <argument
+            android:name="hostParty"
+            app:argType="com.rudder.model.dto.HostParty" />
+
     </fragment>
 
 </navigation>
