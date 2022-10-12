@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_fragment_application_to_partyDetailFragment"
             app:destination="@id/partyDetailFragment" />
+        <action
+            android:id="@+id/action_fragment_application_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
 
 
@@ -24,6 +27,14 @@
         tools:layout="@layout/fragment_party_detail"  >
         <argument
             android:name="partyId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.rudder.src.chat.view.ChatFragment"
+        android:label="ChatFragment" >
+        <argument
+            android:name="chatRoomId"
             app:argType="integer" />
     </fragment>
 

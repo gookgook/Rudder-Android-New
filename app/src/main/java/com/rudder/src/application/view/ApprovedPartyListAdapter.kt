@@ -10,12 +10,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.rudder.databinding.AcceptedPreItemBinding
 import com.rudder.model.dto.PartyDto
-import java.sql.Timestamp
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ApprovedPartyListAdapter : ListAdapter<PartyDto.Companion.ApprovedPartyItem, ApprovedPartyListAdapter.ApprovedPartyItemViewHolder>(
+class ApprovedPartyListAdapter(val onApprovedPartyClickListener: (Int) -> Unit) : ListAdapter<PartyDto.Companion.ApprovedPartyItem, ApprovedPartyListAdapter.ApprovedPartyItemViewHolder>(
     PartyPreviewDiffCallback()
 ) {
     inner class ApprovedPartyItemViewHolder(
@@ -35,9 +34,9 @@ class ApprovedPartyListAdapter : ListAdapter<PartyDto.Companion.ApprovedPartyIte
             oldItem: PartyDto.Companion.ApprovedPartyItem,
             newItem: PartyDto.Companion.ApprovedPartyItem,
         ): Boolean {
-            val newRecentMessage = newItem.partyGroupChatRoom.recentMessage ?: ""
-            val oldRecentMessage = oldItem.partyGroupChatRoom.recentMessage ?: ""
-            return oldRecentMessage.equals(newRecentMessage)
+            Log.d("oldItem",oldItem.toString())
+            Log.d("newItem",newItem.toString())
+            return oldItem.partyGroupChatRoom.recentMessageTime.equals(newItem.partyGroupChatRoom.recentMessageTime)
         }
 
     }
@@ -59,6 +58,11 @@ class ApprovedPartyListAdapter : ListAdapter<PartyDto.Companion.ApprovedPartyIte
             .load(approvedPartyItem.party.partyThumbnailUrl)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.approvedPreItemBinding.partyThumbnailIV)
+
+        holder.approvedPreItemBinding.approvedPartyItemCL.setOnClickListener {
+            Log.d("approvedPartyItem",approvedPartyItem.toString())
+            onApprovedPartyClickListener(approvedPartyItem.partyGroupChatRoom.chatRoomId)
+        }
 
     }
 }

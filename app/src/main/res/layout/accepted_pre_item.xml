@@ -9,6 +9,7 @@
             type="String" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/approvedPartyItemCL"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@drawable/accepted_pre_item_style"

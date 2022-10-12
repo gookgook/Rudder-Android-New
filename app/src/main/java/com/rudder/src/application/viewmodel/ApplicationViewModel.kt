@@ -1,5 +1,6 @@
 package com.rudder.src.application.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +9,11 @@ import com.rudder.model.dto.ChatDto
 import com.rudder.model.dto.PartyDto
 import com.rudder.model.repository.ChatRepository
 import com.rudder.model.repository.PartyRepository
+import com.rudder.util.SocketHandle.ChatReceivedEvent
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.sql.Timestamp
 import java.util.stream.Collectors
 
@@ -138,5 +143,42 @@ class ApplicationViewModel : ViewModel() {
         }
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun handleChat(event: ChatReceivedEvent) {
+        val chatMessage = event.chat
+        _approvedPartyItems.value?.forEach{(k,v)->
+            run {
+                if (v.partyGroupChatRoom.chatRoomId.equals(chatMessage.chatRoomId)) {
+                    v.partyGroupChatRoom.receiveNewMessage(chatMessage)
+                }
+            }
+        }
+
+        _appliedPartyItems.value?.forEach{(k,v)->
+            run {
+                if (v.partyOneToOneChatRoom.chatRoomId.equals(chatMessage.chatRoomId)) {
+                    v.partyOneToOneChatRoom.receiveNewMessage(chatMessage)
+                }
+            }
+        }
+        updateMap()
+    }
+
+    fun updateMap(){
+        val copyMap1 = HashMap(_approvedPartyItems.value)
+        _approvedPartyItems.value = copyMap1
+        Log.d("_approvedPartyItems",_approvedPartyItems.value.toString())
+        val copyMap2 = HashMap(_appliedPartyItems.value)
+        _appliedPartyItems.value = copyMap2
+    }
+
+    fun registerEvent() {
+        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this)
+    }
+
+    fun unregisterEvent() {
+        if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this)
+    }
 
 }

@@ -18,7 +18,12 @@ import com.rudder.src.application.viewmodel.ApplicationViewModel
 class ApplicationFragment : Fragment() {
 
     private val approvedPartyListAdapter by lazy {
-        ApprovedPartyListAdapter()
+        val onApprovedPartyClickListener = { chatRoomId: Int ->
+            val action =
+                ApplicationFragmentDirections.actionFragmentApplicationToChatFragment(chatRoomId = chatRoomId)
+            findNavController().navigate(action)
+        }
+        ApprovedPartyListAdapter(onApprovedPartyClickListener)
     }
 
     private val appliedPartyListAdapter by lazy {
@@ -36,6 +41,21 @@ class ApplicationFragment : Fragment() {
     }
     private lateinit var binding: FragmentApplicationBinding
     private val viewModel: ApplicationViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.registerEvent()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        viewModel.unregisterEvent()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,6 +87,7 @@ class ApplicationFragment : Fragment() {
             it?.let {
 
 
+                Log.d("in_application",it.toString())
                 approvedPartyListAdapter.submitList(it.toList().map { it.second } )
 
             }

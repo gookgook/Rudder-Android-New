@@ -51,7 +51,9 @@ class PartyMainFragment : Fragment() {
         super.onCreate(savedInstanceState)
         partyMainViewModel.getParties()
         val userInfoId = App.prefs.getValue("userInfoId")
-        StompManager.connectSocket(userInfoId!!.toInt())
+        if (!userInfoId.isNullOrEmpty()){
+            StompManager.connectSocket(userInfoId!!.toInt())
+        }
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

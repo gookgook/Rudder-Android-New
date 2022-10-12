@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rudder.MainActivity
@@ -18,6 +19,7 @@ import com.rudder.config.App
 import com.rudder.databinding.FragmentChatBinding
 import com.rudder.src.chat.viewmodel.ChatViewModel
 import com.rudder.util.SocketHandle.ChatReceivedEvent
+import com.rudder.util.StompManager
 import kotlinx.android.synthetic.main.fragment_chat.view.*
 import org.greenrobot.eventbus.EventBus
 
@@ -29,10 +31,19 @@ class ChatFragment : Fragment() {
         activity as MainActivity
     }
 
+    private val args : ChatFragmentArgs by navArgs()
+
     private val lazyContext by lazy {
         context
     }
     private val viewModel: ChatViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.setChatRoomId(args.chatRoomId)
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

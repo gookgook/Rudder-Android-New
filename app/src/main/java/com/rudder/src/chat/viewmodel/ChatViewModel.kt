@@ -16,21 +16,23 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Response
 
-class ChatViewModel: ViewModel() {
+class ChatViewModel : ViewModel() {
     val chatMessages = MutableLiveData<MutableList<ChatDto.Companion.Chat>>(arrayListOf())
-    private val currentChatRoomId = MutableLiveData<Long>()
 
 
     val receivedChatFlag = MutableLiveData<Boolean>(false)
 
-    val chatRoomId = 54 //여따 채널아이디 넣으셈
+    private var chatRoomId= -1//여따 채널아이디 넣으셈
     val sendChatBody = MutableLiveData<String>()
 
 
-    fun getOldChat(){
-        val getOldChatService: GetOldChatService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(GetOldChatService::class.java)
+
+    fun getOldChat() {
+        val getOldChatService: GetOldChatService =
+            RetrofitClient.getClient(BuildConfig.BASE_URL).create(GetOldChatService::class.java)
         viewModelScope.launch {
-            val getOldChatRequest: Response<ChatDto.Companion.GetOldChatResponse> = getOldChatService.getOldChats(chatRoomId, "-1")
+            val getOldChatRequest: Response<ChatDto.Companion.GetOldChatResponse> =
+                getOldChatService.getOldChats(chatRoomId, "-1")
             chatMessages.value?.let {
 
                 chatMessages.postValue(getOldChatRequest.body()!!.chatMessages.toMutableList())
@@ -41,21 +43,29 @@ class ChatViewModel: ViewModel() {
     }
 
     fun sendMessage() {
+        Log.d("setChatRoomId2",chatRoomId.toString())
+        Log.d("sendChatTest", "sendMessage Touched")
 
-        Log.d("sendChatTest","sendMessage Touched")
-        currentChatRoomId.value = 54
 
-        val sendChatService: SendChatService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(SendChatService::class.java)
+        val sendChatService: SendChatService =
+            RetrofitClient.getClient(BuildConfig.BASE_URL).create(SendChatService::class.java)
 
-        currentChatRoomId.value?.let { currentChatRoomId ->
+
             viewModelScope.launch {
                 sendChatBody.value?.let {
-                    if(it == "") return@launch
-                    val sendChatRequest: Response<Void> = sendChatService.sendChat(ChatDto.Companion.ChatToSend("mock",it,chatRoomId,13))
-                    Log.d("sendChatTest",sendChatRequest.code().toString())
+                    if (it == "") return@launch
+                    val sendChatRequest: Response<Void> = sendChatService.sendChat(
+                        ChatDto.Companion.ChatToSend(
+                            "mock",
+                            it,
+                            chatRoomId,
+                            13
+                        )
+                    )
+                    Log.d("sendChatTest", sendChatRequest.code().toString())
                     sendChatBody.value = ""
                 }
-            }
+
 
         }
     }
@@ -63,25 +73,30 @@ class ChatViewModel: ViewModel() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun handleChat(event: ChatReceivedEvent) {
         val chatMessage = event.chat
-        if(chatMessage.chatRoomId != chatRoomId) return
+        if (chatMessage.chatRoomId != chatRoomId) return
 
         chatMessages.value?.let {
-            Log.d("chatBody",chatMessage.chatMessageBody)
+            Log.d("chatBody", chatMessage.chatMessageBody)
 
             val copyList = it.toMutableList()
-            copyList.add(0,chatMessage)
+            copyList.add(0, chatMessage)
             chatMessages.postValue(copyList)
 
             receivedChatFlag.postValue(true)
         }
     }
 
-    fun registerEvent(){
-        if(!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this)
+    fun registerEvent() {
+        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this)
     }
 
-    fun unregisterEvent(){
+    fun unregisterEvent() {
         if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this)
+    }
+
+    fun setChatRoomId(chatRoomId: Int) {
+        this.chatRoomId = chatRoomId
+        Log.d("setChatRoomId1",chatRoomId.toString())
     }
 
 }

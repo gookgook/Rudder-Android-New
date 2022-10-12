@@ -12,8 +12,8 @@ class ChatDto {
             val chatRoomImageUrl: String,
             val chatRoomTitle: String,
             val notReadMessageCount: Int,
-            val recentMessage: String = "",
-            val recentMessageTime: Timestamp
+            var recentMessage: String = "",
+            var recentMessageTime: Timestamp
         ){
             companion object{
                 val mock = PartyGroupChatRoom(
@@ -25,6 +25,11 @@ class ChatDto {
                     recentMessageTime = Timestamp(System.currentTimeMillis())
                 )
             }
+
+            fun receiveNewMessage(chat: Chat){
+                recentMessage = chat.chatMessageBody
+                recentMessageTime =Timestamp.valueOf(chat.chatMessageTime)
+            }
         }
 
         data class PartyOneToOneChatRoom(
@@ -32,11 +37,16 @@ class ChatDto {
             val chatRoomImageUrl: String,
             val chatRoomTitle: String,
             val notReadMessageCount: Int,
-            val recentMessage: String = "",
-            val recentMessageTime: Timestamp,
+            var recentMessage: String = "",
+            var recentMessageTime: Timestamp,
             val otherUserInfoId: Int,
             val partyId: Int
-        )
+        ){
+            fun receiveNewMessage(chat: Chat){
+                recentMessage = chat.chatMessageBody
+                recentMessageTime =Timestamp.valueOf(chat.chatMessageTime)
+            }
+        }
 
         data class GetApplicationPartyOneToOneChatRoomsResponse(
             val chatRooms: List<PartyOneToOneChatRoom>
