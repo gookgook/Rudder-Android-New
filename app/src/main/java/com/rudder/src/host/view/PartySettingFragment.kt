@@ -11,11 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.rudder.R
 import com.rudder.databinding.FragmentPartySettingBinding
+import com.rudder.model.dto.HostParty
 import com.rudder.src.host.viewmodel.PartySettingViewModel
 import com.rudder.src.main.view.PartyDetailFragmentArgs
 
@@ -29,6 +31,19 @@ class PartySettingFragment: Fragment() {
 
     var partyThumbnailUrl: String = "" //여따 넣으셈
     var partyId = -1
+
+    fun onEnquiryClickListener (view: View, partyId: Int){
+        if (view.id == R.id.partyProblemBT) {
+            val action =
+                PartySettingFragmentDirections.actionPartySettingFragmentToPartyEnquiryFragment(partyId, "problem")
+            findNavController().navigate(action)
+        } else {
+            val action =
+                PartySettingFragmentDirections.actionPartySettingFragmentToPartyEnquiryFragment(partyId, "enquiry")
+            findNavController().navigate(action)
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +61,7 @@ class PartySettingFragment: Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_party_setting, container, false)
         binding.main = this
+        binding.partyId = partyId
 
         setBinding()
         setThumbnailImage()

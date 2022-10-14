@@ -56,5 +56,9 @@ class MyProfileFragment: Fragment() {
         view?.let { Navigation.findNavController(it).navigate(R.id.action_fragment_myProfile_to_chat) }
     }
 
+    fun goTerms() {
+        view?.let { Navigation.findNavController(it).navigate(R.id.action_fragment_myProfile_to_terms) }
+    }
+
 
 }

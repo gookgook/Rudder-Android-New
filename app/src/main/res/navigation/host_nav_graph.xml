@@ -34,7 +34,22 @@
         <argument
             android:name="hostParty"
             app:argType="com.rudder.model.dto.HostParty" />
+        <action
+            android:id="@+id/action_partySettingFragment_to_partyEnquiryFragment"
+            app:destination="@id/partyEnquiryFragment" />
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/partyEnquiryFragment"
+        android:name="com.rudder.src.host.view.PartyEnquiryFragment"
+        android:label="PartyEnquiryFragment">
+        <argument
+            android:name="partyId"
+            app:argType="integer" />
+        <argument
+            android:name="enquiryType"
+            app:argType="string" />
     </fragment>
 
 </navigation>

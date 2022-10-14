@@ -139,6 +139,10 @@
             android:id="@+id/action_fragment_myProfile_to_chat"
             app:destination="@id/chatFragment"
             />
+        <action
+            android:id="@+id/action_fragment_myProfile_to_terms"
+            app:destination="@id/termsFragment"
+            />
     </fragment>
 
     <fragment
@@ -148,6 +152,14 @@
         tools:layout="@layout/fragment_chat"
         >
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="com.rudder.src.main.view.TermsFragment"
+        android:label="termsFragment"
+        tools:layout="@layout/fragment_terms"
+        >
     </fragment>
 
 

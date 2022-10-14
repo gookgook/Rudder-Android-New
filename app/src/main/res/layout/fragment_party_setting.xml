@@ -8,6 +8,9 @@
         <variable
             name="main"
             type="com.rudder.src.host.view.PartySettingFragment" />
+        <variable
+            name="partyId"
+            type="Integer" />
 
 
     </data>
@@ -143,7 +146,7 @@
                     />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/userAgreementBT"
+                    android:id="@+id/partyProblemBT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00000000"
@@ -157,10 +160,12 @@
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:text = "Problem"
+                    android:onClick="@{(view)->main.onEnquiryClickListener(view, partyId)}"
+
                     />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/contactUstBT"
+                    android:id="@+id/partyEnquiryBT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00000000"
@@ -168,12 +173,13 @@
                     android:textSize="12sp"
                     android:textColor="#333333"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/userAgreementBT"
+                    app:layout_constraintTop_toBottomOf="@id/partyProblemBT"
                     android:layout_marginStart="28dp"
                     android:layout_marginTop="12dp"
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:text="Enquiry"
+                    android:onClick="@{(view)->main.onEnquiryClickListener(view, partyId)}"
                     />
 
 
