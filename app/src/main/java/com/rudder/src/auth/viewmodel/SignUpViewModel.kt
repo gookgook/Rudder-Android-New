@@ -34,18 +34,29 @@ class SignUpViewModel: ViewModel() {
     val emailValidateResultFlag = MutableLiveData<Int>()
     val profileCheckFlag = MutableLiveData<Int>()
 
+    val isTermsAgreed = MutableLiveData<Boolean>(false)
+
     var profileImages = arrayOf<File>()
     var imageMetadatas = arrayOf<ImageMetaData>()
 
+    val isLoadingFlag = MutableLiveData<Boolean> (false)
+
     fun onClickNext() {
+
         val safeUserId: String = userId.value?:run { emailValidateResultFlag.postValue(-2); return }
         val safeUserPassword: String = userPassword.value?:run {  emailValidateResultFlag.postValue(-2); return }
+
+        if (!isTermsAgreed.value!!) {
+            emailValidateResultFlag.value = 4
+            return
+        }
 
         val emailValidateService: EmailValidateService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(EmailValidateService::class.java)
 
         viewModelScope.launch {
-
+            isLoadingFlag.value = true
             val emailValidateRequest: Response<Void> = emailValidateService.getEmailValidateResult(safeUserId)
+            isLoadingFlag.value = false
             Log.d("emailVal",emailValidateRequest.code().toString())
             when (emailValidateRequest.code()) {
                 200 -> emailValidateResultFlag.value = 1
@@ -81,8 +92,11 @@ class SignUpViewModel: ViewModel() {
             }
 
             Log.d("photoUpload","Success")
-
         }
+    }
+
+    fun onCLickedAgreed() {
+        isTermsAgreed.value = !isTermsAgreed.value!!
     }
 
 
@@ -92,6 +106,8 @@ class SignUpViewModel: ViewModel() {
         profileImages = profileImages.plus(uri)
         imageMetadatas = imageMetadatas.plus(ImageMetaData(contentType,"namename"))
     }
+
+
 
 
 }

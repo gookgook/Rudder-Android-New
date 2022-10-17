@@ -8,6 +8,10 @@
         <variable
             name="main"
             type="com.rudder.src.auth.viewmodel.SignUpViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.rudder.src.auth.view.SignUp2Fragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +21,18 @@
         tools:context=".Signup1Fragment"
         android:background="@color/white"
         >
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:translationZ="1dp"
+            android:background="@drawable/ic_round_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->fragment.requireActivity().onBackPressed()}"
+            />
 
 
         <TextView
@@ -28,6 +44,7 @@
             android:text="Profile"
             android:textColor="@color/black"
             android:textSize="30dp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -39,6 +56,7 @@
             android:layout_marginTop="48dp"
             android:text="Nickname"
             android:textColor="@color/black"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"></TextView>
 
@@ -46,13 +64,13 @@
         <EditText
             android:id="@+id/idET"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="48dp"
             android:layout_marginHorizontal="30dp"
 
             android:layout_marginTop="14dp"
-            android:background="@color/lightGray"
-            android:hint="UNI EMAIL"
-            android:paddingHorizontal="6dp"
+            android:background="@drawable/background_rounding"
+            android:hint="Nickname"
+            android:paddingHorizontal="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView2"
@@ -68,6 +86,7 @@
             app:layout_constraintTop_toBottomOf="@id/idET"
             android:layout_marginStart="30dp"
             android:layout_marginTop="42dp"
+            android:textSize="20sp"
             android:textColor="@color/black"
             android:text="Description"
             ></TextView>
@@ -80,9 +99,9 @@
             android:layout_height="100dp"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="14dp"
-            android:background="@color/lightGray"
+            android:background="@drawable/background_rounding"
             android:hint="More details you write,\nBetter you will be selected!"
-            android:paddingHorizontal="6dp"
+            android:paddingHorizontal="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView3"
@@ -91,21 +110,24 @@
 
         </EditText>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginBT"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="next"
+            android:text="Next"
             android:layout_marginStart="28dp"
             android:layout_marginEnd="28dp"
             android:layout_marginBottom="34dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/button_style"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
             android:onClick="@{()->main.onClickNext2()}"
             >
 
-        </Button>
+        </androidx.appcompat.widget.AppCompatButton>
 
 
 

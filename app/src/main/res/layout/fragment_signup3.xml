@@ -21,6 +21,18 @@
         android:background="@color/white"
         >
 
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:translationZ="1dp"
+            android:background="@drawable/ic_round_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->frag.requireActivity().onBackPressed()}"
+            />
+
 
         <TextView
             android:id="@+id/textView"
@@ -31,6 +43,7 @@
             android:text="Add photos"
             android:textColor="@color/black"
             android:textSize="30dp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -65,7 +78,7 @@
             app:layout_constraintStart_toEndOf="@id/cs1"
             android:layout_marginStart="0dp"
             android:layout_marginTop="35dp"
-            android:background="@color/lightPurple"
+            android:background="@drawable/add_photo_style"
             app:layout_constraintWidth_percent="0.2513"
             app:layout_constraintDimensionRatio="1:1"
             android:onClick="@{frag.selectGallery}">
@@ -108,7 +121,7 @@
             app:layout_constraintStart_toEndOf="@id/cs3"
             android:layout_marginStart="0dp"
             android:layout_marginTop="35dp"
-            android:background="@color/lightPurple"
+            android:background="@drawable/add_photo_style"
             app:layout_constraintWidth_percent="0.2513"
             app:layout_constraintDimensionRatio="1:1"
             android:onClick="@{frag.selectGallery}">
@@ -150,7 +163,7 @@
             app:layout_constraintStart_toEndOf="@id/cs5"
             android:layout_marginStart="0dp"
             android:layout_marginTop="35dp"
-            android:background="@color/lightPurple"
+            android:background="@drawable/add_photo_style_optional"
             app:layout_constraintWidth_percent="0.2513"
             app:layout_constraintDimensionRatio="1:1"
             android:onClick="@{frag.selectGallery}">
@@ -201,7 +214,7 @@
             app:layout_constraintStart_toEndOf="@id/cs1"
             android:layout_marginStart="0dp"
             android:layout_marginTop="35dp"
-            android:background="@color/lightPurple"
+            android:background="@drawable/add_photo_style_optional"
             app:layout_constraintWidth_percent="0.2513"
             app:layout_constraintDimensionRatio="1:1"
             android:onClick="@{frag.selectGallery}">
@@ -241,7 +254,7 @@
             app:layout_constraintStart_toEndOf="@id/cs3"
             android:layout_marginStart="0dp"
             android:layout_marginTop="35dp"
-            android:background="@color/lightPurple"
+            android:background="@drawable/add_photo_style_optional"
             app:layout_constraintWidth_percent="0.2513"
             app:layout_constraintDimensionRatio="1:1"
             android:onClick="@{frag.selectGallery}">
@@ -281,7 +294,7 @@
             app:layout_constraintStart_toEndOf="@id/cs5"
             android:layout_marginStart="0dp"
             android:layout_marginTop="35dp"
-            android:background="@color/lightPurple"
+            android:background="@drawable/add_photo_style_optional"
             app:layout_constraintWidth_percent="0.2513"
             app:layout_constraintDimensionRatio="1:1"
             android:onClick="@{frag.selectGallery}">
@@ -315,19 +328,35 @@
 
 
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginBT"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="done"
+            android:text="Done"
             android:layout_marginStart="28dp"
             android:layout_marginEnd="28dp"
             android:layout_marginBottom="34dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/button_style"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
             android:onClick="@{()->main.onClickDone()}">
-        </Button>
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cs11"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:textColor="@color/Gray"
+            android:textSize="12sp"
+            android:text="Minimum 2 photos are needed"
+            >
+
+        </TextView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

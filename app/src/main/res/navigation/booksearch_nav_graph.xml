@@ -41,6 +41,10 @@
         <action
             android:id="@+id/action_fragment_signup1_to_fragment_signup2"
             app:destination="@id/fragment_signup2" />
+        <action
+            android:id="@+id/action_fragment_signup1_to_terms"
+            app:destination="@id/termsFragment"
+            />
     </fragment>
 
 

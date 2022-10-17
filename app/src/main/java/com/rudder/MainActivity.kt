@@ -10,11 +10,16 @@ import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.rudder.databinding.MainActivityBinding
+import com.rudder.util.LoadingDialog
 import com.rudder.util.setupWithNavController
 
 class MainActivity : AppCompatActivity() {
     private val binding: MainActivityBinding by lazy {
         MainActivityBinding.inflate(layoutInflater)
+    }
+
+    val dialog by lazy {
+        LoadingDialog(this)
     }
 
     private lateinit var navController: NavController
@@ -62,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNavigationBar() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
-        val navGraphIds = listOf(R.navigation.booksearch_nav_graph, R.navigation.host_nav_graph,R.navigation.application_nav_graph)
+        val navGraphIds = listOf(R.navigation.booksearch_nav_graph,R.navigation.host_nav_graph,R.navigation.application_nav_graph)
         val controller = bottomNavigationView.setupWithNavController(
             navGraphIds = navGraphIds,
             fragmentManager = supportFragmentManager,
