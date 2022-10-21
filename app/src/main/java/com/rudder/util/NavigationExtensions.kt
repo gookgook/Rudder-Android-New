@@ -61,7 +61,6 @@ fun BottomNavigationView.setupWithNavController(
         if (this.selectedItemId == graphId) {
             // Update livedata with the selected graph
             selectedNavController.value = navHostFragment.navController
-
             //수정한 부분
             fragmentManager.beginTransaction()
                 .attach(navHostFragment)
@@ -74,7 +73,6 @@ fun BottomNavigationView.setupWithNavController(
                         }
                     }
                 }
-                .addToBackStack(fragmentTag)
                 .setCustomAnimations(
                     R.anim.nav_default_enter_anim,
                     R.anim.nav_default_exit_anim,
@@ -96,7 +94,7 @@ fun BottomNavigationView.setupWithNavController(
     var isOnFirstFragment = selectedItemTag == firstFragmentTag
 
     // When a navigation item is selected
-    setOnNavigationItemSelectedListener { item ->
+    setOnItemSelectedListener { item ->
         // Don't do anything if the state is state has already been saved.
         if (fragmentManager.isStateSaved) {
             false
