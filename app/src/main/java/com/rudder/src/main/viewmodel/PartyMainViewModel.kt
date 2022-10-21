@@ -8,6 +8,8 @@ import com.rudder.model.dto.PartyDto
 import com.rudder.model.RetrofitClient
 import com.rudder.model.repository.PartyRepository
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class PartyMainViewModel : ViewModel() {
 
@@ -19,13 +21,18 @@ class PartyMainViewModel : ViewModel() {
 
     private val getPartyRequest: PartyDto.Companion.GetPartiesRequest = PartyDto.Companion.GetPartiesRequest(endPartyId = null)
 
+    val isLoadingFlag = MutableLiveData<Boolean> (false)
+
+    val newNoticationFlag = MutableLiveData<Boolean> (false)
     init {
         getParties()
     }
 
     fun getParties(isMore: Boolean=false) {
         viewModelScope.launch {
+            isLoadingFlag.value = true
             val apiResponse = PartyRepository.instance.getParties(getPartyRequest)
+            isLoadingFlag.value = false
             if (apiResponse.code()==200){
                 val getPartiesResponse: PartyDto.Companion.GetPartiesResponse = apiResponse.body()?: PartyDto.Companion.GetPartiesResponse(
                     arrayListOf()
@@ -52,5 +59,10 @@ class PartyMainViewModel : ViewModel() {
     fun refreshParties(){
         getPartyRequest.endPartyId = null
         getParties()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun handleNotification(){
+        newNoticationFlag.value = true
     }
 }

@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.rudder.MainActivity
 import com.rudder.R
 import com.rudder.config.App
@@ -83,6 +84,28 @@ class PartyMainFragment : Fragment() {
             })
         }
 
+        partyMainViewModel.newNoticationFlag.observe(viewLifecycleOwner, Observer { status ->
+
+
+           '' if (status) {
+
+                Glide.with(this.activity)
+                    .load(R.drawable.bell_with_point)
+                    .fitCenter()
+                    .into(binding.notificationIV)
+            } else {
+                Glide.with(this.activity)
+                    .load(R.drawable.bell)
+                    .fitCenter()
+                    .into(binding.notificationIV)
+            }
+        })
+
+        partyMainViewModel.isLoadingFlag.observe(viewLifecycleOwner, Observer { status ->
+            if (status) (activity as MainActivity).dialog.show()
+            else {(activity as MainActivity).dialog.hide() }
+        })
+
         partyMainViewModel.partyPreviewList.observe(viewLifecycleOwner, Observer {
             partyPreviewListAdapter.submitList(it.toList())
         })
@@ -91,6 +114,7 @@ class PartyMainFragment : Fragment() {
             partyMainViewModel.refreshParties()
             binding.partyPreviewListSRL.isRefreshing = false
         }
+
 
         partyMainViewModel.toastMessage.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -103,6 +127,7 @@ class PartyMainFragment : Fragment() {
     }
 
     fun goNotificationFragment() {
+        partyMainViewModel.newNoticationFlag.value = false
         findNavController().navigate(R.id.action_fragment_party_main_to_notificationFragment)
     }
 

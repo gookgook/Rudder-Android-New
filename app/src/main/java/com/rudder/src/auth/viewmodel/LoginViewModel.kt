@@ -20,6 +20,8 @@ class LoginViewModel : ViewModel() {
 
     val loginResultFlag = MutableLiveData<Int> ()
 
+    val isLoadingFlag = MutableLiveData<Boolean> (false)
+
     lateinit var loginResultText: String
 
     fun onClickLogin(){
@@ -37,8 +39,12 @@ class LoginViewModel : ViewModel() {
 
         viewModelScope.launch {
 
+            isLoadingFlag.value = true
             val loginRequest: Response<LoginResult> = loginService.getLoginResult(LoginInfo("notiToken","ios",safeUserId, safeUserPassword))
+            isLoadingFlag.value = false
+
             when(loginRequest.code()) {
+
                 200 -> {
                     val accessToken = loginRequest.body()!!.accessToken
                     val userInfoId = loginRequest.body()!!.userInfoId

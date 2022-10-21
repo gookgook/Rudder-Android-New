@@ -32,6 +32,8 @@ class HostViewModel : ViewModel() {
     val selectedHostParty: LiveData<HostParty> =
         _selectedHostParty
 
+    val isLoadingFlag = MutableLiveData<Boolean> (false)
+
     init {
 
         getHostParties()
@@ -41,8 +43,9 @@ class HostViewModel : ViewModel() {
 
     fun getHostParties() {
         viewModelScope.launch {
-
+            isLoadingFlag.value = true
             val apiResponse = PartyRepository.instance.getHostParties()
+            isLoadingFlag.value = false
             if (apiResponse.code() == 200) {
                 val getHostPartiesResponse: PartyDto.Companion.GetHostPartiesResponse =
                     apiResponse.body() ?: PartyDto.Companion.GetHostPartiesResponse(
@@ -67,16 +70,20 @@ class HostViewModel : ViewModel() {
             getPartyOneToOneChatRooms()
             getPartyDetail()
             getPartyGroupChatRoom()
+            isLoadingFlag.value = false
         }
     }
 
 
     fun getPartyApplicants(){
         viewModelScope.launch {
+            isLoadingFlag.value = true
             val apiResponse = PartyRepository.instance.getPartyApplicants(_selectedHostParty.value?.partyId?: return@launch)
+            isLoadingFlag.value = false
             if (apiResponse.code() == 200) {
                 val getPartyApplicantsResponse: PartyDto.Companion.GetPartyApplicantsResponse =
                     apiResponse.body() ?: return@launch
+                Log.d("getPartyApplicantsResponse",getPartyApplicantsResponse.applicants.toString())
                 _selectedHostParty.value?.partyApplicants = getPartyApplicantsResponse.applicants
                 _selectedHostParty.value = HostParty.Companion.from(_selectedHostParty.value?:return@launch)
             }
@@ -85,7 +92,9 @@ class HostViewModel : ViewModel() {
 
     fun getPartyOneToOneChatRooms() {
         viewModelScope.launch {
+            isLoadingFlag.value = true
             val apiResponse = ChatRepository.instance.getHostPartyOneToOneChatRooms(_selectedHostParty.value?.partyId?: return@launch)
+            isLoadingFlag.value = false
             if (apiResponse.code() == 200) {
                 val getHostPartyOneToOneChatRoomsResponse: ChatDto.Companion.GetHostPartyOneToOneChatRoomsResponse =
                     apiResponse.body() ?: return@launch
@@ -99,7 +108,9 @@ class HostViewModel : ViewModel() {
 
     fun getPartyGroupChatRoom() {
         viewModelScope.launch {
+            isLoadingFlag.value = true
             val apiResponse = ChatRepository.instance.getPartyGroupChatRoom(_selectedHostParty.value?.partyId?: return@launch)
+            isLoadingFlag.value = false
             if (apiResponse.code() == 200) {
                 val partyGroupChatRoom: ChatDto.Companion.PartyGroupChatRoom =
                     apiResponse.body() ?: return@launch
@@ -112,8 +123,9 @@ class HostViewModel : ViewModel() {
 
     fun getPartyDetail(){
         viewModelScope.launch {
-
+            isLoadingFlag.value = true
             val apiResponse = PartyRepository.instance.getPartyDetail(PartyDto.Companion.GetPartyDetailRequest(_selectedHostParty.value?.partyId?: return@launch))
+            isLoadingFlag.value = false
             if (apiResponse.code() == 200) {
                 val getPartyDetailResponse: PartyDto.Companion.GetPartyDetailResponse =
                     apiResponse.body() ?: return@launch

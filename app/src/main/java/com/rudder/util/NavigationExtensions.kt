@@ -27,7 +27,8 @@ fun BottomNavigationView.setupWithNavController(
     intent: Intent
 ): LiveData<NavController> {
 
-    // Map of tags
+    // Map of tags'''''''''
+
     val graphIdToTagMap = SparseArray<String>()
     // Result. Mutable live data with the selected controlled
     val selectedNavController = MutableLiveData<NavController>()
@@ -95,7 +96,7 @@ fun BottomNavigationView.setupWithNavController(
     var isOnFirstFragment = selectedItemTag == firstFragmentTag
 
     // When a navigation item is selected
-    setOnNavigationItemSelectedListener { item ->
+    setOnItemReselectedListener { item ->
         // Don't do anything if the state is state has already been saved.
         if (fragmentManager.isStateSaved) {
             false

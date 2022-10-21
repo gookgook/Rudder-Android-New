@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.rudder.MainActivity
 //import androidx.navigation.Navigation.*
 import com.rudder.R
 import com.rudder.databinding.FragmentLoginBinding
@@ -55,6 +56,11 @@ class LoginFragment : Fragment() {
                     else -> Toast.makeText(this.activity, "Server Error", Toast.LENGTH_SHORT).show()
                 }
             }
+        })
+
+        viewModel.isLoadingFlag.observe(viewLifecycleOwner, Observer { status ->
+            if (status) (activity as MainActivity).dialog.show()
+            else {(activity as MainActivity).dialog.hide() }
         })
     }
 

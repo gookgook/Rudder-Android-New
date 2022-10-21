@@ -17,12 +17,15 @@ class PartyDetailViewModel : ViewModel() {
     private val _partyDetail: MutableLiveData<PartyDto.Companion.PartyDetail> = MutableLiveData()
     val partyDetail: LiveData<PartyDto.Companion.PartyDetail> = _partyDetail
 
+    val isLoadingFlag = MutableLiveData<Boolean> (false)
 
 
     fun getPartyDetail(partyId: Int) {
         viewModelScope.launch {
             val getPartyDetailRequest = PartyDto.Companion.GetPartyDetailRequest(partyId = partyId)
+            isLoadingFlag.value = true
             val apiResponse = PartyRepository.instance.getPartyDetail(getPartyDetailRequest)
+            isLoadingFlag.value = false
             if (apiResponse.code()==200){
                 val getPartyDetailResponse: PartyDto.Companion.GetPartyDetailResponse = apiResponse.body()?: return@launch
 

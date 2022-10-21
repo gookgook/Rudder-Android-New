@@ -11,11 +11,16 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.rudder.databinding.MainActivityBinding
+import com.rudder.util.LoadingDialog
 import com.rudder.util.setupWithNavController
 
 class MainActivity : AppCompatActivity() {
     private val binding: MainActivityBinding by lazy {
         MainActivityBinding.inflate(layoutInflater)
+    }
+
+    val dialog by lazy {
+        LoadingDialog(this)
     }
 
     private lateinit var navController: NavController

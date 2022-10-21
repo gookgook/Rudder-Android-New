@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.rudder.MainActivity
 import com.rudder.databinding.FragmentNotificationBinding
 import com.rudder.src.notification.viewmodel.NotificationViewModel
 
@@ -66,6 +67,11 @@ class NotificationFragment : Fragment() {
             it.let {
                 Toast.makeText(mContext,it,Toast.LENGTH_SHORT).show()
             }
+        })
+
+        notificationViewModel.isLoadingFlag.observe(viewLifecycleOwner, Observer { status ->
+            if (status) (activity as MainActivity).dialog.show()
+            else {(activity as MainActivity).dialog.hide() }
         })
 
         return binding.root

@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.rudder.MainActivity
 import com.rudder.R
 import com.rudder.databinding.FragmentHostBinding
 import com.rudder.model.dto.ApplicantProfileRequest
@@ -106,6 +107,11 @@ class HostFragment : Fragment() {
 
                 }
             }
+        })
+
+        viewModel.isLoadingFlag.observe(viewLifecycleOwner, Observer { status ->
+            if (status) (activity as MainActivity).dialog.show()
+            else {(activity as MainActivity).dialog.hide() }
         })
 
         viewModel.selectedHostParty.observe(viewLifecycleOwner, Observer {

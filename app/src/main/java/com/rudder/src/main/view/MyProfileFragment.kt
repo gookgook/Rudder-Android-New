@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.rudder.MainActivity
 import com.rudder.R
 import com.rudder.databinding.FragmentMyProfileBinding
 import com.rudder.src.main.viewmodel.MyProfileViewModel
@@ -50,10 +51,18 @@ class MyProfileFragment: Fragment() {
                     .into(binding.universityLogoIV)
             }
         })
+        viewModel.isLoadingFlag.observe(viewLifecycleOwner, Observer { status ->
+            if (status) (activity as MainActivity).dialog.show()
+            else {(activity as MainActivity).dialog.hide() }
+        })
     }
 
     fun goChat() {
         view?.let { Navigation.findNavController(it).navigate(R.id.action_fragment_myProfile_to_chat) }
+    }
+
+    fun goTerms() {
+        view?.let { Navigation.findNavController(it).navigate(R.id.action_fragment_myProfile_to_terms) }
     }
 
 
