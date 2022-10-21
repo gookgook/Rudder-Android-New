@@ -19,6 +19,9 @@ class PartyMainViewModel : ViewModel() {
 
     private val getPartyRequest: PartyDto.Companion.GetPartiesRequest = PartyDto.Companion.GetPartiesRequest(endPartyId = null)
 
+    init {
+        getParties()
+    }
 
     fun getParties(isMore: Boolean=false) {
         viewModelScope.launch {
@@ -31,7 +34,7 @@ class PartyMainViewModel : ViewModel() {
                     val copyList = _partyPreviewList.value?.toMutableList()
                     copyList?.addAll(getPartiesResponse.parties)
                     copyList?.let {
-                        _partyPreviewList.value = copyList
+                        _partyPreviewList.value = it
                     }
                 }else{
                     _partyPreviewList.value = getPartiesResponse.parties

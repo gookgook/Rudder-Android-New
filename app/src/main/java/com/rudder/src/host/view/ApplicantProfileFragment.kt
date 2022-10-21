@@ -50,6 +50,7 @@ class ApplicantProfileFragment : Fragment() {
     ): View? {
         binding = FragmentApplicantProfileBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+        binding.applicantProfileFragment = this
 
         binding.applicantProfileImagesRV.also {
             it.layoutManager = LinearLayoutManager(requireActivity(),
@@ -73,6 +74,10 @@ class ApplicantProfileFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    fun createParty(){
+        viewModel.createOneToOneChatRoom()
     }
 
 

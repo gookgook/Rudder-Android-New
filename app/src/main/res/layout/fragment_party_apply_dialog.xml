@@ -72,7 +72,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/button_style"
             android:text="Apply"
-            android:onClick="@{()->viewModel.applyParty()}"
+            android:onClick="@{()->viewModel.applyParty(partyApplyDialogFragment.onPartyApplyClick)}"
             android:textColor="@color/white"
             android:textAllCaps="false"/>
 

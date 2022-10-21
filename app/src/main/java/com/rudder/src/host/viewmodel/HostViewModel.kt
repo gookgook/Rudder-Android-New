@@ -1,5 +1,6 @@
 package com.rudder.src.host.viewmodel
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +11,11 @@ import com.rudder.model.dto.HostParty
 import com.rudder.model.dto.PartyDto
 import com.rudder.model.repository.ChatRepository
 import com.rudder.model.repository.PartyRepository
+import com.rudder.util.SocketHandle.ChatReceivedEvent
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class HostViewModel : ViewModel() {
 
@@ -28,6 +33,7 @@ class HostViewModel : ViewModel() {
         _selectedHostParty
 
     init {
+
         getHostParties()
     }
 
@@ -35,6 +41,7 @@ class HostViewModel : ViewModel() {
 
     fun getHostParties() {
         viewModelScope.launch {
+
             val apiResponse = PartyRepository.instance.getHostParties()
             if (apiResponse.code() == 200) {
                 val getHostPartiesResponse: PartyDto.Companion.GetHostPartiesResponse =
@@ -53,6 +60,8 @@ class HostViewModel : ViewModel() {
 
     fun setSelectedParty(partyId: Int) {
         viewModelScope.launch {
+
+            if (partyId.equals(selectedHostParty.value?.partyId)) return@launch
             _selectedHostParty.value = HostParty.from(partyId)
             getPartyApplicants()
             getPartyOneToOneChatRooms()
@@ -68,7 +77,6 @@ class HostViewModel : ViewModel() {
             if (apiResponse.code() == 200) {
                 val getPartyApplicantsResponse: PartyDto.Companion.GetPartyApplicantsResponse =
                     apiResponse.body() ?: return@launch
-                Log.d("getPartyApplicantsResponse",getPartyApplicantsResponse.applicants.toString())
                 _selectedHostParty.value?.partyApplicants = getPartyApplicantsResponse.applicants
                 _selectedHostParty.value = HostParty.Companion.from(_selectedHostParty.value?:return@launch)
             }
@@ -113,6 +121,23 @@ class HostViewModel : ViewModel() {
                 _selectedHostParty.value = HostParty.Companion.from(_selectedHostParty.value?:return@launch)
             }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun handleChat(event: ChatReceivedEvent) {
+        val chatMessage = event.chat
+        _selectedHostParty.value?.partyGroupChatRoom?.receiveNewMessage(chatMessage)
+        val copiedHostParty = HostParty.from(_selectedHostParty.value?:return)
+        _selectedHostParty.value = copiedHostParty
+    }
+
+
+    fun registerEvent() {
+        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this)
+    }
+
+    fun unregisterEvent() {
+        if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this)
     }
 
 

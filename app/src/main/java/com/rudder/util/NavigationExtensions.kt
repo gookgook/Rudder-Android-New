@@ -1,6 +1,8 @@
 package com.rudder.util
 
+import android.content.ContentValues.TAG
 import android.content.Intent
+import android.util.Log
 import android.util.SparseArray
 import androidx.core.util.forEach
 import androidx.core.util.set
@@ -10,6 +12,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import com.rudder.R
 
 /**
@@ -57,7 +60,30 @@ fun BottomNavigationView.setupWithNavController(
         if (this.selectedItemId == graphId) {
             // Update livedata with the selected graph
             selectedNavController.value = navHostFragment.navController
-            attachNavHostFragment(fragmentManager, navHostFragment, index == 0)
+
+            //수정한 부분
+            fragmentManager.beginTransaction()
+                .attach(navHostFragment)
+                .setPrimaryNavigationFragment(navHostFragment)
+                .apply {
+                    // Detach all other Fragments
+                    graphIdToTagMap.forEach { _, fragmentTagIter ->
+                        if (fragmentTagIter != fragmentTag) {
+                            detach(fragmentManager.findFragmentByTag(fragmentTag)!!)
+                        }
+                    }
+                }
+                .addToBackStack(fragmentTag)
+                .setCustomAnimations(
+                    R.anim.nav_default_enter_anim,
+                    R.anim.nav_default_exit_anim,
+                    R.anim.nav_default_pop_enter_anim,
+                    R.anim.nav_default_pop_exit_anim)
+                .setReorderingAllowed(true)
+                .commit()
+
+            //제거한 부분
+//            attachNavHostFragment(fragmentManager, navHostFragment, index == 0)
         } else {
             detachNavHostFragment(fragmentManager, navHostFragment)
         }
@@ -200,6 +226,7 @@ private fun attachNavHostFragment(
             }
         }
         .commitNow()
+
 
 }
 

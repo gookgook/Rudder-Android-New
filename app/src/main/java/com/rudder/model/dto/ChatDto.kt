@@ -2,6 +2,7 @@ package com.rudder.model.dto
 
 import java.io.File
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
 
 class ChatDto {
     companion object {
@@ -28,7 +29,8 @@ class ChatDto {
 
             fun receiveNewMessage(chat: Chat){
                 recentMessage = chat.chatMessageBody
-                recentMessageTime =Timestamp.valueOf(chat.chatMessageTime)
+                val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                recentMessageTime =Timestamp(simpleDateFormat.parse(chat.chatMessageTime).time)
             }
         }
 
@@ -44,7 +46,8 @@ class ChatDto {
         ){
             fun receiveNewMessage(chat: Chat){
                 recentMessage = chat.chatMessageBody
-                recentMessageTime =Timestamp.valueOf(chat.chatMessageTime)
+                val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                recentMessageTime =Timestamp(simpleDateFormat.parse(chat.chatMessageTime).time)
             }
         }
 
@@ -77,6 +80,15 @@ class ChatDto {
             val body: String,
             val channelId: Int,
             val sendTime: Int
+        )
+
+        data class CreateChatRoomRequest(
+            val chatRoomItemId: Int,
+            val chatRoomType: String,
+            val userInfoIdList: List<Int>
+        )
+        data class CreateChatRoomResponse(
+            val chatRoomId: Int
         )
 
     }

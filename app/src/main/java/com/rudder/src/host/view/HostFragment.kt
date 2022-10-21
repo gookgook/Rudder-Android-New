@@ -33,6 +33,9 @@ class HostFragment : Fragment() {
         super.onAttach(context)
         mContext = context
     }
+     private lateinit var partyDates : List<PartyDto.Companion.PartyOnlyDate>
+     private lateinit var partyDatesSpinnerAdapter : ArrayAdapter<PartyDto.Companion.PartyOnlyDate>
+
 
     fun onSettingClickListener (hostParty: HostParty){
         val action =
@@ -40,14 +43,21 @@ class HostFragment : Fragment() {
         findNavController().navigate(action)
     }
 
+    fun onPartyGroupChatRoomClickListener(hostParty: HostParty){
+        val action =
+            HostFragmentDirections.actionHostFragmentToChatFragment(chatRoomId = hostParty.partyGroupChatRoom.chatRoomId)
+        findNavController().navigate(action)
+    }
+
     private val partyApplicantListAdapter by lazy {
-        val onPartyApplicantClickListener = { partyMemberId:Int, userInfoId: Int ->
+        val onPartyApplicantClickListener = { partyMemberId:Int, userInfoId: Int, isChatExist: Boolean ->
 
             kotlin.run {
                 val applicantProfileRequest = ApplicantProfileRequest(
                     partyId = viewModel.selectedHostParty.value?.partyId ?: return@run,
                     partyMemberId = partyMemberId,
-                    userInfoId = userInfoId
+                    userInfoId = userInfoId,
+                    isOneToOneChatExist = isChatExist
                 )
                 val action =
                     HostFragmentDirections.actionHostFragmentToApplicantProfileFragment(applicantProfileRequest=applicantProfileRequest)
@@ -63,6 +73,18 @@ class HostFragment : Fragment() {
         PartyHostOneToOneChatRoomListAdapter()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        partyDates = arrayListOf(PartyDto.Companion.PartyOnlyDate(-1, DEFAULT_TIMESTAMP))
+        partyDatesSpinnerAdapter = ArrayAdapter(mContext, R.layout.custom_spinner_layout, partyDates)
+        viewModel.registerEvent()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        viewModel.unregisterEvent()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -72,8 +94,7 @@ class HostFragment : Fragment() {
         binding.hostFragment = this
 
 
-        val partyDates = arrayListOf(PartyDto.Companion.PartyOnlyDate(-1, DEFAULT_TIMESTAMP))
-        val partyDatesSpinnerAdapter = ArrayAdapter(mContext, R.layout.custom_spinner_layout, partyDates)
+
         binding.partyDatesS.adapter = partyDatesSpinnerAdapter
 
         viewModel.hostParties.observe(viewLifecycleOwner, Observer {
@@ -118,7 +139,9 @@ class HostFragment : Fragment() {
 
     fun onSpinnerSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         val selectedParty = parent.selectedItem as PartyDto.Companion.PartyOnlyDate
-        if(selectedParty.partyId.equals(-1)) return
+
+
+        if(selectedParty.partyId.equals(-1)||selectedParty.partyId.equals(viewModel.selectedHostParty.value?.partyId)) return
         viewModel.setSelectedParty(selectedParty.partyId)
     }
 

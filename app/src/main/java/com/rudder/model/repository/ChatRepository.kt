@@ -3,6 +3,7 @@ package com.rudder.model.repository
 import com.rudder.BuildConfig
 import com.rudder.model.RetrofitClient
 import com.rudder.model.dto.ChatDto
+import com.rudder.model.service.CreateChatRoomService
 import com.rudder.model.service.GetChatRoomsService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,9 @@ class ChatRepository {
 
     private val getChatRoomsService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(
         GetChatRoomsService::class.java)
+
+    private val createChatRoomService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(
+        CreateChatRoomService::class.java)
 
 
 
@@ -38,6 +42,13 @@ class ChatRepository {
 
         return CoroutineScope(Dispatchers.IO).async {
             getChatRoomsService.getHostPartyOneToOneChatRooms(partyId = partyId)
+        }.await()
+    }
+
+    suspend fun createChatRoom(createChatRoomRequest: ChatDto.Companion.CreateChatRoomRequest): Response<ChatDto.Companion.CreateChatRoomResponse> {
+
+        return CoroutineScope(Dispatchers.IO).async {
+            createChatRoomService.createChatRoom(createChatRoomRequest)
         }.await()
     }
 

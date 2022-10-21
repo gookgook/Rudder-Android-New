@@ -7,6 +7,7 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowInsets
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.rudder.databinding.MainActivityBinding
@@ -42,27 +43,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-  /*  private fun setupJetpackNavigation() {
-        val host =
-            supportFragmentManager.findFragmentById(R.id.booksearch_nav_host_fragment) as NavHostFragment
+    /*  private fun setupJetpackNavigation() {
+          val host =
+              supportFragmentManager.findFragmentById(R.id.booksearch_nav_host_fragment) as NavHostFragment
 
-        navController = host.navController
-        binding.bottomNavigationView.setupWithNavController(navController)
+          navController = host.navController
+          binding.bottomNavigationView.setupWithNavController(navController)
 
 
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            when(destination.id) {
-                R.id.partyDetailFragment,R.id.createPartyFragment -> binding.bottomNavigationView.visibility = View.GONE
-                else -> binding.bottomNavigationView.visibility = View.VISIBLE
-            }
-        }
-    }*/
+          navController.addOnDestinationChangedListener { controller, destination, arguments ->
+              when(destination.id) {
+                  R.id.partyDetailFragment,R.id.createPartyFragment -> binding.bottomNavigationView.visibility = View.GONE
+                  else -> binding.bottomNavigationView.visibility = View.VISIBLE
+              }
+          }
+      }*/
 
     private lateinit var currentNavController: LiveData<NavController>
 
     private fun setupBottomNavigationBar() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
-        val navGraphIds = listOf(R.navigation.booksearch_nav_graph, R.navigation.host_nav_graph,R.navigation.application_nav_graph)
+        val navGraphIds = listOf(
+            R.navigation.booksearch_nav_graph,
+            R.navigation.host_nav_graph,
+            R.navigation.application_nav_graph
+        )
         val controller = bottomNavigationView.setupWithNavController(
             navGraphIds = navGraphIds,
             fragmentManager = supportFragmentManager,
@@ -74,12 +79,19 @@ class MainActivity : AppCompatActivity() {
             setupActionBarWithNavController(navController)
         })*/
         currentNavController = controller
-        controller.value?.addOnDestinationChangedListener { controller, destination, arguments ->
-            when(destination.id) {
-                R.id.partyDetailFragment,R.id.createPartyFragment,R.id.applicantProfileFragment -> binding.bottomNavigationView.visibility = View.GONE
-                else -> binding.bottomNavigationView.visibility = View.VISIBLE
+
+        controller.observe(this, Observer {
+            it?.addOnDestinationChangedListener { controller, destination, arguments ->
+                when (destination.id) {
+                    R.id.partyDetailFragment, R.id.createPartyFragment, R.id.applicantProfileFragment, R.id.chatFragment,
+                    R.id.fragment_start,R.id.fragment_login,R.id.fragment_signup1,R.id.fragment_signup2,R.id.fragment_signup3,
+                    R.id.partySettingFragment,R.id.myProfileFragment
+                    -> binding.bottomNavigationView.visibility = View.GONE
+                    else -> binding.bottomNavigationView.visibility = View.VISIBLE
+                }
             }
-        }
+        })
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

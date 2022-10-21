@@ -7,7 +7,11 @@
     <variable
         name="partyProfile"
         type="com.rudder.model.dto.PartyProfile" />
+    <variable
+        name="applicantProfileFragment"
+        type="com.rudder.src.host.view.ApplicantProfileFragment" />
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/main_background"
@@ -30,12 +34,13 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="-30dp"
+            android:layout_marginBottom="12dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:elevation="20dp"
             android:background="@drawable/background_rounding_white"
             app:layout_constraintTop_toBottomOf="@id/applicantProfileImagesRV"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toTopOf="@id/buttonAreaCL">
 
             <TextView
                 android:id="@+id/userNicknameTV"
@@ -78,6 +83,52 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/buttonAreaCL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="29dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/messageB"
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                app:layout_constraintEnd_toStartOf="@id/acceptB"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="28dp"
+                android:background="@drawable/button_style_message"
+                android:text="Message"
+                android:textColor="@color/Gray"
+                android:textAllCaps="false"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/acceptB"
+                android:layout_width="0dp"
+                android:layout_height="54dp"
+                app:layout_constraintStart_toEndOf="@id/messageB"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="28dp"
+                android:background="@drawable/button_style"
+                android:text="Accept"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

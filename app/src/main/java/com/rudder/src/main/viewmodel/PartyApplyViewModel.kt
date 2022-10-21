@@ -22,12 +22,13 @@ class PartyApplyViewModel : ViewModel() {
     private var _partyId:Int? = null
 
 
-    fun applyParty() {
+    fun applyParty(onPartyApplySuccess: () -> Unit) {
         viewModelScope.launch {
             val applyPartyRequest = PartyDto.Companion.ApplyPartyRequest(numberApplicants = _numberApplicants)
             _partyId?.let {
                 val apiResponse = PartyRepository.instance.applyParty(it,applyPartyRequest)
                 if (apiResponse.isSuccessful){
+                    onPartyApplySuccess()
                     _isApplySuccess.value=true
                 }else{
                     _toastMessage.value = "Network error"

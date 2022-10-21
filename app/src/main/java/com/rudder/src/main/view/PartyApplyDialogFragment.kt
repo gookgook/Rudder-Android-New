@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -18,7 +17,7 @@ import com.rudder.databinding.FragmentPartyApplyDialogBinding
 import com.rudder.src.main.viewmodel.PartyApplyViewModel
 
 
-class PartyApplyDialogFragment(val partyId: Int) : DialogFragment() {
+class PartyApplyDialogFragment(val partyId: Int,val onPartyApplyClick: () -> Unit) : DialogFragment() {
 
     private lateinit var binding: FragmentPartyApplyDialogBinding
 

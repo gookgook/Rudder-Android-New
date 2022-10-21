@@ -5,5 +5,6 @@ import java.io.Serializable
 data class ApplicantProfileRequest(
     val partyId: Int,
     val partyMemberId: Int,
-    val userInfoId: Int
+    val userInfoId: Int,
+    val isOneToOneChatExist: Boolean
 ): Serializable

@@ -10,7 +10,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.rudder.databinding.PartyApplicantItemBinding
 import com.rudder.model.dto.PartyDto
 
-class PartyApplicantListAdapter(val onPartyApplicantClickListener: (partyMemberId:Int, userInfoId:Int) -> Unit) : ListAdapter<PartyDto.Companion.PartyApplicant,PartyApplicantListAdapter.PartyApplicantItemViewHolder>(
+class PartyApplicantListAdapter(val onPartyApplicantClickListener: (Int, Int, Boolean) -> Unit) : ListAdapter<PartyDto.Companion.PartyApplicant,PartyApplicantListAdapter.PartyApplicantItemViewHolder>(
     PartyApplicantDiffCallback()
 ){
 
@@ -47,7 +47,7 @@ class PartyApplicantListAdapter(val onPartyApplicantClickListener: (partyMemberI
         val partyApplicant = getItem(position)
 
         holder.partyApplicantItemBinding.partyApplicantItem.setOnClickListener {
-            onPartyApplicantClickListener(partyApplicant.partyMemberId, partyApplicant.userInfoId)
+            onPartyApplicantClickListener(partyApplicant.partyMemberId, partyApplicant.userInfoId, partyApplicant.isChatExist)
         }
 
         Glide.with(holder.partyApplicantItemBinding.partyApplicantImageIV.context)

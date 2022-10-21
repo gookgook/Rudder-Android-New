@@ -38,7 +38,6 @@ class LoginViewModel : ViewModel() {
         viewModelScope.launch {
 
             val loginRequest: Response<LoginResult> = loginService.getLoginResult(LoginInfo("notiToken","ios",safeUserId, safeUserPassword))
-            Log.d("logres",loginRequest.body().toString())
             when(loginRequest.code()) {
                 200 -> {
                     val accessToken = loginRequest.body()!!.accessToken

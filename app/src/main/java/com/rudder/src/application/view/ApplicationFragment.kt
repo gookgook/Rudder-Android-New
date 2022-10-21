@@ -87,7 +87,6 @@ class ApplicationFragment : Fragment() {
             it?.let {
 
 
-                Log.d("in_application",it.toString())
                 approvedPartyListAdapter.submitList(it.toList().map { it.second } )
 
             }
@@ -95,14 +94,8 @@ class ApplicationFragment : Fragment() {
 
         viewModel.appliedPartyItems.observe(viewLifecycleOwner, Observer {
             it?.let {
-                Log.d("start", "start$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-                it?.forEach { m->
-                    run {
-                        Log.d("map", m.toString())
-                    }
-                }
 
-                Log.d("end", "end$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+
                 appliedPartyListAdapter.submitList(it.toList().map { it.second } )
 
             }

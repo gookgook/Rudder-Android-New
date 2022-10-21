@@ -168,7 +168,6 @@ class ApplicationViewModel : ViewModel() {
     fun updateMap(){
         val copyMap1 = HashMap(_approvedPartyItems.value)
         _approvedPartyItems.value = copyMap1
-        Log.d("_approvedPartyItems",_approvedPartyItems.value.toString())
         val copyMap2 = HashMap(_appliedPartyItems.value)
         _appliedPartyItems.value = copyMap2
     }

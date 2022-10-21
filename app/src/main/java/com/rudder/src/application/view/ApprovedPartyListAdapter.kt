@@ -34,8 +34,6 @@ class ApprovedPartyListAdapter(val onApprovedPartyClickListener: (Int) -> Unit) 
             oldItem: PartyDto.Companion.ApprovedPartyItem,
             newItem: PartyDto.Companion.ApprovedPartyItem,
         ): Boolean {
-            Log.d("oldItem",oldItem.toString())
-            Log.d("newItem",newItem.toString())
             return oldItem.partyGroupChatRoom.recentMessageTime.equals(newItem.partyGroupChatRoom.recentMessageTime)
         }
 
@@ -49,7 +47,6 @@ class ApprovedPartyListAdapter(val onApprovedPartyClickListener: (Int) -> Unit) 
 
     override fun onBindViewHolder(holder: ApprovedPartyItemViewHolder, position: Int) {
         val approvedPartyItem = getItem(position)
-        Log.d("approvedPartyItem_in_holder", approvedPartyItem.toString())
         holder.approvedPreItemBinding.approvedPartyItem = approvedPartyItem
         val partyDate = Date(approvedPartyItem.party.partyTime.time)
         val format: DateFormat = SimpleDateFormat("MMM dd")
@@ -60,7 +57,6 @@ class ApprovedPartyListAdapter(val onApprovedPartyClickListener: (Int) -> Unit) 
             .into(holder.approvedPreItemBinding.partyThumbnailIV)
 
         holder.approvedPreItemBinding.approvedPartyItemCL.setOnClickListener {
-            Log.d("approvedPartyItem",approvedPartyItem.toString())
             onApprovedPartyClickListener(approvedPartyItem.partyGroupChatRoom.chatRoomId)
         }
 
