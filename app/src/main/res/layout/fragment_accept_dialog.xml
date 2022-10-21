@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+        <variable
+            name="partyApplyDialogFragment"
+            type="com.rudder.src.main.view.PartyApplyDialogFragment" />
+        <variable
+            name="viewModel"
+            type="com.rudder.src.main.viewmodel.PartyApplyViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/partyAcceptCL"
+        android:background="@drawable/dialog_style"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/partyAcceptTitleTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Good Choice!"
+            android:textColor="@color/rudder_purple"
+            android:textSize="24sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="30dp"/>
+        <TextView
+            android:id="@+id/partyAcceptDescriptionTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/partyAcceptTitleTV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="14sp"
+            android:textColor="@color/text_dark_gray"
+            android:layout_marginTop="28dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:text="This is accepting tbe group not individual"/>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/partyApplyB"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/partyAcceptDescriptionTV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/button_style"
+            android:text="OK"
+            android:onClick="@{()->viewModel.applyParty(partyApplyDialogFragment.onPartyApplyClick)}"
+            android:textColor="@color/white"
+            android:textAllCaps="false"/>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</layout>
