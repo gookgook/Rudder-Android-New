@@ -43,7 +43,7 @@ class StartFragment : Fragment() {
     ): View? {
 
         if(!App.prefs.getValue("authToken").isNullOrEmpty()){
-           // findNavController().navigate(R.id.action_fragment_start_to_fragment_party_main)
+            findNavController().navigate(R.id.action_fragment_start_to_fragment_party_main)
         } //삭제예정
 
         // Inflate the layout for this fragment

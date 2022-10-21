@@ -87,7 +87,7 @@ class PartyMainFragment : Fragment() {
         partyMainViewModel.newNoticationFlag.observe(viewLifecycleOwner, Observer { status ->
 
 
-           '' if (status) {
+            if (status) {
 
                 Glide.with(this.activity)
                     .load(R.drawable.bell_with_point)
