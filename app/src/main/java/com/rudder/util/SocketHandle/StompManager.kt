@@ -1,11 +1,13 @@
 package com.rudder.util
 
+import android.media.metrics.Event
 import android.util.Log
 import com.google.gson.Gson
 import com.rudder.model.StompSocketClient
 import com.rudder.model.dto.ChatDto
 import com.rudder.model.dto.SocketMessage
 import com.rudder.util.SocketHandle.ChatReceivedEvent
+import com.rudder.util.SocketHandle.NotificationReceivedEvent
 import org.greenrobot.eventbus.EventBus
 
 object StompManager {
@@ -29,7 +31,11 @@ object StompManager {
 
                 }
 
-
+                if (socketMessage.socketMessage.messageType == "NOTIFICATION") {
+                    val socketMessageNotification: SocketMessage.Companion.SocketMessageNotification =
+                        Gson().fromJson(it.payload, SocketMessage.Companion.SocketMessageNotification::class.java)
+                    handleNotification()
+                }
             }
         }
 
@@ -39,6 +45,10 @@ object StompManager {
 
     fun handleChat(chatMessage: ChatDto.Companion.Chat) {
         EventBus.getDefault().post(ChatReceivedEvent(chatMessage))
+    }
+
+    fun handleNotification() {
+        EventBus.getDefault().post(NotificationReceivedEvent())
     }
 }
 

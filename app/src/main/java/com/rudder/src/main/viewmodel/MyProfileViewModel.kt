@@ -20,17 +20,25 @@ class MyProfileViewModel: ViewModel() {
 
     var partyProfile = MutableLiveData<PartyProfile>()
 
+    val isLoadingFlag = MutableLiveData<Boolean> (false)
+
 
     fun getProfile(){
         val getPartyProfileService: GetPartyProfileService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(GetPartyProfileService::class.java)
 
         viewModelScope.launch {
+            isLoadingFlag.value = true
             val userInfoId = App.prefs.getValue("userInfoId")!!
             val getPartyProfileRequest: Response<PartyProfileResponse> = getPartyProfileService.getPartyProfile(userInfoId = userInfoId)
+            isLoadingFlag.value = false
             when (getPartyProfileRequest.code()) {
                 200 -> partyProfile.value = getPartyProfileRequest.body()!!.partyProfile
                 else -> toastMessage.value = "Server Error"
             }
         }
+    }
+
+    fun doLogOut() {
+        //근데 뒤로가가가 안되는데;;
     }
 }

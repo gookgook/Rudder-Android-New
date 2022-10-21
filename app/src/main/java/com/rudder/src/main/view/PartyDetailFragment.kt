@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.rudder.MainActivity
 import com.rudder.R
 import com.rudder.databinding.FragmentPartyDetailBinding
 import com.rudder.databinding.FragmentPartyMainBinding
@@ -78,7 +79,10 @@ class PartyDetailFragment : Fragment() {
 
         })
 
-
+        partyDetailViewModel.isLoadingFlag.observe(viewLifecycleOwner, Observer { status ->
+            if (status) (activity as MainActivity).dialog.show()
+            else {(activity as MainActivity).dialog.hide() }
+        })
 
         return binding.root
     }

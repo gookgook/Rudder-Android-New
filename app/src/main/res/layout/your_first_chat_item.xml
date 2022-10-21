@@ -34,7 +34,7 @@
                 android:layout_marginTop="13dp"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="8dp"
-                android:background="@color/white"
+                android:background="@drawable/your_chat_style"
                 >
             </TextView>
         </androidx.constraintlayout.widget.ConstraintLayout>
