@@ -7,12 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.rudder.databinding.PartyApplicantItemBinding
 import com.rudder.databinding.PartyHostOneToOneChatRoomItemBinding
 import com.rudder.model.dto.ChatDto
-import com.rudder.model.dto.PartyDto
 
-class PartyHostOneToOneChatRoomListAdapter() : ListAdapter<ChatDto.Companion.PartyOneToOneChatRoom,PartyHostOneToOneChatRoomListAdapter.PartyHostOneToOneChatRoomItemViewHolder>(
+class PartyHostOneToOneChatRoomListAdapter(val onHostOneToOneChatRoomClickListener: (Int) -> Unit) : ListAdapter<ChatDto.Companion.PartyOneToOneChatRoom,PartyHostOneToOneChatRoomListAdapter.PartyHostOneToOneChatRoomItemViewHolder>(
     PartyHostOneToOneChatRoomDiffCallback()
 ){
 
@@ -48,6 +46,9 @@ class PartyHostOneToOneChatRoomListAdapter() : ListAdapter<ChatDto.Companion.Par
     override fun onBindViewHolder(holder: PartyHostOneToOneChatRoomItemViewHolder, position: Int) {
         val partyOneToOneChatRoom = getItem(position)
 
+        holder.partyHostOneToOneChatRoomItemBinding.partyHostOneToOneChatRoomCL.setOnClickListener {
+            onHostOneToOneChatRoomClickListener(partyOneToOneChatRoom.chatRoomId)
+        }
         holder.partyHostOneToOneChatRoomItemBinding.partyOneToOneChatRoom = partyOneToOneChatRoom
 
         Glide.with(holder.partyHostOneToOneChatRoomItemBinding.chatRoomImageIV.context)

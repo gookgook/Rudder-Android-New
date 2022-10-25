@@ -4,5 +4,5 @@ import androidx.lifecycle.ViewModel
 
 class AcceptDialogVIewModel: ViewModel() {
 
-    fun acceptApplicant()
+//    fun acceptApplicant()
 }

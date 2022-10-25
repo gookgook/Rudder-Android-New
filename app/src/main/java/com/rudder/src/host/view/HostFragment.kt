@@ -71,7 +71,12 @@ class HostFragment : Fragment() {
     }
 
     private val partyHostOneToOneChatRoomListAdapter by lazy {
-        PartyHostOneToOneChatRoomListAdapter()
+        val onHostOneToOneChatRoomClickListener = { chatRoomId:Int->
+            val action =
+                HostFragmentDirections.actionHostFragmentToChatFragment(chatRoomId = chatRoomId)
+            findNavController().navigate(action)
+        }
+        PartyHostOneToOneChatRoomListAdapter(onHostOneToOneChatRoomClickListener)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

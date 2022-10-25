@@ -138,7 +138,14 @@ class HostViewModel : ViewModel() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun handleChat(event: ChatReceivedEvent) {
         val chatMessage = event.chat
-        _selectedHostParty.value?.partyGroupChatRoom?.receiveNewMessage(chatMessage)
+        if (_selectedHostParty.value?.partyGroupChatRoom?.chatRoomId?.equals(chatMessage.chatRoomId) == true){
+            _selectedHostParty.value?.partyGroupChatRoom?.receiveNewMessage(chatMessage)
+        }
+        _selectedHostParty.value?.partyOneToOneChatRooms?.forEach {
+            if (it.chatRoomId.equals(chatMessage.chatRoomId)){
+                it.receiveNewMessage(chatMessage)
+            }
+        }
         val copiedHostParty = HostParty.from(_selectedHostParty.value?:return)
         _selectedHostParty.value = copiedHostParty
     }
