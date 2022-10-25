@@ -10,7 +10,7 @@ class AcceptDialogVIewModel: ViewModel() {
 
     fun acceptApplicant(partyId: Int, partyMemberId: Int) {
         viewModelScope.launch {
-            val acceptApplicantRequest =
+            //val acceptApplicantRequest =
         }
     }
 }
