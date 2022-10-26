@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="partyApplyDialogFragment"
-            type="com.rudder.src.main.view.PartyApplyDialogFragment" />
+            name="acceptDialogFragment"
+            type="com.rudder.src.host.view.AcceptDialogFragment" />
         <variable
             name="viewModel"
             type="com.rudder.src.main.viewmodel.PartyApplyViewModel" />
@@ -59,7 +59,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/button_style"
             android:text="OK"
-            android:onClick="@{()->viewModel.applyParty(partyApplyDialogFragment.onPartyApplyClick)}"
+            android:onClick="@{()->acceptDialogFragment.onClickOK()}"
             android:textColor="@color/white"
             android:textAllCaps="false"/>
 

@@ -102,6 +102,9 @@ class HostFragment : Fragment() {
 
 
         binding.partyDatesS.adapter = partyDatesSpinnerAdapter
+        viewModel.selectedHostParty.value?.let {
+            viewModel.setSelectedParty(it.partyId)
+        }
 
         viewModel.hostParties.observe(viewLifecycleOwner, Observer {
             it?.let {

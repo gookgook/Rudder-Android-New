@@ -18,17 +18,14 @@ import com.rudder.MainActivity
 import com.rudder.databinding.FragmentAcceptDialogBinding
 import com.rudder.src.host.viewmodel.AcceptDialogVIewModel
 
-class AcceptDialogFragment(): DialogFragment() {
+class AcceptDialogFragment(val partyId:Int,val partyMemberId:Int): DialogFragment() {
     private lateinit var binding: FragmentAcceptDialogBinding
 
     private lateinit var mContext: Context
 
     private val viewModel: AcceptDialogVIewModel by viewModels()
 
-   // private val args: AcceptDialogFragmentArgs by navArgs()
 
-    private var partyId: Int = -1
-    private var partyMemberId: Int = -1
 
     override fun onAttach(context: Context){
         super.onAttach(context)
@@ -56,6 +53,7 @@ class AcceptDialogFragment(): DialogFragment() {
     }
 
     fun setBinding() {
+        binding.acceptDialogFragment = this
         viewModel.acceptResultFlag.observe(viewLifecycleOwner, Observer { status ->
             status?.let {
                 when(status) {
@@ -72,5 +70,9 @@ class AcceptDialogFragment(): DialogFragment() {
         var lp = binding.partyAcceptCL.layoutParams
         lp.width = (displayDpValue[0] * 0.8).toInt()
         binding.partyAcceptCL.layoutParams = lp
+    }
+
+    fun onClickOK(){
+        viewModel.acceptApplicant(partyId, partyMemberId)
     }
 }

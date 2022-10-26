@@ -24,11 +24,12 @@ class AcceptDialogVIewModel: ViewModel() {
 
             val acceptRequest: Response<Void> = acceptApplicantService.acceptApplicant(partyId,acceptApplicantRequest)
 
-            when(acceptRequest.code()) {
-                200 -> acceptResultFlag.value = 1
-                else -> acceptResultFlag.value = -1
-
+            if (acceptRequest.isSuccessful){
+                acceptResultFlag.value = 1
+            }else{
+                acceptResultFlag.value = -1
             }
+            
 
         }
     }

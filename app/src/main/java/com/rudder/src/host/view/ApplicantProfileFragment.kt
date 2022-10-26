@@ -28,8 +28,8 @@ class ApplicantProfileFragment : Fragment() {
     }
 
     fun onAcceptClickListener (){
-        val action = ApplicantProfileFragmentDirections.actionApplicantProfileFragmentToAcceptDialogFragment(viewModel.applicantProfileRequest.partyId,viewModel.applicantProfileRequest.partyMemberId)//여따 넣어주셈
-        findNavController().navigate(action)
+        AcceptDialogFragment(viewModel.applicantProfileRequest.partyId,viewModel.applicantProfileRequest.partyMemberId)
+            .show(childFragmentManager,"AcceptDialogFragment")
 
 
     }
