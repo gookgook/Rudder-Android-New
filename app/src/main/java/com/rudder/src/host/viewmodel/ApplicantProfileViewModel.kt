@@ -20,7 +20,7 @@ class ApplicantProfileViewModel : ViewModel() {
     private val _partyProfile: MutableLiveData<PartyProfile> = MutableLiveData()
     val partyProfile: LiveData<PartyProfile> = _partyProfile
 
-    private lateinit var applicantProfileRequest: ApplicantProfileRequest
+    lateinit var applicantProfileRequest: ApplicantProfileRequest
 
 
     private val _createdChatRoomId: MutableLiveData<Int> = MutableLiveData()
@@ -40,7 +40,7 @@ class ApplicantProfileViewModel : ViewModel() {
         }
     }
 
-    fun setApplicantProfileRequest(applicantProfileRequest: ApplicantProfileRequest){
+    fun updateApplicantProfileRequest(applicantProfileRequest: ApplicantProfileRequest){
         this.applicantProfileRequest = applicantProfileRequest
     }
 
