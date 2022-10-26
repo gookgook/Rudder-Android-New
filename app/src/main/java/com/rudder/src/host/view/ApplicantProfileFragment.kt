@@ -33,6 +33,13 @@ class ApplicantProfileFragment : Fragment() {
         ApplicantProfileImageListAdapter()
     }
 
+    fun onAcceptClickListener (){
+        val action = ApplicantProfileFragmentDirections.actionApplicantProfileFragmentToAcceptDialogFragment(1,2)//여따 넣어주셈
+        findNavController().navigate(action)
+
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val applicantProfileRequest = args.applicantProfileRequest

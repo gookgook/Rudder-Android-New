@@ -126,6 +126,7 @@
                 android:text="Accept"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
+                android:onClick="@{()->applicantProfileFragment.onAcceptClickListener()}"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

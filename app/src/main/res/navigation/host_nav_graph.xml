@@ -29,8 +29,28 @@
             android:name="applicantProfileRequest"
             app:argType="com.rudder.model.dto.ApplicantProfileRequest"/>
         <action
+            android:id="@+id/action_applicantProfileFragment_to_acceptDialogFragment"
+            app:destination="@id/acceptDialogFragment"
+            />
+        <action
             android:id="@+id/action_applicantProfileFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/acceptDialogFragment"
+        android:name="com.rudder.src.host.view.AcceptDialogFragment"
+        android:label="AcceptDialogFragment">
+        <argument
+            android:name="partyId"
+            app:argType="integer"
+            />
+        <argument
+            android:name="partyMemberId"
+            app:argType="integer"
+            />
     </fragment>
 
     <fragment
