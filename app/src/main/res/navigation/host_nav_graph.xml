@@ -28,6 +28,9 @@
         <argument
             android:name="applicantProfileRequest"
             app:argType="com.rudder.model.dto.ApplicantProfileRequest"/>
+        <action
+            android:id="@+id/action_applicantProfileFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
     </fragment>
 
     <fragment

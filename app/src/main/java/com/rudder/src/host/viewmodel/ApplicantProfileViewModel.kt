@@ -23,6 +23,9 @@ class ApplicantProfileViewModel : ViewModel() {
     private lateinit var applicantProfileRequest: ApplicantProfileRequest
 
 
+    private val _createdChatRoomId: MutableLiveData<Int> = MutableLiveData()
+    val createdChatRoomId: LiveData<Int> = _createdChatRoomId
+
 
 
     fun getHostParties() {
@@ -52,11 +55,11 @@ class ApplicantProfileViewModel : ViewModel() {
                 chatRoomType = "PARTY_ONE_TO_ONE",
                     userInfoIdList = arrayListOf(myUserInfoId,applicantProfileRequest.userInfoId)
             ))
-            if (apiResponse.code() == 200) {
+            if (apiResponse.isSuccessful) {
                 val createChatRoomResponse: ChatDto.Companion.CreateChatRoomResponse =
                     apiResponse.body() ?: return@launch
-
-
+                _createdChatRoomId.value = createChatRoomResponse.chatRoomId
+                _createdChatRoomId.value = -1
             }
         }
     }

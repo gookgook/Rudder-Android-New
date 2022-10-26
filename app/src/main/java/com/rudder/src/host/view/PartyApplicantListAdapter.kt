@@ -46,6 +46,7 @@ class PartyApplicantListAdapter(val onPartyApplicantClickListener: (Int, Int, Bo
     override fun onBindViewHolder(holder: PartyApplicantItemViewHolder, position: Int) {
         val partyApplicant = getItem(position)
 
+        holder.partyApplicantItemBinding.partyApplicant = partyApplicant
         holder.partyApplicantItemBinding.partyApplicantItem.setOnClickListener {
             onPartyApplicantClickListener(partyApplicant.partyMemberId, partyApplicant.userInfoId, partyApplicant.isChatExist)
         }

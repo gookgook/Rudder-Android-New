@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -72,11 +73,22 @@ class ApplicantProfileFragment : Fragment() {
             }
         })
 
+        viewModel.createdChatRoomId.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                if (!it.equals(-1)){
+                    val action =
+                        ApplicantProfileFragmentDirections.actionApplicantProfileFragmentToChatFragment(it)
+                    findNavController().navigate(action)
+                }
+
+            }
+        })
+
 
         return binding.root
     }
 
-    fun createParty(){
+    fun createPartyOneToOneChatRoom(){
         viewModel.createOneToOneChatRoom()
     }
 
