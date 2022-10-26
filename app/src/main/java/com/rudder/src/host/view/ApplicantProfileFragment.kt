@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -30,6 +31,13 @@ class ApplicantProfileFragment : Fragment() {
     private val args: ApplicantProfileFragmentArgs by navArgs()
     private val applicantProfileImageListAdapter by lazy {
         ApplicantProfileImageListAdapter()
+    }
+
+    fun onAcceptClickListener (){
+        val action = ApplicantProfileFragmentDirections.actionApplicantProfileFragmentToAcceptDialogFragment(1,2)//여따 넣어주셈
+        findNavController().navigate(action)
+
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -24,6 +24,8 @@ import com.bumptech.glide.Glide
 import com.rudder.R
 import com.rudder.databinding.FragmentSignup3Binding
 import com.rudder.src.auth.viewmodel.SignUpViewModel
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.File
 
 class SignUp3Fragment: Fragment() {
@@ -57,6 +59,14 @@ class SignUp3Fragment: Fragment() {
     private val imageResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
+
+        if (result.resultCode == RESULT_OK) {
+            val tmpUri = result.data?.data
+            tmpUri?.let {
+                cropImage(it)
+            }
+        }
+
         availablePicker = currentImagePicker + 1
 
         var currentImageView: ImageView
@@ -83,6 +93,15 @@ class SignUp3Fragment: Fragment() {
             }
             Toast.makeText(this.activity, "Photo pick success", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun cropImage(uri: Uri?){
+        CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON)
+            .setCropShape(CropImageView.CropShape.RECTANGLE)
+            //.setGuidelines(CropImageView.Guidelines.ON).setMinCropResultSize(500, 500).setMaxCropResultSize(500, 500)
+            .setGuidelines(CropImageView.Guidelines.ON).setFixAspectRatio(true)
+            //사각형 모양으로 자른다
+            .start(this.requireActivity())
     }
 
     fun getRealPathFromURI(uri: Uri): String {
@@ -118,7 +137,6 @@ class SignUp3Fragment: Fragment() {
             Toast.makeText(this.activity, "You must fill in the previous box first", Toast.LENGTH_SHORT).show()
             return
         }
-
         currentImagePicker = viewIdToInt(view.id)
 
         val writePermission = ContextCompat.checkSelfPermission(
@@ -144,6 +162,7 @@ class SignUp3Fragment: Fragment() {
         } else {
             // 권한이 있는 경우 갤러리 실행
             val intent = Intent(Intent.ACTION_PICK)
+            intent.putExtra("crop", true)
             // intent의 data와 type을 동시에 설정하는 메서드
             intent.setDataAndType(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
