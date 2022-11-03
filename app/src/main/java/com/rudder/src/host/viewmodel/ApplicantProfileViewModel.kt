@@ -30,7 +30,7 @@ class ApplicantProfileViewModel : ViewModel() {
 
     fun getHostParties() {
         viewModelScope.launch {
-            val apiResponse = UserRepository.instance.getPartyProfile(applicantProfileRequest.userInfoId)
+            val apiResponse = UserRepository().getPartyProfile(applicantProfileRequest.userInfoId)
             if (apiResponse.code() == 200) {
                 val partyProfileResponse: PartyProfileResponse =
                     apiResponse.body() ?: return@launch
@@ -49,7 +49,7 @@ class ApplicantProfileViewModel : ViewModel() {
             val myUserInfoId = if (App.prefs.getValue("userInfoId")
                     .isNullOrEmpty()
             ) return@launch else App.prefs.getValue("userInfoId")?.toInt()?:return@launch
-            val apiResponse = ChatRepository.instance.createChatRoom(
+            val apiResponse = ChatRepository().createChatRoom(
                 ChatDto.Companion.CreateChatRoomRequest(
                 chatRoomItemId = applicantProfileRequest.partyId,
                 chatRoomType = "PARTY_ONE_TO_ONE",

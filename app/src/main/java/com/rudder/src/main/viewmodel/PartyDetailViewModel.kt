@@ -24,7 +24,7 @@ class PartyDetailViewModel : ViewModel() {
         viewModelScope.launch {
             val getPartyDetailRequest = PartyDto.Companion.GetPartyDetailRequest(partyId = partyId)
             isLoadingFlag.value = true
-            val apiResponse = PartyRepository.instance.getPartyDetail(getPartyDetailRequest)
+            val apiResponse = PartyRepository().getPartyDetail(getPartyDetailRequest)
             isLoadingFlag.value = false
             if (apiResponse.code()==200){
                 val getPartyDetailResponse: PartyDto.Companion.GetPartyDetailResponse = apiResponse.body()?: return@launch

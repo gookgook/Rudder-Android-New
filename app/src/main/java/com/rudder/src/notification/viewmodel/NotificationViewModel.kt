@@ -24,7 +24,7 @@ class NotificationViewModel : ViewModel() {
     fun getNotifications(isMore: Boolean=false) {
         viewModelScope.launch {
             isLoadingFlag.value = true
-            val apiResponse = NotificationRepository.instance.getNotifications(getNotificationsRequest)
+            val apiResponse = NotificationRepository().getNotifications(getNotificationsRequest)
             isLoadingFlag.value = false
             if (apiResponse.code()==200){
                 val getNotificationsResponse: NotificationDto.Companion.GetNotificationsResponse = apiResponse.body()?: NotificationDto.Companion.GetNotificationsResponse(

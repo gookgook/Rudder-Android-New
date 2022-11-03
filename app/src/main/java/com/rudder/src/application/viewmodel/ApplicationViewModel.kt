@@ -39,7 +39,7 @@ class ApplicationViewModel : ViewModel() {
 
     fun getApprovedParty() {
         viewModelScope.launch {
-            val apiResponse = PartyRepository.instance.getApprovedParties()
+            val apiResponse = PartyRepository().getApprovedParties()
             if (apiResponse.code() == 200) {
                 val getApprovedPartyResponse: PartyDto.Companion.GetApprovedPartyResponse =
                     apiResponse.body() ?: PartyDto.Companion.GetApprovedPartyResponse(
@@ -73,7 +73,7 @@ class ApplicationViewModel : ViewModel() {
 
     fun getAppliedParty() {
         viewModelScope.launch {
-            val apiResponse = PartyRepository.instance.getAppliedParties()
+            val apiResponse = PartyRepository().getAppliedParties()
             if (apiResponse.code() == 200) {
                 val getAppliedPartyResponse: PartyDto.Companion.GetAppliedPartyResponse =
                     apiResponse.body() ?: PartyDto.Companion.GetAppliedPartyResponse(
@@ -105,7 +105,7 @@ class ApplicationViewModel : ViewModel() {
 
     fun getPartyGroupChat(partyId: Int) {
         viewModelScope.launch {
-            val apiResponse = ChatRepository.instance.getPartyGroupChatRoom(partyId)
+            val apiResponse = ChatRepository().getPartyGroupChatRoom(partyId)
             if (apiResponse.isSuccessful) {
                 val partyGroupChatRoom = apiResponse.body() ?: return@launch
                 val copyMap = HashMap(_approvedPartyItems.value)
@@ -121,7 +121,7 @@ class ApplicationViewModel : ViewModel() {
 
     fun getApplicationPartyOneToOneChatRooms() {
         viewModelScope.launch {
-            val apiResponse = ChatRepository.instance.getApplicationOneToOneChatRooms()
+            val apiResponse = ChatRepository().getApplicationOneToOneChatRooms()
             if (apiResponse.isSuccessful) {
                 val partyOneToOneChatRooms = apiResponse.body()?.chatRooms ?: return@launch
                 val copyMap = HashMap(_appliedPartyItems.value)

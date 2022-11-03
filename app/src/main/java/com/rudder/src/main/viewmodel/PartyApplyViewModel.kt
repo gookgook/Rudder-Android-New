@@ -17,6 +17,7 @@ class PartyApplyViewModel : ViewModel() {
     private val _isApplySuccess: MutableLiveData<Boolean> = MutableLiveData()
     val isApplySuccess: LiveData<Boolean> = _isApplySuccess
 
+    val recommendationCode : MutableLiveData<String> = MutableLiveData("")
 
     private var _numberApplicants: Int = 0
     private var _partyId:Int? = null
@@ -24,9 +25,9 @@ class PartyApplyViewModel : ViewModel() {
 
     fun applyParty(onPartyApplySuccess: () -> Unit) {
         viewModelScope.launch {
-            val applyPartyRequest = PartyDto.Companion.ApplyPartyRequest(numberApplicants = _numberApplicants)
+            val applyPartyRequest = PartyDto.Companion.ApplyPartyRequest(numberApplicants = _numberApplicants, recommendationCode = recommendationCode.value?:return@launch)
             _partyId?.let {
-                val apiResponse = PartyRepository.instance.applyParty(it,applyPartyRequest)
+                val apiResponse = PartyRepository().applyParty(it,applyPartyRequest)
                 if (apiResponse.isSuccessful){
                     onPartyApplySuccess()
                     _isApplySuccess.value=true

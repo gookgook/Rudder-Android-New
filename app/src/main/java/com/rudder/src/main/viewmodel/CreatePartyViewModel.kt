@@ -25,6 +25,9 @@ class CreatePartyViewModel : ViewModel() {
     private val _toastMessage: MutableLiveData<String> = MutableLiveData()
     val toastMessage: LiveData<String> = _toastMessage
 
+    private val _isCreatePartySuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val isCreatePartySuccess: LiveData<Boolean> = _isCreatePartySuccess
+
     val partyTitle: MutableLiveData<String> = MutableLiveData()
     val partyDescription: MutableLiveData<String> = MutableLiveData()
     val partyLocation: MutableLiveData<String> = MutableLiveData()
@@ -61,7 +64,7 @@ class CreatePartyViewModel : ViewModel() {
         )
 
         viewModelScope.launch {
-            val createPartyApiResponse = PartyRepository.instance.createParty(postPartyRequest)
+            val createPartyApiResponse = PartyRepository().createParty(postPartyRequest)
             if (createPartyApiResponse.isSuccessful){
                 val postPartyResponse = createPartyApiResponse.body() ?: return@launch
                 val getPartyImageUploadUrlRequest =
@@ -70,7 +73,7 @@ class CreatePartyViewModel : ViewModel() {
                         partyId = postPartyResponse.partyId
                     )
                 val getImageUploadUrlApiResponse =
-                    PartyRepository.instance.getPartyImageUploadUrl(getPartyImageUploadUrlRequest)
+                    PartyRepository().getPartyImageUploadUrl(getPartyImageUploadUrlRequest)
 
                 if (getImageUploadUrlApiResponse.isSuccessful){
                     val getPartyImageUploadUrlResponse = getImageUploadUrlApiResponse.body() ?: return@launch
@@ -83,6 +86,9 @@ class CreatePartyViewModel : ViewModel() {
                     RetrofitS3Client.getClient().create(PhotoUploadService::class.java).uploadPhoto(
                         getPartyImageUploadUrlResponse.urls[0],requestBody
                     )
+
+                    _isCreatePartySuccess.value =true
+
 
                 }else{
                     _toastMessage.value = "Fail to upload party image"

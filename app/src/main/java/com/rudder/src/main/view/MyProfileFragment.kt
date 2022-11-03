@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.rudder.MainActivity
 import com.rudder.R
+import com.rudder.config.App
 import com.rudder.databinding.FragmentMyProfileBinding
 import com.rudder.src.main.viewmodel.MyProfileViewModel
 
@@ -63,6 +65,11 @@ class MyProfileFragment: Fragment() {
 
     fun goTerms() {
         view?.let { Navigation.findNavController(it).navigate(R.id.action_fragment_myProfile_to_terms) }
+    }
+
+    fun logout() {
+        App.prefs.removeValue("authToken")
+        findNavController().navigate(R.id.action_myProfileFragment_to_fragment_start)
     }
 
 

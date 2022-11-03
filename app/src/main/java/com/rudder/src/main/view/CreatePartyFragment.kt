@@ -91,6 +91,10 @@ class CreatePartyFragment : Fragment() {
             Toast.makeText(mContext,it,Toast.LENGTH_SHORT).show()
         })
 
+        viewModel.isCreatePartySuccess.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            requireActivity().onBackPressed()
+        })
+
         return binding.root
     }
 

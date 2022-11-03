@@ -33,7 +33,9 @@ class ApplicationFragment : Fragment() {
                     ApplicationFragmentDirections.actionFragmentApplicationToPartyDetailFragment(partyId = appliedPartyItem.party.partyId)
                 findNavController().navigate(action)
             }else{
-
+                val action =
+                    ApplicationFragmentDirections.actionFragmentApplicationToChatFragment(chatRoomId = appliedPartyItem.partyOneToOneChatRoom.chatRoomId)
+                findNavController().navigate(action)
             }
 
         }

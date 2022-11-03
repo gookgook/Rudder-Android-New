@@ -147,6 +147,9 @@
             android:id="@+id/action_fragment_myProfile_to_terms"
             app:destination="@id/termsFragment"
             />
+        <action
+            android:id="@+id/action_myProfileFragment_to_fragment_start"
+            app:destination="@id/fragment_start" />
     </fragment>
 
     <fragment

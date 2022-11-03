@@ -30,6 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginLeft="33dp"
+                android:onClick="@{()->createPartyFragment.requireActivity().onBackPressed()}"
                 android:background="@drawable/ic_round_arrow_back_24"/>
 
             <TextView

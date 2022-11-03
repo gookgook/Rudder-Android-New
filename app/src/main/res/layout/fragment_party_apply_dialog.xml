@@ -58,6 +58,22 @@
             android:layout_marginRight="40dp"
             android:layout_marginTop="18dp"/>
 
+        <EditText
+            android:id="@+id/partyRecommendationCodeET"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/partyApplyMemberCountS"
+            android:background="@drawable/edge_stroke"
+            android:hint="Recommendation Code"
+            android:paddingLeft="8dp"
+            android:textSize="12sp"
+            android:text="@={viewModel.recommendationCode}"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="18dp"/>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/partyApplyB"
             android:layout_width="0dp"
@@ -67,7 +83,7 @@
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/partyApplyMemberCountS"
+            app:layout_constraintTop_toBottomOf="@id/partyRecommendationCodeET"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/button_style"

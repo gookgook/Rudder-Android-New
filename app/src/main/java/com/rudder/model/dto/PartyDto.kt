@@ -26,7 +26,8 @@ class PartyDto {
         )
 
         data class ApplyPartyRequest(
-            var numberApplicants: Int
+            var numberApplicants: Int,
+            val recommendationCode: String
         )
 
         data class PostPartyRequest(
