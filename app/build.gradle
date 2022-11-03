@@ -84,5 +84,6 @@ dependencies {
     implementation("org.greenrobot:eventbus:3.3.1")
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'//이미지 크롭
+   // implementation("com.vanniktech:android-image-cropper:4.4.0")
 
 }

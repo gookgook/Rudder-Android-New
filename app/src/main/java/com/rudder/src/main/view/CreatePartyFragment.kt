@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -23,9 +24,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.rudder.MainActivity
 import com.rudder.R
 import com.rudder.databinding.FragmentCreatePartyBinding
 import com.rudder.src.main.viewmodel.CreatePartyViewModel
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.File
 import java.util.*
 
@@ -35,30 +39,71 @@ class CreatePartyFragment : Fragment() {
     private val viewModel: CreatePartyViewModel by viewModels()
     private lateinit var mContext: Context
 
+    fun setActivityAction()  {
+        (requireActivity() as MainActivity).fragmentCreated = { requestCode, resultCode, data ->
+            Log.d("came here","came here")
+
+
+            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                Log.d("crop Ended", "Yeah")
+                val cropResult = CropImage.getActivityResult(data)
+                if (resultCode == Activity.RESULT_OK) {
+
+
+
+
+
+
+
+                    val imageUri = cropResult.uri
+                    imageUri?.let {
+                        //val imageFile = File(getRealPathFromURI(it))
+                        val imageFile = File(it.toString())
+                        val cr: ContentResolver = context?.contentResolver!!
+
+                        viewModel.setImage(imageFile, cr.getType(it).toString())
+
+                        Glide.with(binding.selectedPhotoIV.context)
+                            .load(imageUri)
+                            .override(800,800)
+                            .fitCenter()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(binding.selectedPhotoIV)
+                    }
+                    Toast.makeText(requireActivity(), "Photo pick success", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            //get your "requestCode" here with switch for "SomeUniqueID"
+        }
+    }
+
     private val imageResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
 
-
         if (result.resultCode == Activity.RESULT_OK) {
-            val imageUri = result.data?.data
-            imageUri?.let {
-                val imageFile = File(getRealPathFromURI(it))
-                val cr: ContentResolver = context?.contentResolver!!
 
-                viewModel.setImage(imageFile, cr.getType(it).toString())
+            val tmpUri = result.data?.data
+            tmpUri?.let {
 
-                Glide.with(binding.selectedPhotoIV.context)
-                    .load(imageUri)
-                    .override(800,800)
-                    .fitCenter()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(binding.selectedPhotoIV)
-
-
+                Log.d("came ImageResult","ImageResult")
+                cropImage(it)
             }
         }
+
     }
+
+    private fun cropImage(uri: Uri?){
+        CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON)
+            .setCropShape(CropImageView.CropShape.RECTANGLE)
+            //.setGuidelines(CropImageView.Guidelines.ON).setMinCropResultSize(500, 500).setMaxCropResultSize(500, 500)
+            .setGuidelines(CropImageView.Guidelines.ON).setFixAspectRatio(true)
+            //사각형 모양으로 자른다
+            .start(this.requireActivity())
+    }
+
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -74,6 +119,7 @@ class CreatePartyFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.createPartyFragment = this
 
+        setActivityAction()
 
         val partyMemberCountList = listOf(5,6,7,8,9,10)
         val departmentASpinnerAdapter = ArrayAdapter(mContext, R.layout.custom_spinner_layout, partyMemberCountList)
