@@ -8,9 +8,9 @@ import retrofit2.http.Query
 
 interface GetOldChatService {
 
-    @GET("/chat-messages/{chatRoomId}}")
+    @GET("/chat-messages/{chatRoomId}")
     suspend fun getOldChats(
         @Path("chatRoomId") chatRoomId: Int,
-        @Query("endChatMessageId") endChatMessageId: String?
+        @Query("endChatMessageId") endChatMessageId: Int? = null
     ): Response<ChatDto.Companion.GetOldChatResponse>
 }
