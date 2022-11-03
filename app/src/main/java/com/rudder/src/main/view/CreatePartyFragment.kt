@@ -65,7 +65,6 @@ class CreatePartyFragment : Fragment() {
 
                         Glide.with(binding.selectedPhotoIV.context)
                             .load(imageUri)
-                            .override(800,800)
                             .fitCenter()
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .into(binding.selectedPhotoIV)

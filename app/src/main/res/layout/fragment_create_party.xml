@@ -66,8 +66,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/selectPhotoCL"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="184dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,1:1"
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginTop="15dp"
                         android:onClick="@{createPartyFragment.selectGallery}"
@@ -75,6 +75,15 @@
 
                         <ImageView
                             android:id="@+id/selectedPhotoIV"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:translationZ="15dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+                        <ImageView
+                            android:id="@+id/selectedPhotoIV2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/plus_gray"
