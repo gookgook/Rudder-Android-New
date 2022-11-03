@@ -11,6 +11,6 @@ interface GetOldChatService {
     @GET("/chat-messages/{chatRoomId}}")
     suspend fun getOldChats(
         @Path("chatRoomId") chatRoomId: Int,
-        @Query("endChatMessageId") endChatMessageId: String
+        @Query("endChatMessageId") endChatMessageId: String?
     ): Response<ChatDto.Companion.GetOldChatResponse>
 }
