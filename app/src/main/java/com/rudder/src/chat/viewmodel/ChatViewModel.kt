@@ -32,7 +32,7 @@ class ChatViewModel : ViewModel() {
             RetrofitClient.getClient(BuildConfig.BASE_URL).create(GetOldChatService::class.java)
         viewModelScope.launch {
             val getOldChatRequest: Response<ChatDto.Companion.GetOldChatResponse> =
-                getOldChatService.getOldChats(chatRoomId, "-1")
+                getOldChatService.getOldChats(chatRoomId, null)
             chatMessages.value?.let {
 
                 chatMessages.postValue(getOldChatRequest.body()!!.chatMessages.toMutableList())

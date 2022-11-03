@@ -61,8 +61,8 @@ class ChatFragment : Fragment() {
             it.setHasFixedSize(false)
             it.adapter = chatListAdapter
         }
-        //viewModel.getChatMessages(chatRoomId)
-        //viewModel.getOldChat()
+
+        viewModel.getOldChat()
 
         viewModel.chatMessages.observe(viewLifecycleOwner, Observer {
             it?.let {
