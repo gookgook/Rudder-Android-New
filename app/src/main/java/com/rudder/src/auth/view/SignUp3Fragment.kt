@@ -14,6 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -21,12 +23,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
+import com.rudder.MainActivity
 import com.rudder.R
 import com.rudder.databinding.FragmentSignup3Binding
 import com.rudder.src.auth.viewmodel.SignUpViewModel
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.File
+
 
 class SignUp3Fragment: Fragment() {
     private val viewModel: SignUpViewModel by activityViewModels()
@@ -40,58 +44,75 @@ class SignUp3Fragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setActivityAction()
 
-        setBinding()
 
-
-        // Inflate the layout for this fragment
+        // Inflate the lay
+        //out for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup3, container, false)
         binding.main = viewModel
         binding.frag = this
         return binding.root
     }
 
-    fun setBinding()  {
 
+
+    fun setActivityAction()  {
+        (requireActivity() as MainActivity).fragmentCreated = { requestCode, resultCode, data ->
+            Log.d("came here","came here")
+
+
+            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                Log.d("crop Ended", "Yeah")
+                val cropResult = CropImage.getActivityResult(data)
+                if (resultCode == RESULT_OK) {
+
+                    availablePicker = currentImagePicker + 1
+
+                    var currentImageView: ImageView
+                    when (currentImagePicker) {
+                        1 -> currentImageView = binding.profile1IV
+                        2 -> currentImageView = binding.profile2IV
+                        3 -> currentImageView = binding.profile3IV
+                        4 -> currentImageView = binding.profile4IV
+                        5 -> currentImageView = binding.profile5IV
+                        else -> currentImageView = binding.profile6IV
+                    }
+
+                    val imageUri = cropResult.uri
+                    imageUri?.let {
+                        //val imageFile = File(getRealPathFromURI(it))
+                        val imageFile = File(it.toString())
+                        val cr: ContentResolver = context?.contentResolver!!
+                        viewModel.appendImage(imageFile, cr.getType(it).toString())
+
+                        Glide.with(requireActivity())
+                            .load(imageUri)
+                            .fitCenter()
+                            .into(currentImageView)
+                    }
+                    Toast.makeText(requireActivity(), "Photo pick success", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+
+
+
+            //get your "requestCode" here with switch for "SomeUniqueID"
+        }
     }
-
 
     private val imageResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-
         if (result.resultCode == RESULT_OK) {
+
             val tmpUri = result.data?.data
             tmpUri?.let {
+
+                Log.d("came ImageResult","ImageResult")
                 cropImage(it)
             }
-        }
-
-        availablePicker = currentImagePicker + 1
-
-        var currentImageView: ImageView
-        when (currentImagePicker) {
-            1 -> currentImageView = binding.profile1IV
-            2 -> currentImageView = binding.profile2IV
-            3 -> currentImageView = binding.profile3IV
-            4 -> currentImageView = binding.profile4IV
-            5 -> currentImageView = binding.profile5IV
-            else -> currentImageView = binding.profile6IV
-        }
-
-        if (result.resultCode == RESULT_OK) {
-            val imageUri = result.data?.data
-            imageUri?.let {
-                val imageFile = File(getRealPathFromURI(it))
-                val cr: ContentResolver = context?.contentResolver!!
-                viewModel.appendImage(imageFile, cr.getType(it).toString())
-
-                Glide.with(this.activity)
-                    .load(imageUri)
-                    .fitCenter()
-                    .into(currentImageView)
-            }
-            Toast.makeText(this.activity, "Photo pick success", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -103,6 +124,7 @@ class SignUp3Fragment: Fragment() {
             //사각형 모양으로 자른다
             .start(this.requireActivity())
     }
+
 
     fun getRealPathFromURI(uri: Uri): String {
 
@@ -160,16 +182,17 @@ class SignUp3Fragment: Fragment() {
             )
 
         } else {
-            // 권한이 있는 경우 갤러리 실행
             val intent = Intent(Intent.ACTION_PICK)
             intent.putExtra("crop", true)
+            intent.putExtra("requestCode", "cropSquare");
             // intent의 data와 type을 동시에 설정하는 메서드
             intent.setDataAndType(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 "image/*"
             )
-
             imageResult.launch(intent)
+            //CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(this.requireActivity());
+
         }
     }
 }

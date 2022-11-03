@@ -1,9 +1,11 @@
 package com.rudder
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import androidx.lifecycle.LiveData
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     private val binding: MainActivityBinding by lazy {
         MainActivityBinding.inflate(layoutInflater)
     }
+
+    lateinit var fragmentCreated:(requestCode: Int, resultCode: Int, data: Intent?) -> Unit
 
     val dialog by lazy {
         LoadingDialog(this)
@@ -46,6 +50,11 @@ class MainActivity : AppCompatActivity() {
             val height = displayMertrics.heightPixels
             arrayListOf(width, height)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        fragmentCreated(requestCode,resultCode,data)
     }
 
     /*  private fun setupJetpackNavigation() {
