@@ -23,6 +23,8 @@ class PartyMainViewModel : ViewModel() {
 
     val isLoadingFlag = MutableLiveData<Boolean> (false)
 
+
+
     val newNoticationFlag = MutableLiveData<Boolean> (false)
     init {
         getParties()

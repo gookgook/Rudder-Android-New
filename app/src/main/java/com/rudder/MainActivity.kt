@@ -1,11 +1,13 @@
 package com.rudder
 
+import KeyboardVisibilityUtils
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.WindowInsets
 import androidx.lifecycle.LiveData
@@ -21,11 +23,16 @@ class MainActivity : AppCompatActivity() {
         MainActivityBinding.inflate(layoutInflater)
     }
 
+
     lateinit var fragmentCreated:(requestCode: Int, resultCode: Int, data: Intent?) -> Unit
 
     val dialog by lazy {
         LoadingDialog(this)
     }
+
+
+
+    var isKeyboardUp: Boolean = false
 
     private lateinit var navController: NavController
 
@@ -33,6 +40,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupBottomNavigationBar()
+
+        val keyboardVisibilityUtils = KeyboardVisibilityUtils(window,
+            onShowKeyboard = {keyboardHeight, visibleDisplayFrameHeight ->
+                // 키보드가 올라올 때의 동작
+                Log.d("keyboard up", "up")
+                isKeyboardUp = true
+            },
+            onHideKeyboard = {
+                // 키보드가 내려갈 때의 동작
+                Log.d("keyboard down", "down")
+                isKeyboardUp = false
+            }
+        )
     }
 
     fun getDisplaySize(): ArrayList<Int> {
@@ -57,21 +77,10 @@ class MainActivity : AppCompatActivity() {
         fragmentCreated(requestCode,resultCode,data)
     }
 
-    /*  private fun setupJetpackNavigation() {
-          val host =
-              supportFragmentManager.findFragmentById(R.id.booksearch_nav_host_fragment) as NavHostFragment
-
-          navController = host.navController
-          binding.bottomNavigationView.setupWithNavController(navController)
 
 
-          navController.addOnDestinationChangedListener { controller, destination, arguments ->
-              when(destination.id) {
-                  R.id.partyDetailFragment,R.id.createPartyFragment -> binding.bottomNavigationView.visibility = View.GONE
-                  else -> binding.bottomNavigationView.visibility = View.VISIBLE
-              }
-          }
-      }*/
+
+
 
     private lateinit var currentNavController: LiveData<NavController>
 

@@ -38,7 +38,7 @@ class SignUp2Fragment: Fragment() {
                 when (status) {
                     1 -> view?.let { Navigation.findNavController(it).navigate(R.id.action_fragment_signup2_to_fragment_signup3) }
                     -2 -> Toast.makeText(this.activity, "Something Empty", Toast.LENGTH_SHORT).show()
-                    -3 -> Toast.makeText(this.activity, "Profile Body Count", Toast.LENGTH_SHORT).show()
+                    -3 -> Toast.makeText(this.activity, "Description must be at least 20 characters long", Toast.LENGTH_SHORT).show()
                     else -> Toast.makeText(this.activity, "Server Error", Toast.LENGTH_SHORT).show()
                 }
             }
