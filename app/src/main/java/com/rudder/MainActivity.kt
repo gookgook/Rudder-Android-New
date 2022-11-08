@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     /*  private fun setupJetpackNavigation() {
           val host =
               supportFragmentManager.findFragmentById(R.id.booksearch_nav_host_fragment) as NavHostFragment
-
+w
           navController = host.navController
           binding.bottomNavigationView.setupWithNavController(navController)
 
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                 when (destination.id) {
                     R.id.partyDetailFragment, R.id.createPartyFragment, R.id.applicantProfileFragment, R.id.chatFragment,
                     R.id.fragment_start,R.id.fragment_login,R.id.fragment_signup1,R.id.fragment_signup2,R.id.fragment_signup3,
-                    R.id.partySettingFragment,R.id.myProfileFragment
+                    R.id.partySettingFragment,R.id.myProfileFragment, R.id.partyEnquiryFragment, R.id.termsFragment
                     -> binding.bottomNavigationView.visibility = View.GONE
                     else -> binding.bottomNavigationView.visibility = View.VISIBLE
                 }

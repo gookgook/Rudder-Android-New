@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -61,6 +62,10 @@ class MyProfileFragment: Fragment() {
 
     fun goChat() {
         view?.let { Navigation.findNavController(it).navigate(R.id.action_fragment_myProfile_to_chat) }
+    }
+
+    fun waitForTheNextUpdate() {
+        Toast.makeText(requireContext(),"Wait for the next Update!",Toast.LENGTH_SHORT).show()
     }
 
     fun goTerms() {

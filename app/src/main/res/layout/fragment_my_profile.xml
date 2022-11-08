@@ -22,6 +22,18 @@
         android:layout_height="match_parent"
         tools:context=".LoginFragment">
 
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:translationZ="1dp"
+            android:background="@drawable/ic_round_arrow_back_white_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->main.requireActivity().onBackPressed()}"
+            />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -153,7 +165,7 @@
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:text="Change Nickname"
-                    android:onClick="@{()->main.goChat()}"
+                    android:onClick="@{()->main.waitForTheNextUpdate()}"
                     />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -171,6 +183,7 @@
                     android:minHeight="0dp"
                     android:minWidth="0dp"
                     android:text="Change Password"
+                    android:onClick="@{()->main.waitForTheNextUpdate()}"
                     />
 
                 <androidx.appcompat.widget.AppCompatButton
