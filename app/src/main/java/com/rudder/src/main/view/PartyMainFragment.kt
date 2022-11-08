@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +29,7 @@ class PartyMainFragment : Fragment() {
         activity as MainActivity
     }
     private lateinit var binding: FragmentPartyMainBinding
+
 
     private val partyPreviewListAdapter by lazy {
 
@@ -77,7 +79,8 @@ class PartyMainFragment : Fragment() {
             it.addOnScrollListener(object : RecyclerView.OnScrollListener(){
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    if(!it.canScrollVertically(1)){
+                    if(!it.canScrollVertically(1) ){
+                        Log.d("PartyMain Refresh","refresh")
                         partyMainViewModel.getParties(isMore = true)
                     }
                 }

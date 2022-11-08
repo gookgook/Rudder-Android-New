@@ -20,24 +20,48 @@ class ChatViewModel : ViewModel() {
     val chatMessages = MutableLiveData<MutableList<ChatDto.Companion.Chat>>(arrayListOf())
 
 
+    var endChatMessageId: Int = -1
+
     val receivedChatFlag = MutableLiveData<Boolean>(false)
+    val scrollToBottomFlag = MutableLiveData<Boolean>(false)
+
+    var isRefreshingFlag : Boolean = false
 
     private var chatRoomId= -1//여따 채널아이디 넣으셈
     val sendChatBody = MutableLiveData<String>()
 
+    val isLoadingFlag = MutableLiveData<Boolean> (false)
 
 
-    fun getOldChat() {
+
+    fun getOldChat(isMore: Boolean=false) {
         val getOldChatService: GetOldChatService =
             RetrofitClient.getClient(BuildConfig.BASE_URL).create(GetOldChatService::class.java)
         viewModelScope.launch {
-            val getOldChatRequest: Response<ChatDto.Companion.GetOldChatResponse> =
-                getOldChatService.getOldChats(chatRoomId)
+
+            isLoadingFlag.value = true
+            var getOldChatRequest: Response<ChatDto.Companion.GetOldChatResponse>
+            if (!isMore) {
+                getOldChatRequest = getOldChatService.getOldChats(chatRoomId)
+            } else {
+                getOldChatRequest = getOldChatService.getOldChats(chatRoomId, endChatMessageId)
+            }
+            isLoadingFlag.value = false
+
             chatMessages.value?.let {
 
-                chatMessages.postValue(getOldChatRequest.body()!!.chatMessages.toMutableList())
+                if (!isMore) {
+                    chatMessages.postValue(getOldChatRequest.body()!!.chatMessages.toMutableList())
 
-                receivedChatFlag.postValue(true)
+                } else {
+                    it.addAll(getOldChatRequest.body()!!.chatMessages.toMutableList())
+                    chatMessages.postValue(it)
+                }
+
+                if(getOldChatRequest.body()!!.chatMessages.isNotEmpty()){
+                    endChatMessageId = getOldChatRequest.body()!!.chatMessages.last().chatMessageId
+                }
+                //scrollToBottomFlag.postValue(true)
             }
         }
     }
@@ -46,7 +70,6 @@ class ChatViewModel : ViewModel() {
         Log.d("setChatRoomId2",chatRoomId.toString())
         Log.d("sendChatTest", "sendMessage Touched")
 
-
         val sendChatService: SendChatService =
             RetrofitClient.getClient(BuildConfig.BASE_URL).create(SendChatService::class.java)
 
@@ -54,6 +77,7 @@ class ChatViewModel : ViewModel() {
             viewModelScope.launch {
                 sendChatBody.value?.let {
                     if (it == "") return@launch
+                    isLoadingFlag.value = true
                     val sendChatRequest: Response<Void> = sendChatService.sendChat(
                         ChatDto.Companion.ChatToSend(
                             "mock",
@@ -63,6 +87,7 @@ class ChatViewModel : ViewModel() {
                         )
                     )
                     Log.d("sendChatTest", sendChatRequest.code().toString())
+                    isLoadingFlag.value = false
                     sendChatBody.value = ""
                 }
 
@@ -83,6 +108,8 @@ class ChatViewModel : ViewModel() {
             chatMessages.postValue(copyList)
 
             receivedChatFlag.postValue(true)
+
+            scrollToBottomFlag.value = true
         }
     }
 

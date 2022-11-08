@@ -1,11 +1,12 @@
 package com.rudder.src.chat.view
 
+import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,10 +19,8 @@ import com.rudder.R
 import com.rudder.config.App
 import com.rudder.databinding.FragmentChatBinding
 import com.rudder.src.chat.viewmodel.ChatViewModel
-import com.rudder.util.SocketHandle.ChatReceivedEvent
-import com.rudder.util.StompManager
-import kotlinx.android.synthetic.main.fragment_chat.view.*
-import org.greenrobot.eventbus.EventBus
+import kotlinx.android.synthetic.main.fragment_chat.*
+import java.util.*
 
 class ChatFragment : Fragment() {
 
@@ -44,6 +43,11 @@ class ChatFragment : Fragment() {
 
     }
 
+    var chatRVOffSet: Int = 0
+
+
+    var isFirst: Boolean = true
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,22 +60,103 @@ class ChatFragment : Fragment() {
         binding.setLifecycleOwner(this)
         val userInfoId = App.prefs.getValue("userInfoId")
         val chatListAdapter = ChatListAdapter(userInfoId!!.toInt())
+        viewModel.getOldChat()
         binding.chatRV.also {
             it.layoutManager = LinearLayoutManager(parentActivity)
             it.setHasFixedSize(false)
             it.adapter = chatListAdapter
+            it.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    Log.d("offset",it.computeVerticalScrollOffset().toString())
+
+                    if (!it.canScrollVertically(-1) && chatRVOffSet!=0) {
+                        Log.d("keyboard", "refresh")
+                        viewModel.getOldChat(true)
+                    }
+
+
+
+                }
+            })
+
+            binding.chatBodyET.onFocusChangeListener =
+                View.OnFocusChangeListener { view, hasFocus ->
+                    viewModel.isRefreshingFlag = hasFocus
+                }
+
         }
 
-        viewModel.getOldChat()
+
+        binding.bigCL.setOnTouchListener(object : View.OnTouchListener{
+            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+                chatRVOffSet = binding.chatRV.computeVerticalScrollOffset()
+                Log.d("offset2",chatRVOffSet.toString())
+                return false
+            }
+        })
+
+        binding.chatRV.setOnTouchListener(object : View.OnTouchListener{
+            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+                chatRVOffSet = binding.chatRV.computeVerticalScrollOffset()
+                Log.d("offset2",chatRVOffSet.toString())
+                return false
+            }
+        })
+
+        binding.chatBodyET.setOnTouchListener(object : View.OnTouchListener{
+            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+                chatRVOffSet = binding.chatRV.computeVerticalScrollOffset()
+                Log.d("offset2",chatRVOffSet.toString())
+                return false
+            }
+        })
+
+
+
+
+        viewModel.scrollToBottomFlag.observe(viewLifecycleOwner, Observer {
+            if (it){
+                binding.chatRV.scrollToPosition(chatListAdapter.itemCount-1)
+            }
+
+        })
+
+
+
 
         viewModel.chatMessages.observe(viewLifecycleOwner, Observer {
             it?.let {
                 Log.d("chatBody","came to fragment")
                 chatListAdapter.submitList(it.asReversed().toList())
-                scrollToBottom(binding.chatRV)
+
+                if (isFirst) {
+                    isFirst = false
+
+                    Timer().schedule(object : TimerTask() {
+                        override fun run() {
+                            binding.chatRV.smoothScrollToPosition(viewModel.chatMessages.value!!.size - 1)
+                            Log.d("offset", binding.chatRV.computeVerticalScrollOffset().toString())
+                        }
+                    }, 1300)
+
+                }
 
             }
         })
+
+        viewModel.isLoadingFlag.observe(viewLifecycleOwner, Observer { status ->
+            if (status) (activity as MainActivity).dialog.show()
+            else {(activity as MainActivity).dialog.hide() }
+        })
+
+        viewModel.scrollToBottomFlag.observe(viewLifecycleOwner, Observer { status ->
+            if (status) {
+                binding.chatRV.smoothScrollToPosition(viewModel.chatMessages.value?.size!! - 1)
+            }
+        })
+
         return binding.root
     }
 
@@ -85,9 +170,11 @@ class ChatFragment : Fragment() {
         viewModel.unregisterEvent()
     }
 
+
+
+
     private fun scrollToBottom(recyclerView: RecyclerView){
         recyclerView.smoothScrollToPosition(0)
     }
-
 }
 
