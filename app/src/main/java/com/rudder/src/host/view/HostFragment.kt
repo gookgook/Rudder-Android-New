@@ -24,6 +24,7 @@ import com.rudder.model.dto.ApplicantProfileRequest
 import com.rudder.model.dto.HostParty
 import com.rudder.model.dto.PartyDto
 import com.rudder.src.host.viewmodel.HostViewModel
+import kotlinx.android.synthetic.main.fragment_host.*
 import java.sql.Timestamp
 
 
@@ -141,6 +142,9 @@ class HostFragment : Fragment() {
                     binding.messagesTV.isGone = false
                     binding.settingBT.isEnabled = true
 
+                    hostPartyGroupChatAreaCL.setOnClickListener {v->
+                        onPartyGroupChatRoomClickListener(it)
+                    }
                     binding.hostParty=it
                     Glide.with(binding.hostPartyImageIV.context)
                         .load(it.partyDetail.partyThumbnailUrl)
