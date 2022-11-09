@@ -22,6 +22,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.rudder.MainActivity
 import com.rudder.R
@@ -52,6 +54,18 @@ class SignUp3Fragment: Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup3, container, false)
         binding.main = viewModel
         binding.frag = this
+
+        viewModel.isLoadingFlag.observe(viewLifecycleOwner, Observer { status ->
+            if (status) (activity as MainActivity).dialog.show()
+            else {(activity as MainActivity).dialog.hide() }
+        })
+
+        viewModel.signUpResultFlag.observe(viewLifecycleOwner, Observer {
+            view?.let {
+                Navigation.findNavController(it).popBackStack(R.id.fragment_start, false)
+            }
+        })
+
         return binding.root
     }
 
@@ -82,7 +96,7 @@ class SignUp3Fragment: Fragment() {
                     val imageUri = cropResult.uri
                     imageUri?.let {
                         //val imageFile = File(getRealPathFromURI(it))
-                        val imageFile = File(it.toString())
+                        val imageFile = File(it.path)
                         val cr: ContentResolver = context?.contentResolver!!
                         viewModel.appendImage(imageFile, cr.getType(it).toString())
 

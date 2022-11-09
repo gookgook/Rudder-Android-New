@@ -32,6 +32,8 @@ class CreatePartyViewModel : ViewModel() {
     val partyDescription: MutableLiveData<String> = MutableLiveData()
     val partyLocation: MutableLiveData<String> = MutableLiveData()
 
+    val isLoadingFlag = MutableLiveData<Boolean> (false)
+
     private val partyCalendar: Calendar = Calendar.getInstance()
     private var partyMemberCount: Int? = null
     private var imageForUpload: PartyDto.Companion.ImageForUpload? = null
@@ -64,6 +66,7 @@ class CreatePartyViewModel : ViewModel() {
         )
 
         viewModelScope.launch {
+            isLoadingFlag.value = true
             val createPartyApiResponse = PartyRepository().createParty(postPartyRequest)
             if (createPartyApiResponse.isSuccessful){
                 val postPartyResponse = createPartyApiResponse.body() ?: return@launch
@@ -87,14 +90,17 @@ class CreatePartyViewModel : ViewModel() {
                         getPartyImageUploadUrlResponse.urls[0],requestBody
                     )
 
+                    isLoadingFlag.value = false
                     _isCreatePartySuccess.value =true
 
 
                 }else{
+                    isLoadingFlag.value = false
                     _toastMessage.value = "Fail to upload party image"
                     return@launch
                 }
             }else{
+                isLoadingFlag.value = false
                 _toastMessage.value = "Network error"
                 return@launch
             }
