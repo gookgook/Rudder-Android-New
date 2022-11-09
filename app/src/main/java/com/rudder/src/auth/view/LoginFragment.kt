@@ -48,6 +48,7 @@ class LoginFragment : Fragment() {
             status?.let{
                 when (status) {
                     -2 -> Toast.makeText(this.activity, "Something Empty", Toast.LENGTH_SHORT).show()
+                    2 -> Toast.makeText(this.activity, "Wrong", Toast.LENGTH_SHORT).show()
                     1 -> view?.let {
                         if (!findNavController().popBackStack(R.id.action_fragment_login_to_fragment_party_main,false)){
                             findNavController().navigate(R.id.action_fragment_login_to_fragment_party_main)

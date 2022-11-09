@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import com.rudder.MainActivity
 import com.rudder.R
 import com.rudder.databinding.FragmentSignup2Binding
 import com.rudder.src.auth.viewmodel.SignUpViewModel
@@ -42,6 +43,11 @@ class SignUp2Fragment: Fragment() {
                     else -> Toast.makeText(this.activity, "Server Error", Toast.LENGTH_SHORT).show()
                 }
             }
+        })
+
+        viewModel.isLoadingFlag.observe(viewLifecycleOwner, Observer { status ->
+            if (status) (activity as MainActivity).dialog.show()
+            else {(activity as MainActivity).dialog.hide() }
         })
     }
 

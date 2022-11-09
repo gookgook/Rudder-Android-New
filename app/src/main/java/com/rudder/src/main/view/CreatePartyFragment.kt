@@ -58,7 +58,7 @@ class CreatePartyFragment : Fragment() {
                     val imageUri = cropResult.uri
                     imageUri?.let {
                         //val imageFile = File(getRealPathFromURI(it))
-                        val imageFile = File(it.toString())
+                        val imageFile = File(it.path)
                         val cr: ContentResolver = context?.contentResolver!!
 
                         viewModel.setImage(imageFile, cr.getType(it).toString())
@@ -138,6 +138,11 @@ class CreatePartyFragment : Fragment() {
 
         viewModel.isCreatePartySuccess.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             requireActivity().onBackPressed()
+        })
+
+        viewModel.isLoadingFlag.observe(viewLifecycleOwner, androidx.lifecycle.Observer { status ->
+            if (status) (activity as MainActivity).dialog.show()
+            else {(activity as MainActivity).dialog.hide() }
         })
 
         return binding.root
