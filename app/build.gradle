@@ -11,11 +11,11 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.rudder"
+        applicationId "com.rudder.coursereview"
         minSdk 28
         targetSdk 31
-        versionCode 1
-        versionName "1.0"
+        versionCode 17
+        versionName "4.0"
         buildConfigField "String", "BASE_URL",localProperties['baseUrl']
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

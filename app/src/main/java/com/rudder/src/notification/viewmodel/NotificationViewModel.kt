@@ -35,7 +35,7 @@ class NotificationViewModel : ViewModel() {
                     val copyList = _notificationList.value?.toMutableList()
                     copyList?.addAll(getNotificationsResponse.notifications)
                     copyList?.let {
-                        _notificationList.value = copyList
+                        _notificationList.value = it
                     }
                 }else{
                     _notificationList.value = getNotificationsResponse.notifications
