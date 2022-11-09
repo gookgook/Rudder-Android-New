@@ -146,12 +146,32 @@ class PartyDto {
         data class ApprovedPartyItem(
             val party: PartyPreview,
             var partyGroupChatRoom: ChatDto.Companion.PartyGroupChatRoom
-        )
+        ){
+            companion object {
+                fun getMock(): ApprovedPartyItem {
+                    return ApprovedPartyItem(
+                        PartyPreview.getMock("Waiting for the Host's Move","https://d17a6yjghl1rix.cloudfront.net/dark_party_mock.png"),
+                        ChatDto.Companion.PartyGroupChatRoom(-1,"","",0,
+                            "",Timestamp(System.currentTimeMillis()))
+                    )
+                }
+            }
+        }
 
         data class AppliedPartyItem(
             val party: PartyPreview,
             var partyOneToOneChatRoom: ChatDto.Companion.PartyOneToOneChatRoom
-        )
+        ){
+            companion object {
+                fun getMock(): AppliedPartyItem {
+                    return AppliedPartyItem(
+                        PartyPreview.getMock("Let's find the Pre for you!","https://d17a6yjghl1rix.cloudfront.net/dark_profile_image.png"),
+                        ChatDto.Companion.PartyOneToOneChatRoom(-1,"","",0,
+                            "",Timestamp(System.currentTimeMillis()),-1,-1)
+                    )
+                }
+            }
+        }
 
         data class PartyPreview(
             val applyCount: Int,
@@ -169,18 +189,18 @@ class PartyDto {
             val universityName: String
         ) {
             companion object {
-                fun getMock(): PartyPreview {
+                fun getMock(partyTitle: String = "", partyThumbnailUrl: String=""): PartyPreview {
                     return PartyPreview(
                         1,
                         1,
                         false,
                         1,
-                        1,
+                        -1,
                         "",
                         "",
-                        "",
+                        partyThumbnailUrl,
                         Timestamp(System.currentTimeMillis()),
-                        "",
+                        partyTitle,
                         1,
                         "",
                         ""

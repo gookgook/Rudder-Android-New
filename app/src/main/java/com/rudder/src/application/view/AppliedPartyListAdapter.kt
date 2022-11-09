@@ -47,9 +47,7 @@ class AppliedPartyListAdapter(val onAppliedPartyClickListener: (PartyDto.Compani
     override fun onBindViewHolder(holder: AppliedPartyItemViewHolder, position: Int) {
         val appliedPartyItem = getItem(position)
 
-        holder.appliedPreItemBinding.appliedPartyItemCL.setOnClickListener {
-            onAppliedPartyClickListener(appliedPartyItem)
-        }
+
 
         if (appliedPartyItem.partyOneToOneChatRoom.partyId.equals(-1)){
             Glide.with(holder.appliedPreItemBinding.appliedPartyImageIV.context)
@@ -64,6 +62,9 @@ class AppliedPartyListAdapter(val onAppliedPartyClickListener: (PartyDto.Compani
                 .into(holder.appliedPreItemBinding.appliedPartyImageIV)
             holder.appliedPreItemBinding.appliedPreTitleTV.text = appliedPartyItem.partyOneToOneChatRoom.chatRoomTitle
             holder.appliedPreItemBinding.appliedPreStatusTV.text = appliedPartyItem.partyOneToOneChatRoom.recentMessage
+            holder.appliedPreItemBinding.appliedPartyItemCL.setOnClickListener {
+                onAppliedPartyClickListener(appliedPartyItem)
+            }
         }
 
     }

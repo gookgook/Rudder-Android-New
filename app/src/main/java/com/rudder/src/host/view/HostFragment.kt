@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
@@ -124,13 +126,29 @@ class HostFragment : Fragment() {
 
         viewModel.selectedHostParty.observe(viewLifecycleOwner, Observer {
             it?.let {
-                binding.hostParty=it
-                Glide.with(binding.hostPartyImageIV.context)
-                    .load(it.partyDetail.partyThumbnailUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(binding.hostPartyImageIV)
-                partyApplicantListAdapter.submitList(it.partyApplicants.toList())
-                partyHostOneToOneChatRoomListAdapter.submitList(it.partyOneToOneChatRooms.toList())
+                if (it.partyId.equals(-1)){
+                    binding.applicationsTV.isGone = true
+                    binding.messagesTV.isGone = true
+                    binding.settingBT.isEnabled = false
+                    Glide.with(binding.hostPartyImageIV.context)
+                        .load("https://d17a6yjghl1rix.cloudfront.net/party_host_mock_image.png")
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(binding.hostPartyImageIV)
+                    binding.hostParty=it
+                    Toast.makeText(requireContext(),"You didn't host any party",Toast.LENGTH_SHORT).show()
+                }else{
+                    binding.applicationsTV.isGone = false
+                    binding.messagesTV.isGone = false
+                    binding.settingBT.isEnabled = true
+
+                    binding.hostParty=it
+                    Glide.with(binding.hostPartyImageIV.context)
+                        .load(it.partyDetail.partyThumbnailUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(binding.hostPartyImageIV)
+                    partyApplicantListAdapter.submitList(it.partyApplicants.toList())
+                    partyHostOneToOneChatRoomListAdapter.submitList(it.partyOneToOneChatRooms.toList())
+                }
             }
         })
 

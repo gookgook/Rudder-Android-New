@@ -89,7 +89,12 @@ class ApplicationFragment : Fragment() {
             it?.let {
 
 
-                approvedPartyListAdapter.submitList(it.toList().map { it.second } )
+                if (it.size>0){
+                    approvedPartyListAdapter.submitList(it.toList().map { it.second } )
+                }else{
+                    approvedPartyListAdapter.submitList(arrayListOf(PartyDto.Companion.ApprovedPartyItem.getMock()))
+                }
+
 
             }
         })
@@ -97,8 +102,11 @@ class ApplicationFragment : Fragment() {
         viewModel.appliedPartyItems.observe(viewLifecycleOwner, Observer {
             it?.let {
 
-
-                appliedPartyListAdapter.submitList(it.toList().map { it.second } )
+                if (it.size>0){
+                    appliedPartyListAdapter.submitList(it.toList().map { it.second } )
+                }else{
+                    appliedPartyListAdapter.submitList(arrayListOf(PartyDto.Companion.AppliedPartyItem.getMock()))
+                }
 
             }
         })

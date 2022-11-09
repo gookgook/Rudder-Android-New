@@ -20,7 +20,7 @@ class ChatDto {
                 val mock = PartyGroupChatRoom(
                     chatRoomId = -1,
                     chatRoomImageUrl = "",
-                    chatRoomTitle = "",
+                    chatRoomTitle = "Host Pre and Make New Friends",
                     notReadMessageCount = 0,
                     recentMessage = "",
                     recentMessageTime = Timestamp(System.currentTimeMillis())

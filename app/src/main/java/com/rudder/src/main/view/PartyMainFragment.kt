@@ -68,10 +68,6 @@ class PartyMainFragment : Fragment() {
 
         binding = FragmentPartyMainBinding.inflate(inflater, container, false)
         binding.partyMainFragment = this
-        partyPreviewListAdapter.submitList(arrayListOf(
-            PartyDto.Companion.PartyPreview.getMock(),
-            PartyDto.Companion.PartyPreview.getMock()
-        ))
         binding.partyPreviewListRV.also {
             it.layoutManager = LinearLayoutManager(parentActivity)
             it.setHasFixedSize(false)

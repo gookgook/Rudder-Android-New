@@ -61,7 +61,7 @@
             android:textColor="@color/text_dark_gray"
             app:layout_constraintTop_toBottomOf="@id/partyDateTV"
             app:layout_constraintStart_toEndOf="@id/partyThumbnailCV"
-            android:text="@{String.valueOf(approvedPartyItem.party.partyChatRoomId)}"
+            android:text="@{approvedPartyItem.party.partyTitle}"
             />
         <TextView
             android:id="@+id/partyRecentChatMessageTV"

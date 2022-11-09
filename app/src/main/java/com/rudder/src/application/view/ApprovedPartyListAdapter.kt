@@ -3,6 +3,8 @@ package com.rudder.src.application.view
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -56,9 +58,18 @@ class ApprovedPartyListAdapter(val onApprovedPartyClickListener: (Int) -> Unit) 
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.approvedPreItemBinding.partyThumbnailIV)
 
-        holder.approvedPreItemBinding.approvedPartyItemCL.setOnClickListener {
-            onApprovedPartyClickListener(approvedPartyItem.partyGroupChatRoom.chatRoomId)
+
+        if (approvedPartyItem.party.partyId.equals(-1)){
+            holder.approvedPreItemBinding.partyTimeString=""
+        }else{
+            holder.approvedPreItemBinding.approvedPartyItemCL.setOnClickListener {
+                onApprovedPartyClickListener(approvedPartyItem.partyGroupChatRoom.chatRoomId)
+            }
         }
+
+
+
+
 
     }
 }

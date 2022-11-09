@@ -8,7 +8,7 @@ class StompSocketClient {
 
     companion object{
         fun newInstance(): StompClient {
-            return Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://test.rudderuni.com/ws")
+            return Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://api.rudderuni.com/ws")
         }
     }
 
