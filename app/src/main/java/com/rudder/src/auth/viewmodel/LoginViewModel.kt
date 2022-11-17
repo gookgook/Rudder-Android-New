@@ -56,6 +56,9 @@ class LoginViewModel : ViewModel() {
                 401 -> {
                     loginResultFlag.value = 2
                 }
+                404 -> {
+                    loginResultFlag.value = 2
+                }
                 else -> {
                     Log.d("loginResult","login not 200")
                     loginResultFlag.value = -1

@@ -57,6 +57,7 @@ class PartyDetailFragment : Fragment() {
 
                 binding.partyApplyB.also { button->
                     when(it.partyStatus){
+
                         "FINAL_APPROVE" -> {
                             button.text = "Approved"
                             button.background=ContextCompat.getDrawable(requireContext(),R.drawable.button_style_gray)

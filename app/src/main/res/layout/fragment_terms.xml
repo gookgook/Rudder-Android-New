@@ -4,11 +4,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="main"
+            type="com.rudder.src.main.view.TermsFragment" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".StartFragment">
+        tools:context=".TermsFragment">
+
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:translationZ="2dp"
+            android:background="@drawable/ic_round_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->main.onlickBack()}"
+            />
 
         <WebView
             android:id="@+id/termsWV"
@@ -17,7 +36,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" >
+
+        </WebView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
