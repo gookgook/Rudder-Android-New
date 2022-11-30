@@ -1,10 +1,13 @@
 package com.rudder.src.main.view
 
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,6 +21,7 @@ import com.rudder.R
 import com.rudder.config.App
 import com.rudder.databinding.FragmentMyProfileBinding
 import com.rudder.src.main.viewmodel.MyProfileViewModel
+
 
 class MyProfileFragment: Fragment() {
     private lateinit var binding: FragmentMyProfileBinding
@@ -73,8 +77,21 @@ class MyProfileFragment: Fragment() {
     }
 
     fun logout() {
-        App.prefs.removeValue("authToken")
-        findNavController().navigate(R.id.action_myProfileFragment_to_fragment_start)
+
+        val builder = AlertDialog.Builder(this.context!!)
+        builder.setTitle("Do you want to LOGOUT?")
+            .setMessage("")
+            .setPositiveButton("OK",
+                DialogInterface.OnClickListener { dialog, id ->
+                    App.prefs.removeValue("authToken")
+                    findNavController().navigate(R.id.action_myProfileFragment_to_fragment_start)
+                })
+            .setNegativeButton("Cancel",
+                DialogInterface.OnClickListener { dialog, id ->
+                })
+        // 다이얼로그를 띄워주기
+        builder.show()
+
     }
 
 

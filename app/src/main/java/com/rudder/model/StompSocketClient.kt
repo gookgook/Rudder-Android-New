@@ -8,7 +8,13 @@ class StompSocketClient {
 
     companion object{
         fun newInstance(): StompClient {
-            return Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://api.rudderuni.com/ws")
+            var socketURL: String
+            if (com.rudder.BuildConfig.BASE_URL == "https://test.rudderuni.com") {
+                socketURL = "ws://test.rudderuni.com/ws"
+            } else {
+                socketURL = "ws://api.rudderuni.com/ws"
+            }
+            return Stomp.over(Stomp.ConnectionProvider.OKHTTP, socketURL)
         }
     }
 

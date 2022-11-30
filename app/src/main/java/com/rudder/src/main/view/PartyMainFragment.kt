@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +18,6 @@ import com.rudder.MainActivity
 import com.rudder.R
 import com.rudder.config.App
 import com.rudder.databinding.FragmentPartyMainBinding
-import com.rudder.model.dto.PartyDto
 import com.rudder.src.main.viewmodel.PartyMainViewModel
 import com.rudder.util.StompManager
 
@@ -83,7 +81,7 @@ class PartyMainFragment : Fragment() {
             })
         }
 
-        partyMainViewModel.newNoticationFlag.observe(viewLifecycleOwner, Observer { status ->
+        partyMainViewModel.newNotificationFlag.observe(viewLifecycleOwner, Observer { status ->
 
 
             if (status) {
@@ -126,7 +124,7 @@ class PartyMainFragment : Fragment() {
     }
 
     fun goNotificationFragment() {
-        partyMainViewModel.newNoticationFlag.value = false
+        partyMainViewModel.newNotificationFlag.value = false
         findNavController().navigate(R.id.action_fragment_party_main_to_notificationFragment)
     }
 

@@ -10,7 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitClient {
+object  RetrofitClient {
     private lateinit var retrofit: Retrofit
     private lateinit var loggingInterceptor: HttpLoggingInterceptor
     private lateinit var addHeaderInterceptor: Interceptor

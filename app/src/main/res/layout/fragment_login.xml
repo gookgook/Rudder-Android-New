@@ -60,6 +60,7 @@ xmlns:tools="http://schemas.android.com/tools">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:inputType="text"
         android:text="@={viewModel.userId}"
         >
     </EditText>
@@ -77,6 +78,7 @@ xmlns:tools="http://schemas.android.com/tools">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idET"
+        android:inputType="text"
         android:text="@={viewModel.userPassword}"
         >
 
