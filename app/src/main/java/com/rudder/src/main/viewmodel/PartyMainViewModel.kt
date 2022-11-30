@@ -4,12 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rudder.model.dto.PartyDto
+import com.rudder.BuildConfig
 import com.rudder.model.RetrofitClient
+import com.rudder.model.dto.InitialDataDtoArround
+import com.rudder.model.dto.PartyDto
 import com.rudder.model.repository.PartyRepository
+import com.rudder.model.service.InitialDataService
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import retrofit2.Response
+import retrofit2.create
 
 class PartyMainViewModel : ViewModel() {
 
@@ -27,8 +32,11 @@ class PartyMainViewModel : ViewModel() {
 
 
 
-    val newNoticationFlag = MutableLiveData<Boolean> (false)
+    val newNotificationFlag = MutableLiveData<Boolean> (false)
+
+
     init {
+        getInitialData()
         getParties()
     }
 
@@ -61,6 +69,22 @@ class PartyMainViewModel : ViewModel() {
         }
     }
 
+    fun getInitialData(){
+
+        val getInitialDataService: InitialDataService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(InitialDataService::class.java)
+
+        viewModelScope.launch {
+            val getInitialDataRequest: Response<InitialDataDtoArround> = getInitialDataService.getInitialData()
+            when(getInitialDataRequest.code()) {
+                200 -> {
+                    if (getInitialDataRequest.body()!!.results.notReadNotificationCount > 0) {
+                        newNotificationFlag.value = true
+                    }
+                }
+            }
+        }
+    }
+
     fun refreshParties(){
         getPartyRequest.endPartyId = null
         getParties()
@@ -68,6 +92,6 @@ class PartyMainViewModel : ViewModel() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun handleNotification(){
-        newNoticationFlag.value = true
+        newNotificationFlag.value = true
     }
 }
