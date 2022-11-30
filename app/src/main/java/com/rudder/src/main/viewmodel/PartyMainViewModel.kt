@@ -23,6 +23,8 @@ class PartyMainViewModel : ViewModel() {
 
     val isLoadingFlag = MutableLiveData<Boolean> (false)
 
+    val refreshFlag = MutableLiveData<Boolean> (false)
+
 
 
     val newNoticationFlag = MutableLiveData<Boolean> (false)
@@ -46,6 +48,7 @@ class PartyMainViewModel : ViewModel() {
                         _partyPreviewList.value = it
                     }
                 }else{
+                    refreshFlag.value = true
                     _partyPreviewList.value = getPartiesResponse.parties
                 }
                 if(getPartiesResponse.parties.isNotEmpty()){

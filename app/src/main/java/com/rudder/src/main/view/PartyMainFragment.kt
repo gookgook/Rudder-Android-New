@@ -106,8 +106,16 @@ class PartyMainFragment : Fragment() {
         })
 
         partyMainViewModel.partyPreviewList.observe(viewLifecycleOwner, Observer {
-            partyPreviewListAdapter.submitList(it.toList())
+            partyPreviewListAdapter.submitList(it.toList()){
+                partyMainViewModel.refreshFlag.value?.let {
+                    if (it){
+                        binding.partyPreviewListRV.smoothScrollToPosition(0)
+                        partyMainViewModel.refreshFlag.value=false
+                    }
+                }
+            }
         })
+
 
         binding.partyPreviewListSRL.setOnRefreshListener {
             partyMainViewModel.refreshParties()
