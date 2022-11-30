@@ -39,6 +39,7 @@ class MyProfileFragment: Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_profile, container, false)
         binding.main = this
         binding.viewModel = viewModel
+
         viewModel.getProfile()
         return binding.root
     }
