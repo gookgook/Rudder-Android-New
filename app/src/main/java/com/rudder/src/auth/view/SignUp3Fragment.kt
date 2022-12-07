@@ -57,18 +57,32 @@ class SignUp3Fragment: Fragment() {
 
         viewModel.isLoadingFlag.observe(viewLifecycleOwner, Observer { status ->
             if (status) (activity as MainActivity).dialog.show()
-            else {(activity as MainActivity).dialog.hide() }
-        })
-
-        viewModel.signUpResultFlag.observe(viewLifecycleOwner, Observer {
-            view?.let {
-                Navigation.findNavController(it).popBackStack(R.id.fragment_start, false)
+            else {
+                (activity as MainActivity).dialog.hide()
             }
         })
 
+        viewModel.signUpResultFlag.observe(viewLifecycleOwner, Observer { status ->
+            when (status) {
+                2 ->
+                    Toast.makeText(
+                        this.activity,
+                        "You must upload at least 2 photos",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                1 ->
+
+                    view?.let {
+                        Navigation.findNavController(it).popBackStack(R.id.fragment_start, false)
+                    }
+                else ->
+                    Toast.makeText(this.activity, "Server Error", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+        binding.root.setOnClickListener { (requireActivity() as MainActivity).hideKeyboard() }
         return binding.root
     }
-
 
 
     fun setActivityAction()  {

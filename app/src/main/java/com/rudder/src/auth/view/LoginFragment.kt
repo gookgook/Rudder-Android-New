@@ -1,10 +1,14 @@
 package com.rudder.src.auth.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -40,6 +44,7 @@ class LoginFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         binding.main = this
         binding.viewModel = viewModel
+        binding.root.setOnClickListener { (requireActivity() as MainActivity).hideKeyboard() }
         return binding.root
     }
 
@@ -72,4 +77,6 @@ class LoginFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
     }
+
+
 }

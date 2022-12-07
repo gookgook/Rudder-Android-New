@@ -136,7 +136,10 @@ class ChatFragment : Fragment() {
 
                     Timer().schedule(object : TimerTask() {
                         override fun run() {
-                            binding.chatRV.smoothScrollToPosition(viewModel.chatMessages.value!!.size - 1)
+
+                            if(viewModel.chatMessages.value!!.size != 0) {
+                                binding.chatRV.smoothScrollToPosition(viewModel.chatMessages.value!!.size - 1)
+                            }
                             Log.d("offset", binding.chatRV.computeVerticalScrollOffset().toString())
                         }
                     }, 1300)
@@ -157,6 +160,8 @@ class ChatFragment : Fragment() {
             }
         })
 
+        binding.root.setOnClickListener { (requireActivity() as MainActivity).hideKeyboard() }
+        binding.fragment = this
         return binding.root
     }
 
