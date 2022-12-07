@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.rudder.MainActivity
+import com.rudder.R
 import com.rudder.databinding.NotificationItemBinding
 import com.rudder.model.dto.NotificationDto
 import com.rudder.util.LocaleUtil
@@ -12,7 +14,7 @@ import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
 
 
-class NotificationListAdapter : ListAdapter<NotificationDto.Companion.Notification, NotificationListAdapter.NotificationItemViewHolder>(
+class NotificationListAdapter(val mainActivity: MainActivity) : ListAdapter<NotificationDto.Companion.Notification, NotificationListAdapter.NotificationItemViewHolder>(
     NotificationDiffCallback()
 ){
 
@@ -49,6 +51,14 @@ class NotificationListAdapter : ListAdapter<NotificationDto.Companion.Notificati
         val timeago = PrettyTime(LocaleUtil().getSystemLocale(holder.notBinItemBinding.root.context)).format(Date(notification.notificationTime.time)).replace(" ago","")
         holder.notBinItemBinding.notification = getItem(position)
         holder.notBinItemBinding.timeago = timeago
+        holder.notBinItemBinding.notificationItemCL.setOnClickListener {
+            if (notification.notificationType.equals("PARTY_APPLY"))
+                mainActivity.binding.bottomNavigationView.selectedItemId = R.id.host_nav_graph
+            if (notification.notificationType.equals("PARTY_ACCEPTED"))
+                mainActivity.binding.bottomNavigationView.selectedItemId = R.id.application_nav_graph
+
+        }
+
 
     }
 }

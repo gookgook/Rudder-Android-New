@@ -19,7 +19,7 @@ import com.rudder.util.LoadingDialog
 import com.rudder.util.setupWithNavController
 
 class MainActivity : AppCompatActivity() {
-    private val binding: MainActivityBinding by lazy {
+    val binding: MainActivityBinding by lazy {
         MainActivityBinding.inflate(layoutInflater)
     }
 

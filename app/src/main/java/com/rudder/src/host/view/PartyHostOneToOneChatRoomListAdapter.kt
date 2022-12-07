@@ -31,7 +31,12 @@ class PartyHostOneToOneChatRoomListAdapter(val onHostOneToOneChatRoomClickListen
             oldItem: ChatDto.Companion.PartyOneToOneChatRoom,
             newItem: ChatDto.Companion.PartyOneToOneChatRoom,
         ): Boolean {
-            return newItem.recentMessageTime.equals(oldItem.recentMessageTime)
+            try {
+                return newItem.recentMessageTime.equals(oldItem.recentMessageTime)
+            }catch (e: Exception){
+                return false
+            }
+
         }
 
     }

@@ -23,13 +23,18 @@ class NotificationFragment : Fragment() {
     private val notificationViewModel: NotificationViewModel by viewModels()
 
     private val notificationListAdapter by lazy {
-        NotificationListAdapter()
+        NotificationListAdapter(activity as MainActivity)
     }
 
     private lateinit var mContext: Context
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext= context
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        notificationViewModel.getNotifications()
     }
 
     override fun onCreateView(
@@ -58,7 +63,7 @@ class NotificationFragment : Fragment() {
             binding.notificationListSRL.isRefreshing = false
         }
 
-        notificationViewModel.getNotifications()
+
         notificationViewModel.notificationList.observe(viewLifecycleOwner, Observer {
             notificationListAdapter.submitList(it.toList())
         })
