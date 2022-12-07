@@ -144,6 +144,9 @@ class CreatePartyFragment : Fragment() {
             if (status) (activity as MainActivity).dialog.show()
             else {(activity as MainActivity).dialog.hide() }
         })
+        binding.createPartyBodySVCL.setOnClickListener { (requireActivity() as MainActivity).hideKeyboard() }
+        binding.createPartyBodyCL.setOnClickListener { (requireActivity() as MainActivity).hideKeyboard() }
+        binding.createPartyBodySV.setOnClickListener { (requireActivity() as MainActivity).hideKeyboard() }
 
         return binding.root
     }

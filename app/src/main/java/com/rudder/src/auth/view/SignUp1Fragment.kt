@@ -35,6 +35,7 @@ class SignUp1Fragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_signup1, container, false)
         binding.main = viewModel
         binding.fragment = this
+        binding.root.setOnClickListener { (requireActivity() as MainActivity).hideKeyboard() }
         return binding.root
     }
 

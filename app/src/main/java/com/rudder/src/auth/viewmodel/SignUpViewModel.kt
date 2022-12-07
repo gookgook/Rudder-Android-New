@@ -81,8 +81,14 @@ class SignUpViewModel: ViewModel() {
     fun onClickDone() {
         val signUpService: SignUpService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(SignUpService::class.java)
 
+        if (imageMetadatas.size < 2) {
+            signUpResultFlag.value = 2
+            return
+        }
+
         viewModelScope.launch {
             isLoadingFlag.value = true
+
             val signUpRequest: Response<SignUpResult> = signUpService.getSignUpResult(SignUpInfo(true, userId.value!!, userPassword.value!!, userNickname.value!!, userDescription.value!! ))
             val imageUrlRequestService: ImageUrlRequestService = RetrofitClient.getClient(BuildConfig.BASE_URL).create(ImageUrlRequestService::class.java)
             val imageUrlRequestInfo = ImageUrlRequestInfo(imageMetadatas,signUpRequest.body()!!.userInfoId)

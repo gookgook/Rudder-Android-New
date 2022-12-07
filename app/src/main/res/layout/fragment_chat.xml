@@ -7,6 +7,9 @@
         <variable
             name="main"
             type="com.rudder.src.chat.viewmodel.ChatViewModel" />
+        <variable
+            name="fragment"
+            type="com.rudder.src.chat.view.ChatFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +19,18 @@
         android:background="@color/chatBackground"
         >
 
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:translationZ="1dp"
+            android:background="@drawable/ic_round_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->fragment.requireActivity().onBackPressed()}"
+            />
 
 
 
