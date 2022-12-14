@@ -131,6 +131,15 @@ class ChatFragment : Fragment() {
                 Log.d("chatBody","came to fragment")
                 chatListAdapter.submitList(it.asReversed().toList())
 
+
+                if(!isFirst && viewModel.chatMessages.value!!.size != 0) {
+
+                    Log.d("chatlow","chatlow")
+
+                    binding.chatRV.smoothScrollToPosition(viewModel.chatMessages.value!!.size - 1)
+                }
+
+
                 if (isFirst) {
                     isFirst = false
 
@@ -138,6 +147,9 @@ class ChatFragment : Fragment() {
                         override fun run() {
 
                             if(viewModel.chatMessages.value!!.size != 0) {
+
+                                Log.d("chatlow","chatlow")
+
                                 binding.chatRV.smoothScrollToPosition(viewModel.chatMessages.value!!.size - 1)
                             }
                             Log.d("offset", binding.chatRV.computeVerticalScrollOffset().toString())
