@@ -159,5 +159,5 @@ class HostViewModel : ViewModel() {
     fun unregisterEvent() {
         if (EventBus.getDefault().isRegistered(this)) EventBus.getDefault().unregister(this)
     }
-    \
+
 }
