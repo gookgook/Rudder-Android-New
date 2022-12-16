@@ -55,6 +55,9 @@ class AppliedPartyListAdapter(val onAppliedPartyClickListener: (PartyDto.Compani
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.appliedPreItemBinding.appliedPartyImageIV)
             holder.appliedPreItemBinding.appliedPreTitleTV.text = appliedPartyItem.party.partyTitle
+            holder.appliedPreItemBinding.appliedPartyItemCL.setOnClickListener {
+                onAppliedPartyClickListener(appliedPartyItem)
+            }
         }else{
             Glide.with(holder.appliedPreItemBinding.appliedPartyImageIV.context)
                 .load(appliedPartyItem.partyOneToOneChatRoom.chatRoomImageUrl)
