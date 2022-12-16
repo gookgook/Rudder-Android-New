@@ -2,6 +2,7 @@ package com.rudder.src.host.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -98,76 +99,89 @@ class HostFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHostBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-        binding.hostFragment = this
 
+        if (this::binding.isInitialized.not()){
+            Log.d("partyIsInitialized","yes")
+            binding = FragmentHostBinding.inflate(inflater, container, false)
+            binding.lifecycleOwner = this
+            binding.hostFragment = this
+            binding.partyDatesS.adapter = partyDatesSpinnerAdapter
 
-
-        binding.partyDatesS.adapter = partyDatesSpinnerAdapter
-        viewModel.selectedHostParty.value?.let {
-            viewModel.setSelectedParty(it.partyId)
-        }
-
-        viewModel.hostParties.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                partyDatesSpinnerAdapter.clear()
-                partyDatesSpinnerAdapter.addAll(it)
-                if (!partyDatesSpinnerAdapter.isEmpty){
-                    viewModel.setSelectedParty(partyDatesSpinnerAdapter.getItem(0)?.partyId?:return@let)
-
-                }
-            }
-        })
-
-        viewModel.isLoadingFlag.observe(viewLifecycleOwner, Observer { status ->
-            if (status) (activity as MainActivity).dialog.show()
-            else {(activity as MainActivity).dialog.hide() }
-        })
-
-        viewModel.selectedHostParty.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if (it.partyId.equals(-1)){
-                    binding.applicationsTV.isGone = true
-                    binding.messagesTV.isGone = true
-                    binding.settingBT.isEnabled = false
-                    Glide.with(binding.hostPartyImageIV.context)
-                        .load("https://d17a6yjghl1rix.cloudfront.net/party_host_mock_image.png")
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(binding.hostPartyImageIV)
-                    binding.hostParty=it
-                    Toast.makeText(requireContext(),"You didn't host any party",Toast.LENGTH_SHORT).show()
-                }else{
-                    binding.applicationsTV.isGone = false
-                    binding.messagesTV.isGone = false
-                    binding.settingBT.isEnabled = true
-
-                    hostPartyGroupChatAreaCL.setOnClickListener {v->
-                        onPartyGroupChatRoomClickListener(it)
+            viewModel.selectedHostParty.value?.let {
+                it?.let {
+                    if (it.partyId.equals(viewModel.selectedHostParty.value)){
+                        viewModel.setSelectedParty(it.partyId)
                     }
-                    binding.hostParty=it
-                    Glide.with(binding.hostPartyImageIV.context)
-                        .load(it.partyDetail.partyThumbnailUrl)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(binding.hostPartyImageIV)
-                    partyApplicantListAdapter.submitList(it.partyApplicants.toList())
-                    partyHostOneToOneChatRoomListAdapter.submitList(it.partyOneToOneChatRooms.toList())
                 }
             }
-        })
 
-        binding.partyApplicantsRV.also {
-            it.layoutManager = LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
-            it.setHasFixedSize(false)
-            it.adapter = partyApplicantListAdapter
+            viewModel.hostParties.observe(viewLifecycleOwner, Observer {
+                it?.let {
+                    partyDatesSpinnerAdapter.clear()
+                    partyDatesSpinnerAdapter.addAll(it)
+                    if (!partyDatesSpinnerAdapter.isEmpty){
+                        viewModel.setSelectedParty(partyDatesSpinnerAdapter.getItem(0)?.partyId?:return@let)
+
+                    }
+                }
+            })
+
+            viewModel.isLoadingFlag.observe(viewLifecycleOwner, Observer { status ->
+                if (status) (activity as MainActivity).dialog.show()
+                else {(activity as MainActivity).dialog.hide() }
+            })
+
+            viewModel.selectedHostParty.observe(viewLifecycleOwner, Observer {
+                it?.let {
+                    if (it.partyId.equals(-1)){
+                        binding.applicationsTV.isGone = true
+                        binding.messagesTV.isGone = true
+                        binding.settingBT.isEnabled = false
+                        Glide.with(binding.hostPartyImageIV.context)
+                            .load("https://d17a6yjghl1rix.cloudfront.net/party_host_mock_image.png")
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(binding.hostPartyImageIV)
+                        binding.hostParty=it
+                        Toast.makeText(requireContext(),"You didn't host any party",Toast.LENGTH_SHORT).show()
+                    }else{
+                        binding.applicationsTV.isGone = false
+                        binding.messagesTV.isGone = false
+                        binding.settingBT.isEnabled = true
+
+                        hostPartyGroupChatAreaCL.setOnClickListener {v->
+                            onPartyGroupChatRoomClickListener(it)
+                        }
+                        binding.hostParty=it
+                        Glide.with(binding.hostPartyImageIV.context)
+                            .load(it.partyDetail.partyThumbnailUrl)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(binding.hostPartyImageIV)
+                        partyApplicantListAdapter.submitList(it.partyApplicants.toList())
+                        partyHostOneToOneChatRoomListAdapter.submitList(it.partyOneToOneChatRooms.toList())
+                        Log.d("currentViewModelSelectedParty",viewModel.selectedHostParty.value?.partyId.toString())
+                    }
+                }
+            })
+
+            binding.partyApplicantsRV.also {
+                it.layoutManager = LinearLayoutManager(requireActivity(),LinearLayoutManager.HORIZONTAL,false)
+                it.setHasFixedSize(false)
+                it.adapter = partyApplicantListAdapter
+            }
+
+
+            binding.partyOneToOneChatRoomRV.also {
+                it.layoutManager = LinearLayoutManager(requireActivity())
+                it.setHasFixedSize(false)
+                it.adapter = partyHostOneToOneChatRoomListAdapter
+            }
         }
 
 
-        binding.partyOneToOneChatRoomRV.also {
-            it.layoutManager = LinearLayoutManager(requireActivity())
-            it.setHasFixedSize(false)
-            it.adapter = partyHostOneToOneChatRoomListAdapter
-        }
+
+
+
+
 
         return binding.root
 
@@ -176,6 +190,8 @@ class HostFragment : Fragment() {
     fun onSpinnerSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         val selectedParty = parent.selectedItem as PartyDto.Companion.PartyOnlyDate
 
+        Log.d("selectedParty",selectedParty.partyId.toString())
+        Log.d("viewModelSelectedParty",viewModel.selectedHostParty.value?.partyId.toString())
 
         if(selectedParty.partyId.equals(-1)||selectedParty.partyId.equals(viewModel.selectedHostParty.value?.partyId)) return
         viewModel.setSelectedParty(selectedParty.partyId)

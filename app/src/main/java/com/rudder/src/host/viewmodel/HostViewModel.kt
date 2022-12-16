@@ -35,7 +35,7 @@ class HostViewModel : ViewModel() {
     val isLoadingFlag = MutableLiveData<Boolean> (false)
 
     init {
-
+        Log.d("hit","hit")
         getHostParties()
     }
 
@@ -64,7 +64,7 @@ class HostViewModel : ViewModel() {
     fun setSelectedParty(partyId: Int) {
         viewModelScope.launch {
 
-//            if (partyId.equals(selectedHostParty.value?.partyId)) return@launch
+            if (partyId.equals(selectedHostParty.value?.partyId)) return@launch
             if (partyId.equals(-1)) return@launch
             _selectedHostParty.value = HostParty.from(partyId)
             getPartyApplicants()
