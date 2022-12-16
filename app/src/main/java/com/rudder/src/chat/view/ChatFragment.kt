@@ -35,6 +35,7 @@ class ChatFragment : Fragment() {
     private val lazyContext by lazy {
         context
     }
+
     private val viewModel: ChatViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
